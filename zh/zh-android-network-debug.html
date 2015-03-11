@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Android adb 网络调试 &mdash; mixtile 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.2.0/paper/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="mixtile 0.1 documentation" href="../index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          Mixtile Project</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="http://focalcrest.com">Focalcrest</a></li>
+                <li><a href="http://mixtile.com">Mixtile</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Android adb 网络调试</a><ul>
+<li><a class="reference internal" href="#id1">前期准备</a></li>
+<li><a class="reference internal" href="#id2">调试工具安装</a></li>
+<li><a class="reference internal" href="#adb">启用网络 ADB</a></li>
+<li><a class="reference internal" href="#id3">连接网络 ADB</a></li>
+<li><a class="reference internal" href="#eclipse">Eclipse 调试</a></li>
+<li><a class="reference internal" href="#id4">注意事项</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="android-adb">
+<h1>Android adb 网络调试<a class="headerlink" href="#android-adb" title="Permalink to this headline">¶</a></h1>
+<p>本节主要介绍通过网络对 Android 进行 ADB 调试。目前 LOFT-Q 没有用于 ADB 调试的 OTG USB 接口, 只能通过网络进行 ADB 调试。</p>
+<div class="section" id="id1">
+<h2>前期准备<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>LOFT-Q 原型板上电</li>
+<li>连接 LOFT-Q 以太网或者通过设置连接可用的 Wifi 网络</li>
+</ol>
+</div>
+<div class="section" id="id2">
+<h2>调试工具安装<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>本节基于 Ubuntu 操作过程编写, 对于其他操作系统, 可以查找相关的方法来进行工具的安装。对于调试用到的工具是 minicom 和 adb。相关的安装命令如下：</p>
+<ul>
+<li><p class="first">Minicom 是串口工具, 在 Linux 下可以选择其他的一些串口工具, 如 kermit, xgon, Cutecom 等。这里仅以 Minicom 为例。安装方法如下：</p>
+<div class="highlight-sh"><div class="highlight"><pre>sudo apt-get install minicom
+</pre></div>
+</div>
+</li>
+<li><p class="first">adb 工具，依次执行如下命令进行安装：</p>
+<div class="highlight-sh"><div class="highlight"><pre>sudo add-apt-repository ppa:phablet-team/tools <span class="o">&amp;&amp;</span> sudo apt-get update
+sudo apt-get install android-tools-adb android-tools-fastboot
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="adb">
+<h2>启用网络 ADB<a class="headerlink" href="#adb" title="Permalink to this headline">¶</a></h2>
+<p>在上述工具软件安装完成后, 需要启用 Android 的网络 ADB 协议。具体步骤如下：</p>
+<ol class="arabic">
+<li><p class="first">连接 LOFT-Q 串口线, 可以使用 USB 转串口线连接。</p>
+</li>
+<li><p class="first">如果使用 USB 转串口连接, 使用 Minicom 打开串口，指令如下：</p>
+<div class="highlight-sh"><div class="highlight"><pre>sudo minicom -D /dev/ttyUSB0
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">备注： 上述 <cite>ttyUSB0</cite> 为USB转串口在 Ubuntu 中对应的名称, 根据系统的不同, 可能会有所变化。</p>
+</div>
+</li>
+<li><p class="first">调试串口, 启用 root 权限。在使用 minicom 连接成功后，按下回车，然后输入如下内容：</p>
+<div class="highlight-sh"><div class="highlight"><pre>su
+</pre></div>
+</div>
+</li>
+<li><p class="first">启用 ADB 网络协议。依次在交互命令行中输入如下指令：</p>
+<div class="highlight-sh"><div class="highlight"><pre>stop adbd
+setprop service.adb.tcp.port 5555
+start adbd
+</pre></div>
+</div>
+</li>
+<li><p class="first">查看当前 LOFT-Q 的网络 IP 地址。</p>
+<p>以太网 IP 地址查看方法：</p>
+<div class="highlight-sh"><div class="highlight"><pre>ifconfig eth0
+</pre></div>
+</div>
+<p>无线网络 IP 地址查看方法：</p>
+<div class="highlight-sh"><div class="highlight"><pre>ifconfig wlan0
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h2>连接网络 ADB<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>在启用网络 ADB 完成之后, 需要在主机端尝试连接网络 ADB 进行调试。</p>
+<ul>
+<li><p class="first">ADB 连接 LOFT-Q</p>
+<div class="highlight-sh"><div class="highlight"><pre>adb connect 192.168.1.100
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">备注： 上述指令中的 <cite>192.168.1.100</cite> 为 LOFT-Q 在网络中的 IP 地址。</p>
+</div>
+</li>
+<li><p class="first">ADB shell 打开</p>
+<div class="highlight-sh"><div class="highlight"><pre>adb shell
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="eclipse">
+<h2>Eclipse 调试<a class="headerlink" href="#eclipse" title="Permalink to this headline">¶</a></h2>
+<p>在 adb 连接之后, 可以使用 eclipse 进行调试, 在进行 Android 应用调试时, 将会直接在 LOFT-Q 中安装并打开相应的调试程序进行调试。</p>
+</div>
+<div class="section" id="id4">
+<h2>注意事项<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>对于 ADB 网络连接, 在 LOFT-Q 重启之后将会失效, 需要参照 <strong>启用网络 ADB</strong> 中的过程重新进行启用。</li>
+<li>eclipse 进行联机调试时, 受限于当前网络环境, 可能会出现连接超时的情况, 只需要重新发起调试即可。</li>
+</ul>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../_sources/zh/zh-android-network-debug.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, Mixtile Project.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
