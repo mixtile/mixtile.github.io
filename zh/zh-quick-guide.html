@@ -105,14 +105,26 @@
 <li><a class="reference internal" href="#id13">更多信息</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#ubuntu">Ubuntu 构建</a></li>
 <li><a class="reference internal" href="#android">Android 构建使用</a><ul>
 <li><a class="reference internal" href="#loft-q-android">基于 LOFT-Q 环境构建 Android</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#debian">Debian 构建</a><ul>
+<li><a class="reference internal" href="#id14">文件准备</a></li>
+<li><a class="reference internal" href="#debian-rootfs">获取 Debian rootfs</a></li>
+<li><a class="reference internal" href="#script-bin">script.bin 生成</a></li>
+<li><a class="reference internal" href="#boot-scr">boot.scr 生成</a></li>
+<li><a class="reference internal" href="#loftq-uboot-next">下载并构建 loftq-uboot-next</a></li>
+<li><a class="reference internal" href="#id15">linux 内核及模块构建</a></li>
+<li><a class="reference internal" href="#sd">SD 卡分区</a></li>
+<li><a class="reference internal" href="#sd-u-boot">SD 卡写入 U-Boot</a></li>
+<li><a class="reference internal" href="#rootfs-sd-ext4">拷贝 rootfs 到 SD 卡的 ext4 分区</a></li>
+<li><a class="reference internal" href="#bsp-ext4">拷贝 BSP 文件到 ext4 分区</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ubuntu">Ubuntu 构建</a></li>
 <li><a class="reference internal" href="#opensuse">OpenSUSE 使用</a><ul>
 <li><a class="reference internal" href="#jeos-rootfs">JeOS rootfs 下载</a></li>
-<li><a class="reference internal" href="#rootfs-ext4">生成 rootfs.ext4 文件系统</a></li>
 </ul>
 </li>
 </ul>
@@ -399,10 +411,6 @@ make
 </ul>
 </div>
 </div>
-<div class="section" id="ubuntu">
-<h2>Ubuntu 构建<a class="headerlink" href="#ubuntu" title="Permalink to this headline">¶</a></h2>
-<p>还有待添加</p>
-</div>
 <div class="section" id="android">
 <h2>Android 构建使用<a class="headerlink" href="#android" title="Permalink to this headline">¶</a></h2>
 <p>LOFT-Q 原型板的 Android 源码基于全志原厂提供的 Android 4.4.2 版本源码提供，增添了 LOFT-Q 相关的蓝牙, Wifi 部分驱动, 固件, 外接硬盘, USB, 红外遥控等的配置文件。由于 Android 源码过于庞大，我们提供了可供下载的压缩包，并未提供源码库，并且在源码中去除了提交日志等内容。</p>
@@ -438,6 +446,200 @@ android_pack
 </ol>
 </div>
 </div>
+<div class="section" id="debian">
+<h2>Debian 构建<a class="headerlink" href="#debian" title="Permalink to this headline">¶</a></h2>
+<p>Debian 衍生出了很多 GNU/Linux 系统，目前 LOFT-Q 上也可以运行这一系统，只要做一些基本的配置就可以实现让 Debian 在 LOFT-Q 上运行。</p>
+<div class="section" id="id14">
+<h3>文件准备<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>对于 Debian 的构建，我们需要准备如下文件：</p>
+<ul class="simple">
+<li>script.bin: 全志平台专用的配置文件，用于内核和uboot的配置，由 sys_config.fex 生成。</li>
+<li>boot.scr: UBoot 可加载执行文件，主要包含 UBoot 启动内核之前所需要执行的一系列指令和配置，由 boot.cmd 生成。</li>
+<li>loftq-uboot-next: 基于 linux-sunxi 社区提供的 mainline uboot 定制的用于 LOFT-Q 的UBoot 代码。</li>
+<li>uImage 及内核模块: LOFT-Q 的 linux 内核及模块文件。</li>
+<li>rootfs 压缩包: ARM 平台的系统 rootfs 所需要的根文件系统压缩包，包含一系列 GNU/Linux 系统用的基础系统和配置。</li>
+</ul>
+</div>
+<div class="section" id="debian-rootfs">
+<h3>获取 Debian rootfs<a class="headerlink" href="#debian-rootfs" title="Permalink to this headline">¶</a></h3>
+<p>Debian 的根文件系统可以使用如下方式获取，更多信息可以参考 <a class="reference external" href="https://wiki.debian.org/ArmHardFloatChroot">https://wiki.debian.org/ArmHardFloatChroot</a> 。</p>
+<ul>
+<li><p class="first">使用 qemu-debootstrap 获取最新的 armhf 基础系统。</p>
+<div class="highlight-sh"><div class="highlight"><pre>qemu-debootstrap --no-check-gpg --arch<span class="o">=</span>armhf sid /chroots/sid-armhf ftp://ftp.debian.org/debian/
+</pre></div>
+</div>
+<p>指令的执行可能需要比较长的时间。</p>
+</li>
+<li><p class="first">添加 debian 源，在 /chroots/sid-armhf/etc/apt/sources.list 中添加如下内容：</p>
+<div class="highlight-sh"><div class="highlight"><pre>deb http://ftp.debian.org/debian sid main
+deb-src http://ftp.debian.org/debian sid main
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="script-bin">
+<h3>script.bin 生成<a class="headerlink" href="#script-bin" title="Permalink to this headline">¶</a></h3>
+<p>script.bin 是全志平台所用到的UBoot和内核配置文件，您可以在如下地址获取到最新的文件：</p>
+<ul class="simple">
+<li>script.bin 获取地址：<a class="reference external" href="https://github.com/mixtile/loftq-build/tree/master/bsp/binary/boot">https://github.com/mixtile/loftq-build/tree/master/bsp/binary/boot</a></li>
+</ul>
+<p>或者可以使用下述指令来生成 script.bin 文件。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">cd </span>loftq-build/bsp/configs
+
+./bin/fexc sys_config.fex script.bin
+</pre></div>
+</div>
+<p>上述指令生成的 script.bin 即为可用的配置文件。</p>
+</div>
+<div class="section" id="boot-scr">
+<h3>boot.scr 生成<a class="headerlink" href="#boot-scr" title="Permalink to this headline">¶</a></h3>
+<p>boot.scr 是 UBoot 可以加载和执行的指令文件，主要用于执行加载内核以及执行内核之前的一些配置。当然，该文件也可以直接使用已生成的文件，如果根据自己的需要进行定制，在定制完成之后可以使用如下命令，生成该文件。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">cd </span>loftq-build/bsp/configs
+
+mkimage -C none -A arm -T script -d boot_single.cmd boot.scr
+</pre></div>
+</div>
+</div>
+<div class="section" id="loftq-uboot-next">
+<h3>下载并构建 loftq-uboot-next<a class="headerlink" href="#loftq-uboot-next" title="Permalink to this headline">¶</a></h3>
+<p>loftq-uboot-next 下载指令如下：</p>
+<div class="highlight-sh"><div class="highlight"><pre>git clone https://github.com/mixtile/loftq-uboot-next.git
+</pre></div>
+</div>
+<p>loftq-uboot-next 的构建指令如下：</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">cd </span>loftq-uboot-next
+
+make mixtile_loftq_defconfig
+
+make
+</pre></div>
+</div>
+<p>在构建完成后，在 loftq-uboot-next 目录中生成 u-boot-sunxi-with-spl.bin 文件。</p>
+</div>
+<div class="section" id="id15">
+<h3>linux 内核及模块构建<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>对于 Linux 内核及模块构建，可以参考 <a class="reference internal" href="#linux">Linux 内核构建</a> 。</p>
+</div>
+<div class="section" id="sd">
+<h3>SD 卡分区<a class="headerlink" href="#sd" title="Permalink to this headline">¶</a></h3>
+<p>对于可启动的 SD/EMMC，其分区如下：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="35%" />
+<col width="44%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">起始地址</th>
+<th class="head">大小</th>
+<th class="head">使用</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>0</td>
+<td>8KB</td>
+<td>未使用，用于分区表</td>
+</tr>
+<tr class="row-odd"><td>8</td>
+<td>24KB</td>
+<td>用于 SPL</td>
+</tr>
+<tr class="row-even"><td>32</td>
+<td>512KB</td>
+<td>用于 U-Boot</td>
+</tr>
+<tr class="row-odd"><td>544</td>
+<td>128KB</td>
+<td>环境变量</td>
+</tr>
+<tr class="row-even"><td>672</td>
+<td>352KB</td>
+<td>保留</td>
+</tr>
+<tr class="row-odd"><td>1024</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>可用分区</td>
+</tr>
+</tbody>
+</table>
+<p>对于 SD/emmc 的分区，我们需要进行如下的设置。我们假定所使用的 sd 卡设备为 <cite>/dev/mmcblk0</cite> 。</p>
+<ul>
+<li><p class="first">清除原有分区信息，请在执行该动作之前，保存SD卡中原有重要数据。</p>
+<div class="highlight-sh"><div class="highlight"><pre>sudo dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>/dev/mmcblk0 <span class="nv">bs</span><span class="o">=</span>1M <span class="nv">count</span><span class="o">=</span>1
+</pre></div>
+</div>
+</li>
+<li><p class="first">新建 ext4 分区</p>
+<div class="highlight-sh"><div class="highlight"><pre>sudo fdisk /dev/mmcblk0
+</pre></div>
+</div>
+</li>
+<li><p class="first">执行分区</p>
+<div class="highlight-sh"><div class="highlight"><pre>Command <span class="o">(</span>m <span class="k">for </span><span class="nb">help</span><span class="o">)</span>: n                                 <span class="c"># 输入 n</span>
+Partition <span class="nb">type</span>:
+   p   primary <span class="o">(</span>0 primary, 0 extended, 4 free<span class="o">)</span>
+   e   extended
+Select <span class="o">(</span>default p<span class="o">)</span>:                                     <span class="c"># 按下 Enter</span>
+Using default response p
+Partition number <span class="o">(</span>1-4, default 1<span class="o">)</span>:                      <span class="c"># 按下 Enter</span>
+Using default value 1
+First sector <span class="o">(</span>2048-15523839, default 2048<span class="o">)</span>:             <span class="c"># 按下 Enter</span>
+Using default value 2048
+Last sector, +sectors or +size<span class="o">{</span>K,M,G<span class="o">}</span> <span class="o">(</span>2048-15523839, default 15523839<span class="o">)</span>:      <span class="c"># 按下 Enter</span>
+
+Command <span class="o">(</span>m <span class="k">for </span><span class="nb">help</span><span class="o">)</span>: w                                   <span class="c"># 输入 w</span>
+
+The partition table has been altered!
+</pre></div>
+</div>
+</li>
+<li><p class="first">格式化分区为 ext4 格式</p>
+<div class="highlight-sh"><div class="highlight"><pre>sudo mkfs.ext4 /dev/mmcblk0p1
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="sd-u-boot">
+<h3>SD 卡写入 U-Boot<a class="headerlink" href="#sd-u-boot" title="Permalink to this headline">¶</a></h3>
+<p>在完成分区的划分之后，执行下述指令向 SD/EMMC 中写入 U-Boot 文件。</p>
+<div class="highlight-sh"><div class="highlight"><pre>sudo dd <span class="k">if</span><span class="o">=</span>u-boot-sunxi-with-spl.bin <span class="nv">of</span><span class="o">=</span>/dev/mmcblk0 <span class="nv">bs</span><span class="o">=</span>1024 <span class="nv">seek</span><span class="o">=</span>8
+</pre></div>
+</div>
+</div>
+<div class="section" id="rootfs-sd-ext4">
+<h3>拷贝 rootfs 到 SD 卡的 ext4 分区<a class="headerlink" href="#rootfs-sd-ext4" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sh"><div class="highlight"><pre>sudo mount -t ext4 /dev/mmcblk0p1 /mnt
+
+sudo cp -r /chroot/sid-armhf/* /mnt
+</pre></div>
+</div>
+</div>
+<div class="section" id="bsp-ext4">
+<h3>拷贝 BSP 文件到 ext4 分区<a class="headerlink" href="#bsp-ext4" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sh"><div class="highlight"><pre>sudo cp script.bin /mnt/boot
+
+sudo cp boot.scr /mnt/boot
+
+sudo cp loftq-linux/output/uImage /mnt/boot
+
+sudo cp -r loftq-linux/output/lib/modules /mnt/lib
+
+sudo sync
+
+sudo umount /mnt
+</pre></div>
+</div>
+<p>在完成上述步骤之后，将 SD 卡接入 LOFT-Q SD卡座，连接电源，然后就可以进入 Debian 的世界。</p>
+</div>
+</div>
+<div class="section" id="ubuntu">
+<h2>Ubuntu 构建<a class="headerlink" href="#ubuntu" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="opensuse">
 <h2>OpenSUSE 使用<a class="headerlink" href="#opensuse" title="Permalink to this headline">¶</a></h2>
 <p>openSUSE 是来自德国的 Linux 发行版, 目前我们可以使用定制的 Uboot 和 Linux 内核来实现对 openSUSE ARM 版 JeOS 最简系统的引导和使用。</p>
@@ -450,39 +652,12 @@ android_pack
 <li>12.3 版本: <a class="reference external" href="http://download.opensuse.org/ports/armv7hl/distribution/12.3/images/">http://download.opensuse.org/ports/armv7hl/distribution/12.3/images/</a></li>
 </ul>
 <p>我们可以从中选择一个版本的进行测试使用, 更多有关各个版本之间的异同信息, 可以参阅 <a class="reference external" href="https://en.opensuse.org/HCL:Chroot">https://en.opensuse.org/HCL:Chroot</a> 。</p>
-<p>以 13.1 版本的 openSUSE Jeos 根文件系统为例，我们需要下载名称如 <strong>openSUSE-*-ARM-JeOS.armv7-rootfs-*.tbz</strong> 的镜像文件。</p>
-</div>
-<div class="section" id="rootfs-ext4">
-<h3>生成 rootfs.ext4 文件系统<a class="headerlink" href="#rootfs-ext4" title="Permalink to this headline">¶</a></h3>
-<p>在下载完成 openSUSE 镜像文件之后，需要生成 rootfs.ext4 文件系统文件。具体步骤如下:</p>
-<ol class="arabic">
-<li><p class="first">参照 uboot 和 linux 内核构建说明，分别构建 Linux 系统用的 Uboot 和 内核。</p>
-</li>
-<li><p class="first">解压 openSUSE JeOS 镜像文件到目录 openSUSE-JeOS。</p>
-</li>
-<li><p class="first">执行下述指令生成 rootfs.ext4 文件系统文件。</p>
-<div class="highlight-sh"><div class="highlight"><pre>./loftq-build/rootfs2ext4.sh -d ./openSUSE-JeOS -t ./rootfs.ext4
+<p>以 13.1 版本的 openSUSE Jeos 根文件系统为例，我们需要下载名称如 <strong>openSUSE-*-ARM-JeOS.armv7-rootfs-*.tbz</strong> 的镜像文件，对于可启动 SD 卡的创建，其步骤和需要的文件与 <a class="reference internal" href="#debian">Debian 构建</a> 相同。只是在 rootfs 的生成和拷贝过程存在不同，其他过程按照 Debian 构建过程进行即可。</p>
+<p>那么对于 rootfs 到 ext4 分区的拷贝，我们以 <strong>openSUSE-Factory-ARM-JeOS.armv7-rootfs.armv7l-Current.tbz</strong> 为例，所需执行指令如下：</p>
+<div class="highlight-sh"><div class="highlight"><pre>sudo tar -C /mnt -xjf openSUSE-Factory-ARM-JeOS.armv7-rootfs.armv7l-Current.tbz
 </pre></div>
 </div>
-</li>
-<li><p class="first">将生成的 rootfs.ext4 文件拷贝到 out/linux/ 目录。</p>
-<div class="highlight-sh"><div class="highlight"><pre>cp rootfs.ext4 ./out/linux/
-</pre></div>
-</div>
-</li>
-<li><p class="first">打包 Phoenix 工具用镜像文件。</p>
-<div class="highlight-sh"><div class="highlight"><pre>linux_pack
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">需要根据提示, 输入相应选项, 打包完成后, 在 loftq-build/pack 目录下将会生成 sun6i_linux_loftq.img 文件。</p>
-</div>
-</li>
-<li><p class="first">使用 Phoenix 工具烧录生成的 sun6i_linux_loftq.img 文件烧录到启动 TF 卡。</p>
-</li>
-</ol>
-<p>在完成上述步骤后, 将启动用的 TF 卡连接到 LOFT-Q, 即可使用 openSUSE JeOS 系统。</p>
+<p>在执行完该步骤之后，参照 <a class="reference internal" href="#debian">Debian 构建</a> 的步骤，在相应位置添加 BSP 及内核模块文件。</p>
 </div>
 </div>
 </div>
@@ -507,7 +682,7 @@ android_pack
     </p>
     <p>
         &copy; Copyright 2015, Mixtile Project.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.<br/>
     </p>
   </div>
 </footer>

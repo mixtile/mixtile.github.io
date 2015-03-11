@@ -280,7 +280,7 @@ Buildroot 是非常易于使用，定制，和构建的一套编译工具系统�
 在执行完命令后将会打印出目标镜像的路径。则该文件就是 sunxi PhoenixTool 可以进行烧录的文件，可以烧录为卡启动，或者卡量产模式。
 
 自我定制
-''''''''''''
+'''''''''''''''''''
 
 如果您需要根据自己的需要，添加或者删除指定的软件库，可以参照如下说明进行定制。
 
@@ -298,20 +298,15 @@ Buildroot 是非常易于使用，定制，和构建的一套编译工具系统�
 * buildroot 文档: http://buildroot.uclibc.org/docs.html
 
 
-Ubuntu 构建
--------------
-
-还有待添加
-
 Android 构建使用
------------------
+---------------------------
 
 LOFT-Q 原型板的 Android 源码基于全志原厂提供的 Android 4.4.2 版本源码提供，增添了 LOFT-Q 相关的蓝牙, Wifi 部分驱动, 固件, 外接硬盘, USB, 红外遥控等的配置文件。由于 Android 源码过于庞大，我们提供了可供下载的压缩包，并未提供源码库，并且在源码中去除了提交日志等内容。
 
 Android 的构建，同样可以使用类似于上述 Linux 和 buildroot 的基于 LOFT-Q 环境的编译和手动定制编译两种方式。
 
 基于 LOFT-Q 环境构建 Android
-'''''''''''''''''''''''''''''
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 基于 LOFT-Q 环境构建 Android 的指令如下：
 
@@ -343,6 +338,195 @@ Android 的构建，同样可以使用类似于上述 Linux 和 buildroot 的基
      make -j16
      android_pack
 
+Debian 构建
+------------------
+
+Debian 衍生出了很多 GNU/Linux 系统，目前 LOFT-Q 上也可以运行这一系统，只要做一些基本的配置就可以实现让 Debian 在 LOFT-Q 上运行。
+
+文件准备
+''''''''''''''''''''''''''
+
+对于 Debian 的构建，我们需要准备如下文件：
+
+* script.bin: 全志平台专用的配置文件，用于内核和uboot的配置，由 sys_config.fex 生成。
+* boot.scr: UBoot 可加载执行文件，主要包含 UBoot 启动内核之前所需要执行的一系列指令和配置，由 boot.cmd 生成。
+* loftq-uboot-next: 基于 linux-sunxi 社区提供的 mainline uboot 定制的用于 LOFT-Q 的UBoot 代码。
+* uImage 及内核模块: LOFT-Q 的 linux 内核及模块文件。
+* rootfs 压缩包: ARM 平台的系统 rootfs 所需要的根文件系统压缩包，包含一系列 GNU/Linux 系统用的基础系统和配置。
+
+
+获取 Debian rootfs 
+'''''''''''''''''''''''''''''''''''''''
+
+Debian 的根文件系统可以使用如下方式获取，更多信息可以参考 https://wiki.debian.org/ArmHardFloatChroot 。
+
+* 使用 qemu-debootstrap 获取最新的 armhf 基础系统。
+   
+  .. code-block:: sh     
+   
+     qemu-debootstrap --no-check-gpg --arch=armhf sid /chroots/sid-armhf ftp://ftp.debian.org/debian/
+   
+  指令的执行可能需要比较长的时间。
+   
+* 添加 debian 源，在 /chroots/sid-armhf/etc/apt/sources.list 中添加如下内容：
+
+  .. code-block:: sh   
+      
+     deb http://ftp.debian.org/debian sid main
+     deb-src http://ftp.debian.org/debian sid main
+
+
+script.bin 生成
+''''''''''''''''''''''''
+
+script.bin 是全志平台所用到的UBoot和内核配置文件，您可以在如下地址获取到最新的文件：
+
+* script.bin 获取地址：https://github.com/mixtile/loftq-build/tree/master/bsp/binary/boot
+
+或者可以使用下述指令来生成 script.bin 文件。
+
+.. code-block:: sh   
+
+   cd loftq-build/bsp/configs
+  
+   ./bin/fexc sys_config.fex script.bin
+
+上述指令生成的 script.bin 即为可用的配置文件。
+
+boot.scr 生成
+''''''''''''''''''''''''
+
+boot.scr 是 UBoot 可以加载和执行的指令文件，主要用于执行加载内核以及执行内核之前的一些配置。当然，该文件也可以直接使用已生成的文件，如果根据自己的需要进行定制，在定制完成之后可以使用如下命令，生成该文件。
+
+.. code-block:: sh   
+
+   cd loftq-build/bsp/configs
+
+   mkimage -C none -A arm -T script -d boot_single.cmd boot.scr
+
+下载并构建 loftq-uboot-next
+'''''''''''''''''''''''''''''
+
+loftq-uboot-next 下载指令如下：
+
+.. code-block:: sh  
+   
+   git clone https://github.com/mixtile/loftq-uboot-next.git
+
+loftq-uboot-next 的构建指令如下：
+
+.. code-block:: sh  
+   
+   cd loftq-uboot-next
+
+   make mixtile_loftq_defconfig
+
+   make
+
+在构建完成后，在 loftq-uboot-next 目录中生成 u-boot-sunxi-with-spl.bin 文件。
+
+linux 内核及模块构建
+''''''''''''''''''''''
+
+对于 Linux 内核及模块构建，可以参考 `Linux 内核构建`_ 。
+  
+SD 卡分区
+'''''''''''''''''''''''''
+
+对于可启动的 SD/EMMC，其分区如下：
+
+
+==========  =================  =====================
+起始地址        大小		   使用
+==========  =================  =====================
+0		8KB		未使用，用于分区表
+8		24KB		用于 SPL
+32		512KB		用于 U-Boot
+544		128KB		环境变量
+672		352KB		保留
+1024		-		可用分区
+==========  =================  =====================
+
+
+对于 SD/emmc 的分区，我们需要进行如下的设置。我们假定所使用的 sd 卡设备为 `/dev/mmcblk0` 。
+
+* 清除原有分区信息，请在执行该动作之前，保存SD卡中原有重要数据。
+
+  .. code-block:: sh  
+     
+     sudo dd if=/dev/zero of=/dev/mmcblk0 bs=1M count=1
+
+* 新建 ext4 分区
+
+  .. code-block:: sh
+
+     sudo fdisk /dev/mmcblk0
+
+* 执行分区
+
+  .. code-block:: sh
+ 
+     Command (m for help): n                                 # 输入 n
+     Partition type:
+        p   primary (0 primary, 0 extended, 4 free)
+        e   extended
+     Select (default p):                                     # 按下 Enter       
+     Using default response p
+     Partition number (1-4, default 1):                      # 按下 Enter
+     Using default value 1
+     First sector (2048-15523839, default 2048):             # 按下 Enter
+     Using default value 2048
+     Last sector, +sectors or +size{K,M,G} (2048-15523839, default 15523839):      # 按下 Enter
+
+     Command (m for help): w                                   # 输入 w
+
+     The partition table has been altered!
+
+* 格式化分区为 ext4 格式
+
+  .. code-block:: sh
+    
+     sudo mkfs.ext4 /dev/mmcblk0p1
+
+SD 卡写入 U-Boot
+''''''''''''''''''''''''
+
+在完成分区的划分之后，执行下述指令向 SD/EMMC 中写入 U-Boot 文件。
+
+.. code-block:: sh
+ 
+   sudo dd if=u-boot-sunxi-with-spl.bin of=/dev/mmcblk0 bs=1024 seek=8
+
+拷贝 rootfs 到 SD 卡的 ext4 分区
+'''''''''''''''''''''''''''''''''''''
+
+.. code-block:: sh
+	
+   sudo mount -t ext4 /dev/mmcblk0p1 /mnt
+   
+   sudo cp -r /chroot/sid-armhf/* /mnt
+
+拷贝 BSP 文件到 ext4 分区
+'''''''''''''''''''''''''''''''
+
+.. code-block:: sh
+   
+   sudo cp script.bin /mnt/boot
+
+   sudo cp boot.scr /mnt/boot
+
+   sudo cp loftq-linux/output/uImage /mnt/boot
+
+   sudo cp -r loftq-linux/output/lib/modules /mnt/lib
+
+   sudo sync
+
+   sudo umount /mnt
+
+在完成上述步骤之后，将 SD 卡接入 LOFT-Q SD卡座，连接电源，然后就可以进入 Debian 的世界。
+
+Ubuntu 构建
+------------------
 
 OpenSUSE 使用
 ---------------
@@ -361,40 +545,16 @@ openSUSE 社区提供了多个版本的 JeOS rootfs 可供下载，如下：
 
 我们可以从中选择一个版本的进行测试使用, 更多有关各个版本之间的异同信息, 可以参阅 https://en.opensuse.org/HCL:Chroot 。
 
-以 13.1 版本的 openSUSE Jeos 根文件系统为例，我们需要下载名称如 **openSUSE-*-ARM-JeOS.armv7-rootfs-*.tbz** 的镜像文件。
+以 13.1 版本的 openSUSE Jeos 根文件系统为例，我们需要下载名称如 **openSUSE-*-ARM-JeOS.armv7-rootfs-*.tbz** 的镜像文件，对于可启动 SD 卡的创建，其步骤和需要的文件与 `Debian 构建`_ 相同。只是在 rootfs 的生成和拷贝过程存在不同，其他过程按照 Debian 构建过程进行即可。
 
-生成 rootfs.ext4 文件系统
-''''''''''''''''''''''''''
-
-在下载完成 openSUSE 镜像文件之后，需要生成 rootfs.ext4 文件系统文件。具体步骤如下:
-
-1. 参照 uboot 和 linux 内核构建说明，分别构建 Linux 系统用的 Uboot 和 内核。
-2. 解压 openSUSE JeOS 镜像文件到目录 openSUSE-JeOS。
-3. 执行下述指令生成 rootfs.ext4 文件系统文件。
-
-   .. code-block:: sh
-
-     ./loftq-build/rootfs2ext4.sh -d ./openSUSE-JeOS -t ./rootfs.ext4
-
-4. 将生成的 rootfs.ext4 文件拷贝到 out/linux/ 目录。
-
-   .. code-block:: sh
-  
-     cp rootfs.ext4 ./out/linux/
-
-5. 打包 Phoenix 工具用镜像文件。
-
-   .. code-block:: sh
-
-     linux_pack
-
-   .. note:: 需要根据提示, 输入相应选项, 打包完成后, 在 loftq-build/pack 目录下将会生成 sun6i_linux_loftq.img 文件。
-
-6. 使用 Phoenix 工具烧录生成的 sun6i_linux_loftq.img 文件烧录到启动 TF 卡。
+那么对于 rootfs 到 ext4 分区的拷贝，我们以 **openSUSE-Factory-ARM-JeOS.armv7-rootfs.armv7l-Current.tbz** 为例，所需执行指令如下：
 
 
-在完成上述步骤后, 将启动用的 TF 卡连接到 LOFT-Q, 即可使用 openSUSE JeOS 系统。
+.. code-block:: sh
 
+   sudo tar -C /mnt -xjf openSUSE-Factory-ARM-JeOS.armv7-rootfs.armv7l-Current.tbz
+
+在执行完该步骤之后，参照 `Debian 构建`_ 的步骤，在相应位置添加 BSP 及内核模块文件。
 
 
 
