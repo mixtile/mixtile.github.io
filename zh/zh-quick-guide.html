@@ -199,8 +199,9 @@
 <li>build: <a class="reference external" href="https://github.com/mixtile/loftq-build">https://github.com/mixtile/loftq-build</a></li>
 <li>uboot: <a class="reference external" href="https://github.com/mixtile/loftq-uboot">https://github.com/mixtile/loftq-uboot</a></li>
 <li>linux: <a class="reference external" href="https://github.com/mixtile/loftq-linux">https://github.com/mixtile/loftq-linux</a></li>
-<li>buildroot： <a class="reference external" href="https://github.com/mixtile/buildroot">https://github.com/mixtile/buildroot</a></li>
-<li>android： 代码量比较大，后续打包提供。</li>
+<li>buildroot: <a class="reference external" href="https://github.com/mixtile/buildroot">https://github.com/mixtile/buildroot</a></li>
+<li>android: <a class="reference external" href="https://bitbucket.org/Mixtile/loftq-android">https://bitbucket.org/Mixtile/loftq-android</a></li>
+<li>uboot-next: <a class="reference external" href="https://github.com/mixtile/loftq-uboot-next">https://github.com/mixtile/loftq-uboot-next</a></li>
 </ul>
 <p>后续，我们会提供更多的有关新系统移植的进展及下载地址。</p>
 </div>
@@ -221,6 +222,7 @@
 git clone https://github.com/mixtile/loftq-uboot.git
 git clone https://github.com/mixtile/loftq-linux.git
 git clone https://github.com/mixtile/buildroot.git
+git clone https://github.com/mixtile/loftq-uboot-next
 </pre></div>
 </div>
 </li>
@@ -455,7 +457,7 @@ android_pack
 <ul class="simple">
 <li>script.bin: 全志平台专用的配置文件，用于内核和uboot的配置，由 sys_config.fex 生成。</li>
 <li>boot.scr: UBoot 可加载执行文件，主要包含 UBoot 启动内核之前所需要执行的一系列指令和配置，由 boot.cmd 生成。</li>
-<li>loftq-uboot-next: 基于 linux-sunxi 社区提供的 mainline uboot 定制的用于 LOFT-Q 的UBoot 代码。</li>
+<li>u-boot-sunxi-with-spl.bin: 基于 linux-sunxi 社区提供的 mainline uboot 定制的用于 LOFT-Q 的 UBoot 代码，该版本基于 <a class="reference external" href="http://git.denx.de/?p=u-boot/u-boot-sunxi.git;a=summary">u-boot-sunxi</a> 的 <strong>next</strong> 分支。</li>
 <li>uImage 及内核模块: LOFT-Q 的 linux 内核及模块文件。</li>
 <li>rootfs 压缩包: ARM 平台的系统 rootfs 所需要的根文件系统压缩包，包含一系列 GNU/Linux 系统用的基础系统和配置。</li>
 </ul>
@@ -591,7 +593,7 @@ First sector <span class="o">(</span>2048-15523839, default 2048<span class="o">
 Using default value 2048
 Last sector, +sectors or +size<span class="o">{</span>K,M,G<span class="o">}</span> <span class="o">(</span>2048-15523839, default 15523839<span class="o">)</span>:      <span class="c"># 按下 Enter</span>
 
-Command <span class="o">(</span>m <span class="k">for </span><span class="nb">help</span><span class="o">)</span>: w                                   <span class="c"># 输入 w</span>
+Command <span class="o">(</span>m <span class="k">for </span><span class="nb">help</span><span class="o">)</span>: w                                   <span class="c"># 输入 w 并 按下 Enter</span>
 
 The partition table has been altered!
 </pre></div>

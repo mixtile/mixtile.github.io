@@ -105,11 +105,23 @@
 <li><a class="reference internal" href="#more-information">More Information</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#debian-building">Debian building</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#get-debian-rootfs">Get Debian rootfs</a></li>
+<li><a class="reference internal" href="#generate-script-bin">Generate script.bin</a></li>
+<li><a class="reference internal" href="#generate-boot-scr">Generate boot.scr</a></li>
+<li><a class="reference internal" href="#build-u-boot-sunxi-with-spl-bin">Build u-boot-sunxi-with-spl.bin</a></li>
+<li><a class="reference internal" href="#build-linux-kernel-and-its-modules">Build Linux kernel and its modules</a></li>
+<li><a class="reference internal" href="#partion-sd-card">Partion SD card</a></li>
+<li><a class="reference internal" href="#burn-uboot-to-sd-emmc">Burn Uboot to SD/Emmc</a></li>
+<li><a class="reference internal" href="#prepare-rootfs-for-sd-card">Prepare rootfs for SD card</a></li>
+<li><a class="reference internal" href="#copy-bsp-files-to-ext4-partition">Copy BSP files to ext4 partition</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#ubuntu-building">Ubuntu building</a></li>
 <li><a class="reference internal" href="#android-building">Android building</a></li>
 <li><a class="reference internal" href="#opensuse">OpenSUSE</a><ul>
 <li><a class="reference internal" href="#jeos-rootfs">JeOS rootfs</a></li>
-<li><a class="reference internal" href="#generating-image">Generating image</a></li>
 </ul>
 </li>
 </ul>
@@ -187,6 +199,7 @@
 <li>linux: <a class="reference external" href="https://github.com/mixtile/loftq-linux">https://github.com/mixtile/loftq-linux</a></li>
 <li>buildroot: <a class="reference external" href="https://github.com/mixtile/buildroot">https://github.com/mixtile/buildroot</a></li>
 <li>android: <a class="reference external" href="https://bitbucket.org/Mixtile/loftq-android">https://bitbucket.org/Mixtile/loftq-android</a></li>
+<li>uboot-next: <a class="reference external" href="https://github.com/mixtile/loftq-uboot-next">https://github.com/mixtile/loftq-uboot-next</a></li>
 </ul>
 </div>
 <div class="section" id="building-environment">
@@ -206,6 +219,7 @@
 git clone https://github.com/mixtile/loftq-uboot.git
 git clone https://github.com/mixtile/loftq-linux.git
 git clone https://github.com/mixtile/buildroot.git
+git clone https://github.com/mixtile/loftq-uboot-next
 </pre></div>
 </div>
 </li>
@@ -472,6 +486,179 @@ pack finish
 </ul>
 </div>
 </div>
+<div class="section" id="debian-building">
+<h2>Debian building<a class="headerlink" href="#debian-building" title="Permalink to this headline">¶</a></h2>
+<p>Debian is the base system for Many GNU/Linux systems, Now it could also run on LOFT-Q with some simple configurations.</p>
+<div class="section" id="requirements">
+<h3>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
+<p>Before building Debian, we will have some files needed:</p>
+<ul class="simple">
+<li>script.bin: the configuration file for Allwinner soc, used for setting up kernel and uboot, generated from sys_config.fex.</li>
+<li>boot.scr: could be loaded and executed by Uboot, contains configurations and commands for booting up Linux kernel, generated from boot.cmd.</li>
+<li>u-boot-sunxi-with-spl.bin: the Uboot binary file, built by mainline uboot provided by linux-sunxi community, This release is based on <strong>next</strong> branch of <a class="reference external" href="http://git.denx.de/?p=u-boot/u-boot-sunxi.git;a=summary">u-boot-sunxi</a>.</li>
+<li>uImage and referring kernel modules: linux kernel and kernel modules of LOFT-Q.</li>
+<li>rootfs archive of debian: rootfs archive for ARM platform, which contains the base system and configs of GNU/Linux.</li>
+</ul>
+</div>
+<div class="section" id="get-debian-rootfs">
+<h3>Get Debian rootfs<a class="headerlink" href="#get-debian-rootfs" title="Permalink to this headline">¶</a></h3>
+<p>We can follow below commands to get rootfs of Debian, more info, please refer to  <a class="reference external" href="https://wiki.debian.org/ArmHardFloatChroot">https://wiki.debian.org/ArmHardFloatChroot</a> .</p>
+<ul>
+<li><p class="first">get the latest unstable armhf base system with <strong>qemu-deootstrap</strong> .</p>
+<div class="highlight-sh"><div class="highlight"><pre>qemu-debootstrap --no-check-gpg --arch<span class="o">=</span>armhf sid /chroots/sid-armhf ftp://ftp.debian.org/debian/
+</pre></div>
+</div>
+<p>it will take a long time to getting the rootfs depending on your network environment.</p>
+</li>
+<li><p class="first">add source repository of Debian, please add following lines to <strong>/chroots/sid-armhf/etc/apt/sources.list</strong>:</p>
+<div class="highlight-sh"><div class="highlight"><pre>deb http://ftp.debian.org/debian sid main
+deb-src http://ftp.debian.org/debian sid main
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="generate-script-bin">
+<h3>Generate script.bin<a class="headerlink" href="#generate-script-bin" title="Permalink to this headline">¶</a></h3>
+<p>script.bin is the configuration file for Uboot and Linux kernel of Allwinner soc, and we could get or make it:</p>
+<ul>
+<li><p class="first">prebuilt script.bin: <a class="reference external" href="https://github.com/mixtile/loftq-build/tree/master/bsp/binary/boot">https://github.com/mixtile/loftq-build/tree/master/bsp/binary/boot</a> .</p>
+</li>
+<li><p class="first">make script.bin:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">cd </span>loftq-build/bsp/configs
+
+./bin/fexc sys_config.fex script.bin
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="generate-boot-scr">
+<h3>Generate boot.scr<a class="headerlink" href="#generate-boot-scr" title="Permalink to this headline">¶</a></h3>
+<p>boot.scr is the binary file which could be loaded and executed by UBoot for preparing booting environment and loading Linux kernel. we also can get or make following steps as below:</p>
+<ul>
+<li><p class="first">prebuilt boot.scr: <a class="reference external" href="https://github.com/mixtile/loftq-build/tree/master/bsp/binary/boot">https://github.com/mixtile/loftq-build/tree/master/bsp/binary/boot</a> .</p>
+</li>
+<li><p class="first">make boot.scr:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">cd </span>loftq-build/bsp/configs
+
+mkimage -C none -A arm -T script -d boot_single.cmd boot.scr
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="build-u-boot-sunxi-with-spl-bin">
+<h3>Build u-boot-sunxi-with-spl.bin<a class="headerlink" href="#build-u-boot-sunxi-with-spl-bin" title="Permalink to this headline">¶</a></h3>
+<p>we can download uboot code as below:</p>
+<div class="highlight-sh"><div class="highlight"><pre>git clone https://github.com/mixtile/loftq-uboot-next.git
+</pre></div>
+</div>
+<p>we can build it as below:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">cd </span>loftq-uboot-next
+
+make mixtile_loftq_defconfig
+
+make
+</pre></div>
+</div>
+<p>when making finished, it will create <strong>u-boot-sunxi-with-spl.bin</strong>, and this is the file we need.</p>
+</div>
+<div class="section" id="build-linux-kernel-and-its-modules">
+<h3>Build Linux kernel and its modules<a class="headerlink" href="#build-linux-kernel-and-its-modules" title="Permalink to this headline">¶</a></h3>
+<p>we have introduced the kernel building process, please refer to <a class="reference internal" href="#linux-kernel-building">Linux Kernel Building</a> .</p>
+</div>
+<div class="section" id="partion-sd-card">
+<h3>Partion SD card<a class="headerlink" href="#partion-sd-card" title="Permalink to this headline">¶</a></h3>
+<p>The layout of bootable SD card for LOFT-Q as below:</p>
+<p>start        size                  usage
+==========  =================  =====================
+0               8KB             unused, for partition table etc.
+8               24KB            Initial SPL loader
+32              512KB           U-Boot
+544             128KB           environment
+672             352KB           reserved
+1024            -               free for partitions
+==========  =================  =====================</p>
+<p>As for partitions of SD/Emmc, we have to make it in host os (Linux), we take &#8216;/dev/mmcblk0&#8217; as example.</p>
+<ol class="arabic">
+<li><p class="first">clear partitions of SD/Emmc, please backup your data before clearing.</p>
+<div class="highlight-sh"><div class="highlight"><pre>sudo dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>/dev/mmcblk0 <span class="nv">bs</span><span class="o">=</span>1M <span class="nv">count</span><span class="o">=</span>1
+</pre></div>
+</div>
+</li>
+<li><p class="first">start partioning.</p>
+<div class="highlight-sh"><div class="highlight"><pre>sudo fdisk /dev/mmcblk0
+</pre></div>
+</div>
+</li>
+<li><p class="first">process partioning.</p>
+</li>
+</ol>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre>Command <span class="o">(</span>m <span class="k">for </span><span class="nb">help</span><span class="o">)</span>: n                                 <span class="c"># Type n</span>
+Partition <span class="nb">type</span>:
+   p   primary <span class="o">(</span>0 primary, 0 extended, 4 free<span class="o">)</span>
+   e   extended
+Select <span class="o">(</span>default p<span class="o">)</span>:                                     <span class="c"># Press Enter Key</span>
+Using default response p
+Partition number <span class="o">(</span>1-4, default 1<span class="o">)</span>:                      <span class="c"># Press Enter Key</span>
+Using default value 1
+First sector <span class="o">(</span>2048-15523839, default 2048<span class="o">)</span>:             <span class="c"># Press Enter Key</span>
+Using default value 2048
+Last sector, +sectors or +size<span class="o">{</span>K,M,G<span class="o">}</span> <span class="o">(</span>2048-15523839, default 15523839<span class="o">)</span>:      <span class="c"># Press Enter Key</span>
+
+Command <span class="o">(</span>m <span class="k">for </span><span class="nb">help</span><span class="o">)</span>: w                                   <span class="c"># Enter w and press Enter</span>
+
+The partition table has been altered!
+</pre></div>
+</div>
+</div></blockquote>
+<ol class="arabic" start="4">
+<li><p class="first">format partition as Ext4.</p>
+<div class="highlight-sh"><div class="highlight"><pre>sudo mkfs.ext4 /dev/mmcblk0p1
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="burn-uboot-to-sd-emmc">
+<h3>Burn Uboot to SD/Emmc<a class="headerlink" href="#burn-uboot-to-sd-emmc" title="Permalink to this headline">¶</a></h3>
+<p>After partitions prepared, we can burn <strong>u-boot-sunxi-with-spl.bin</strong> to SD card.</p>
+<div class="highlight-sh"><div class="highlight"><pre>sudo dd <span class="k">if</span><span class="o">=</span>u-boot-sunxi-with-spl.bin <span class="nv">of</span><span class="o">=</span>/dev/mmcblk0 <span class="nv">bs</span><span class="o">=</span>1024 <span class="nv">seek</span><span class="o">=</span>8
+</pre></div>
+</div>
+</div>
+<div class="section" id="prepare-rootfs-for-sd-card">
+<h3>Prepare rootfs for SD card<a class="headerlink" href="#prepare-rootfs-for-sd-card" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sh"><div class="highlight"><pre>sudo mount -t ext4 /dev/mmcblk0p1 /mnt
+
+sudo cp -r /chroot/sid-armhf/* /mnt
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><strong>/chroot/sid-armhf</strong> is the rootfs path we prepared in <a class="reference internal" href="#get-debian-rootfs">Get Debian rootfs</a> .</p>
+</div>
+</div>
+<div class="section" id="copy-bsp-files-to-ext4-partition">
+<h3>Copy BSP files to ext4 partition<a class="headerlink" href="#copy-bsp-files-to-ext4-partition" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sh"><div class="highlight"><pre>sudo cp script.bin /mnt/boot
+
+sudo cp boot.scr /mnt/boot
+
+sudo cp loftq-linux/output/uImage /mnt/boot
+
+sudo cp -r loftq-linux/output/lib/modules /mnt/lib
+
+sudo sync
+
+sudo umount /mnt
+</pre></div>
+</div>
+<p>After we finished all the steps above, now we can enter the Debian world, just pluging sd card to LOFT-Q and power it on.</p>
+</div>
+</div>
 <div class="section" id="ubuntu-building">
 <h2>Ubuntu building<a class="headerlink" href="#ubuntu-building" title="Permalink to this headline">¶</a></h2>
 <p>ubuntu support is still under working, please wait ...</p>
@@ -519,34 +706,12 @@ android_pack
 <li>12.3: <a class="reference external" href="http://download.opensuse.org/ports/armv7hl/distribution/12.3/images/">http://download.opensuse.org/ports/armv7hl/distribution/12.3/images/</a></li>
 </ul>
 <p>We can choose one version for testing. More info about different versions, please refer to <a class="reference external" href="https://en.opensuse.org/HCL:Chroot">https://en.opensuse.org/HCL:Chroot</a> .</p>
-</div>
-<div class="section" id="generating-image">
-<h3>Generating image<a class="headerlink" href="#generating-image" title="Permalink to this headline">¶</a></h3>
-<p>Here we take 13.1 version as testing example. then we have to download the <strong>openSUSE-*-ARM-JeOS.armv7-rootfs-*.tbz</strong> tarball. then we follow these steps to generate <strong>rootfs.ext4</strong> :</p>
-<ol class="arabic">
-<li><p class="first">build uboot and linux kernel for GNU/Linux.</p>
-</li>
-<li><p class="first">uncompress JeOS tarball to openSUSE-JeOS directory.</p>
-</li>
-<li><p class="first">generate rootfs.ext4.</p>
-<div class="highlight-sh"><div class="highlight"><pre>./loftq-build/rootfs2ext4.sh -d ./openSUSE-JeOS -t ./rootfs.ext4
+<p>Here we take 13.1 version as testing example. then we have to download the <strong>openSUSE-*-ARM-JeOS.armv7-rootfs-*.tbz</strong> tarball. As for the bootable SD card makeing process, it&#8217;s almose the same with <a class="reference internal" href="#debian-building">Debian building</a>, and the only difference is <strong>rootfs</strong> creating and copying.</p>
+<p>Now we creating rootfs with <strong>openSUSE-Factory-ARM-JeOS.armv7-rootfs.armv7l-Current.tbz</strong>, orders as below:</p>
+<div class="highlight-sh"><div class="highlight"><pre>sudo tar -C /mnt -xjf openSUSE-Factory-ARM-JeOS.armv7-rootfs.armv7l-Current.tbz
 </pre></div>
 </div>
-</li>
-<li><p class="first">copy rootfs.ext4 to <strong>$BUILD_TRUNK/out/linux</strong>.</p>
-<div class="highlight-sh"><div class="highlight"><pre>cp rootfs.ext4 ./out/linux/
-</pre></div>
-</div>
-</li>
-<li><p class="first">generate image for PhoenixCard.</p>
-<div class="highlight-sh"><div class="highlight"><pre>linux_pack
-</pre></div>
-</div>
-</li>
-<li><p class="first">burn target image generated in last step to sdcard with <strong>PhoenixCard</strong>.</p>
-</li>
-</ol>
-<p>Now, we have one bootable sd card for testing openSUSE, have fun ;).</p>
+<p>Now, we follow <a class="reference internal" href="#copy-bsp-files-to-ext4-partition">Copy BSP files to ext4 partition</a> to add BSP and kernel modules, then we just plug in SD card to LOFT-Q and power it on, Here is the openSUSE world.</p>
 </div>
 </div>
 </div>

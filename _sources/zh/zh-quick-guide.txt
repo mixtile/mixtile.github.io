@@ -38,8 +38,9 @@ LOFT-Q 项目目前的代码主要包含一下几个部分：
 * build: https://github.com/mixtile/loftq-build
 * uboot: https://github.com/mixtile/loftq-uboot
 * linux: https://github.com/mixtile/loftq-linux
-* buildroot： https://github.com/mixtile/buildroot
-* android： 代码量比较大，后续打包提供。
+* buildroot: https://github.com/mixtile/buildroot
+* android: https://bitbucket.org/Mixtile/loftq-android
+* uboot-next: https://github.com/mixtile/loftq-uboot-next
 
 后续，我们会提供更多的有关新系统移植的进展及下载地址。
 
@@ -68,6 +69,7 @@ LOFT-Q 项目目前的代码主要包含一下几个部分：
     git clone https://github.com/mixtile/loftq-uboot.git
     git clone https://github.com/mixtile/loftq-linux.git
     git clone https://github.com/mixtile/buildroot.git
+    git clone https://github.com/mixtile/loftq-uboot-next
 
 
 关于 loftq-build
@@ -350,7 +352,7 @@ Debian 衍生出了很多 GNU/Linux 系统，目前 LOFT-Q 上也可以运行这
 
 * script.bin: 全志平台专用的配置文件，用于内核和uboot的配置，由 sys_config.fex 生成。
 * boot.scr: UBoot 可加载执行文件，主要包含 UBoot 启动内核之前所需要执行的一系列指令和配置，由 boot.cmd 生成。
-* loftq-uboot-next: 基于 linux-sunxi 社区提供的 mainline uboot 定制的用于 LOFT-Q 的UBoot 代码。
+* u-boot-sunxi-with-spl.bin: 基于 linux-sunxi 社区提供的 mainline uboot 定制的用于 LOFT-Q 的 UBoot 代码，该版本基于 `u-boot-sunxi <http://git.denx.de/?p=u-boot/u-boot-sunxi.git;a=summary>`_ 的 **next** 分支。
 * uImage 及内核模块: LOFT-Q 的 linux 内核及模块文件。
 * rootfs 压缩包: ARM 平台的系统 rootfs 所需要的根文件系统压缩包，包含一系列 GNU/Linux 系统用的基础系统和配置。
 
@@ -478,7 +480,7 @@ SD 卡分区
      Using default value 2048
      Last sector, +sectors or +size{K,M,G} (2048-15523839, default 15523839):      # 按下 Enter
 
-     Command (m for help): w                                   # 输入 w
+     Command (m for help): w                                   # 输入 w 并 按下 Enter
 
      The partition table has been altered!
 
