@@ -452,9 +452,9 @@ we can build it as below:
    
    cd loftq-uboot-next
 
-   make CROSS_COMPILE=arm-linux-gnueabihf- mixtile_loftq_defconfig
+   make CROSS_COMPILE=arm-linux-gnueabi- mixtile_loftq_defconfig
 
-   make CROSS_COMPILE=arm-linux-gnueabihf-
+   make CROSS_COMPILE=arm-linux-gnueabi-
 
 when making finished, it will create **u-boot-sunxi-with-spl.bin**, and this is the file we need.
 

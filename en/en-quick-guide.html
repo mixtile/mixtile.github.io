@@ -557,9 +557,9 @@ mkimage -C none -A arm -T script -d boot_single.cmd boot.scr
 <p>we can build it as below:</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="nb">cd </span>loftq-uboot-next
 
-make <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnueabihf- mixtile_loftq_defconfig
+make <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnueabi- mixtile_loftq_defconfig
 
-make <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnueabihf-
+make <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnueabi-
 </pre></div>
 </div>
 <p>when making finished, it will create <strong>u-boot-sunxi-with-spl.bin</strong>, and this is the file we need.</p>
