@@ -469,15 +469,16 @@ Partion SD card
 
 The layout of bootable SD card for LOFT-Q as below:
 
+==========  =================  ==================================
 start        size		   usage
-==========  =================  =====================
+==========  =================  ==================================
 0		8KB		unused, for partition table etc.
 8		24KB		Initial SPL loader
 32		512KB		U-Boot
 544		128KB		environment
 672		352KB		reserved
 1024		-		free for partitions
-==========  =================  =====================
+==========  =================  ==================================
 
 As for partitions of SD/Emmc, we have to make it in host os (Linux), we take '/dev/mmcblk0' as example.
 
@@ -496,23 +497,23 @@ As for partitions of SD/Emmc, we have to make it in host os (Linux), we take '/d
 3. process partioning.
 
 
-  .. code-block:: sh
+   .. code-block:: sh
  
-     Command (m for help): n                                 # Type n
-     Partition type:
-        p   primary (0 primary, 0 extended, 4 free)
-        e   extended
-     Select (default p):                                     # Press Enter Key      
-     Using default response p
-     Partition number (1-4, default 1):                      # Press Enter Key 
-     Using default value 1
-     First sector (2048-15523839, default 2048):             # Press Enter Key 
-     Using default value 2048
-     Last sector, +sectors or +size{K,M,G} (2048-15523839, default 15523839):      # Press Enter Key 
+      Command (m for help): n                                 # Type n
+      Partition type:
+         p   primary (0 primary, 0 extended, 4 free)
+         e   extended
+      Select (default p):                                     # Press Enter Key      
+      Using default response p
+      Partition number (1-4, default 1):                      # Press Enter Key 
+      Using default value 1
+      First sector (2048-15523839, default 2048):             # Press Enter Key 
+      Using default value 2048
+      Last sector, +sectors or +size{K,M,G} (2048-15523839, default 15523839):      # Press Enter Key 
 
-     Command (m for help): w                                   # Enter w and press Enter
+      Command (m for help): w                                   # Enter w and press Enter
 
-     The partition table has been altered!
+      The partition table has been altered!
 
 4. format partition as Ext4.
 

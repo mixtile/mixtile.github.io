@@ -571,15 +571,48 @@ make <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnue
 <div class="section" id="partion-sd-card">
 <h3>Partion SD card<a class="headerlink" href="#partion-sd-card" title="Permalink to this headline">¶</a></h3>
 <p>The layout of bootable SD card for LOFT-Q as below:</p>
-<p>start        size                  usage
-==========  =================  =====================
-0               8KB             unused, for partition table etc.
-8               24KB            Initial SPL loader
-32              512KB           U-Boot
-544             128KB           environment
-672             352KB           reserved
-1024            -               free for partitions
-==========  =================  =====================</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="28%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">start</th>
+<th class="head">size</th>
+<th class="head">usage</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>0</td>
+<td>8KB</td>
+<td>unused, for partition table etc.</td>
+</tr>
+<tr class="row-odd"><td>8</td>
+<td>24KB</td>
+<td>Initial SPL loader</td>
+</tr>
+<tr class="row-even"><td>32</td>
+<td>512KB</td>
+<td>U-Boot</td>
+</tr>
+<tr class="row-odd"><td>544</td>
+<td>128KB</td>
+<td>environment</td>
+</tr>
+<tr class="row-even"><td>672</td>
+<td>352KB</td>
+<td>reserved</td>
+</tr>
+<tr class="row-odd"><td>1024</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>free for partitions</td>
+</tr>
+</tbody>
+</table>
 <p>As for partitions of SD/Emmc, we have to make it in host os (Linux), we take &#8216;/dev/mmcblk0&#8217; as example.</p>
 <ol class="arabic">
 <li><p class="first">clear partitions of SD/Emmc, please backup your data before clearing.</p>
@@ -593,10 +626,7 @@ make <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnue
 </div>
 </li>
 <li><p class="first">process partioning.</p>
-</li>
-</ol>
-<blockquote>
-<div><div class="highlight-sh"><div class="highlight"><pre>Command <span class="o">(</span>m <span class="k">for </span><span class="nb">help</span><span class="o">)</span>: n                                 <span class="c"># Type n</span>
+<div class="highlight-sh"><div class="highlight"><pre>Command <span class="o">(</span>m <span class="k">for </span><span class="nb">help</span><span class="o">)</span>: n                                 <span class="c"># Type n</span>
 Partition <span class="nb">type</span>:
    p   primary <span class="o">(</span>0 primary, 0 extended, 4 free<span class="o">)</span>
    e   extended
@@ -613,8 +643,7 @@ Command <span class="o">(</span>m <span class="k">for </span><span class="nb">he
 The partition table has been altered!
 </pre></div>
 </div>
-</div></blockquote>
-<ol class="arabic" start="4">
+</li>
 <li><p class="first">format partition as Ext4.</p>
 <div class="highlight-sh"><div class="highlight"><pre>sudo mkfs.ext4 /dev/mmcblk0p1
 </pre></div>
