@@ -512,9 +512,9 @@ mkimage -C none -A arm -T script -d boot_single.cmd boot.scr
 <p>loftq-uboot-next 的构建指令如下：</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="nb">cd </span>loftq-uboot-next
 
-make mixtile_loftq_defconfig
+make <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnueabihf- mixtile_loftq_defconfig
 
-make
+make <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnueabihf-
 </pre></div>
 </div>
 <p>在构建完成后，在 loftq-uboot-next 目录中生成 u-boot-sunxi-with-spl.bin 文件。</p>

@@ -421,9 +421,9 @@ loftq-uboot-next 的构建指令如下：
    
    cd loftq-uboot-next
 
-   make mixtile_loftq_defconfig
+   make CROSS_COMPILE=arm-linux-gnueabihf- mixtile_loftq_defconfig
 
-   make
+   make CROSS_COMPILE=arm-linux-gnueabihf-
 
 在构建完成后，在 loftq-uboot-next 目录中生成 u-boot-sunxi-with-spl.bin 文件。
 
