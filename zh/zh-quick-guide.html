@@ -127,6 +127,10 @@
 <li><a class="reference internal" href="#jeos-rootfs">JeOS rootfs 下载</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#id16">更多说明</a><ul>
+<li><a class="reference internal" href="#id17">Linux 系统</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -660,6 +664,19 @@ sudo umount /mnt
 </pre></div>
 </div>
 <p>在执行完该步骤之后，参照 <a class="reference internal" href="#debian">Debian 构建</a> 的步骤，在相应位置添加 BSP 及内核模块文件。</p>
+</div>
+</div>
+<div class="section" id="id16">
+<h2>更多说明<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id17">
+<h3>Linux 系统<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p>为了方便快速的在 LOFT-Q 上使用 GNU/Linux 系统，我们为 LOFT-Q 提供了预编译了内核，启动配置文件的 Linux 系统压缩包，列表如下：</p>
+<ul class="simple">
+<li>Debian sid 版本： <a class="reference external" href="http://mixtile.com/downloads/loft-q/loftq-debian-sid-20150312.tar.bz2">http://mixtile.com/downloads/loft-q/loftq-debian-sid-20150312.tar.bz2</a></li>
+<li>openSUSE 13.1 版本： <a class="reference external" href="http://mixtile.com/downloads/loft-q/loftq-opensuse-13.1-20150312.tar.bz2">http://mixtile.com/downloads/loft-q/loftq-opensuse-13.1-20150312.tar.bz2</a></li>
+<li>openSUSE Factory 版本： <a class="reference external" href="http://mixtile.com/downloads/loft-q/loftq-opensuse-factory-20150312.tar.bz2">http://mixtile.com/downloads/loft-q/loftq-opensuse-factory-20150312.tar.bz2</a></li>
+</ul>
+<p>您只需要参照 <a class="reference internal" href="#sd">SD 卡分区</a> 和 <a class="reference internal" href="#sd-u-boot">SD 卡写入 U-Boot</a> 完成分区和 U-Boot 烧录后，将上述的压缩文件解压到 Ext4 分区即可。</p>
 </div>
 </div>
 </div>

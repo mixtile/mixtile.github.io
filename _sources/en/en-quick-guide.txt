@@ -633,5 +633,18 @@ Now we creating rootfs with **openSUSE-Factory-ARM-JeOS.armv7-rootfs.armv7l-Curr
 
 Now, we follow `Copy BSP files to ext4 partition`_ to add BSP and kernel modules, then we just plug in SD card to LOFT-Q and power it on, Here is the openSUSE world.
 
+
+Miscellaneous
+------------------
+
+GNU/Linux Archives
+'''''''''''''''''''''
+
+We have precompiled tarballs of openSUSE and Debian linux system for booting up linux quickly. 
+
+* Debian sid release： http://mixtile.com/downloads/loft-q/loftq-debian-sid-20150312.tar.bz2
+* openSUSE 13.1 release： http://mixtile.com/downloads/loft-q/loftq-opensuse-13.1-20150312.tar.bz2
+* openSUSE Factory release： http://mixtile.com/downloads/loft-q/loftq-opensuse-factory-20150312.tar.bz2
  
+All you have to do is `Partion SD card`_ and `Burn Uboot to SD/Emmc`_ as described above, and decompress the tarball to the Ext4 partion, then the Linux world is open.
 

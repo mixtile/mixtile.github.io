@@ -558,6 +558,20 @@ openSUSE 社区提供了多个版本的 JeOS rootfs 可供下载，如下：
 
 在执行完该步骤之后，参照 `Debian 构建`_ 的步骤，在相应位置添加 BSP 及内核模块文件。
 
+更多说明
+----------------
+
+Linux 系统
+'''''''''''''''
+
+为了方便快速的在 LOFT-Q 上使用 GNU/Linux 系统，我们为 LOFT-Q 提供了预编译了内核，启动配置文件的 Linux 系统压缩包，列表如下：
+
+* Debian sid 版本： http://mixtile.com/downloads/loft-q/loftq-debian-sid-20150312.tar.bz2
+* openSUSE 13.1 版本： http://mixtile.com/downloads/loft-q/loftq-opensuse-13.1-20150312.tar.bz2
+* openSUSE Factory 版本： http://mixtile.com/downloads/loft-q/loftq-opensuse-factory-20150312.tar.bz2
+
+您只需要参照 `SD 卡分区`_ 和 `SD 卡写入 U-Boot`_ 完成分区和 U-Boot 烧录后，将上述的压缩文件解压到 Ext4 分区即可。
+
 
 
 
