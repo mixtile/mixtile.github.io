@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>LOFT-Q Owncloud 说明 &mdash; mixtile 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.2.0/paper/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="mixtile 0.1 documentation" href="../index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          Mixtile Project</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="http://focalcrest.com">Focalcrest</a></li>
+                <li><a href="http://mixtile.com">Mixtile</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">LOFT-Q Owncloud 说明</a><ul>
+<li><a class="reference internal" href="#debian">Debian 配置</a></li>
+<li><a class="reference internal" href="#opensuse">openSUSE 配置</a></li>
+<li><a class="reference internal" href="#id1">更多参考</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="loft-q-owncloud">
+<h1>LOFT-Q Owncloud 说明<a class="headerlink" href="#loft-q-owncloud" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://owncloud.org">ownCloud</a> 是一个自由且开源的个人云存储解决方案，最初由 KDE 开发者 <a class="reference external" href="http://zh.wikipedia.org/wiki/Frank_Karlitschek">Frank Karlitschek</a> 于2010年一月创建，目标是替代商业的云服务提供商。对于 owncloud, 用于可以自由免费的获取，但是自行架设该服务器，则需要一些基本的安装和配置。</p>
+<p>LOFT-Q 提供了 Debian 和 OpenSUSE 两个 Linux 系统，对于它们，我们可以使用如下的方法来配置属于自己的 owncloud 专属云服务器，所有的安装和配置基于 <a class="reference external" href="https://owncloud.org/eight">owncloud 8.0</a> 。</p>
+<div class="section" id="debian">
+<h2>Debian 配置<a class="headerlink" href="#debian" title="Permalink to this headline">¶</a></h2>
+<p>对于 Debian SID 版本安装方法如下：</p>
+<div class="highlight-sh"><div class="highlight"><pre>sudo apt-get install owncloud
+</pre></div>
+</div>
+</div>
+<div class="section" id="opensuse">
+<h2>openSUSE 配置<a class="headerlink" href="#opensuse" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">安装 Owncloud:</p>
+<div class="highlight-sh"><div class="highlight"><pre>zypper addrepo http://download.opensuse.org/repositories/isv:ownCloud:community/openSUSE_Factory_ARM/isv:ownCloud:community.repo
+zypper refresh
+zypper install owncloud
+</pre></div>
+</div>
+</li>
+<li><p class="first">启动和配置 Maria DB</p>
+<div class="highlight-sh"><div class="highlight"><pre>Message from package mariadb:
+
+You just installed MySQL server <span class="k">for </span>the first time.
+
+You can start it using:
+ rcmysql start
+
+During first start empty database will be created <span class="k">for </span>your automatically.
+
+PLEASE REMEMBER TO SET A PASSWORD FOR THE MariaDB root USER !
+To <span class="k">do </span>so, start the server, <span class="k">then </span>issue the following commands:
+
+<span class="s1">&#39;/usr/bin/mysqladmin&#39;</span> -u root password <span class="s1">&#39;new-password&#39;</span>
+<span class="s1">&#39;/usr/bin/mysqladmin&#39;</span> -u root -h misibook password <span class="s1">&#39;new-password&#39;</span>
+
+Alternatively you can run:
+<span class="s1">&#39;/usr/bin/mysql_secure_installation&#39;</span>
+
+which will also give you the option of removing the <span class="nb">test</span>
+databases and anonymous user created by default.  This is
+strongly recommended <span class="k">for </span>production servers.
+</pre></div>
+</div>
+<p>根据上述提示执行如下命令：</p>
+<ul>
+<li><p class="first">启动 MySQL 服务器</p>
+<div class="highlight-sh"><div class="highlight"><pre>rcmysql start
+</pre></div>
+</div>
+</li>
+<li><p class="first">设置数据库 root 密码</p>
+<div class="highlight-sh"><div class="highlight"><pre>  mysqladmin -u root password <span class="s1">&#39;new-password&#39;</span>
+
+  mysqladmin -u root -h misibook password <span class="s1">&#39;new-password&#39;</span>
+
+**<span class="s1">&#39;new-password&#39;</span>** 是根据需要设置的密码.
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p class="first">设置和启动 Apache2</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>对于 openSUSE，目前存在一个问题，其默认安装的 apache2, 版本为2.4, 该版本的 <strong>authz_default</strong> 模块已经被移除，并且其中相应功能由 <strong>authz_core</strong> 所替换。因此我们需要在 <strong>/etc/sysconfig/apache2</strong> 中移除 <strong>authz_default</strong> 而将其替换为 <strong>authz_core</strong>。</p>
+<p>最终，在 <strong>/etc/sysconfig/apache2</strong> 中的默认模块加载配置为：</p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="nv">APACHE_MODULES</span><span class="o">=</span><span class="s2">&quot;php5 actions alias auth_basic authn_file authz_host authz_groupffile</span>
+<span class="s2">authz_user authz_core autoindex cgi dir env expires include log_config mime negotiation</span>
+<span class="s2">setenvif ssl socache_shmcb userdir  reqtimeout&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>参照上述说明修改完配置之后，需要执行下述命令重新启动 apache2 服务：</p>
+<div class="highlight-sh"><div class="highlight"><pre>rcapache2 start
+</pre></div>
+</div>
+</li>
+<li><p class="first">初始化设置 owncloud</p>
+<p>在完成上述的全部配置之后，在浏览器中输入 <strong>http://192.168.1.102/owncloud</strong> 开始探索和配置自己的私人专属云服务器。</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><strong>http://192.168.1.102/owncloud</strong> 是 owncloud 的网络地址，需要根据不同的 IP 地址进行修改。</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="id1">
+<h2>更多参考<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://doc.owncloud.org/">owncloud 文档</a></li>
+</ul>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../_sources/zh/zh-owncloud-howto.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, Mixtile Project.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
