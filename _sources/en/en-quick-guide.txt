@@ -681,6 +681,8 @@ We have precompiled tarballs of openSUSE and Debian linux system for booting up 
 * Debian sid release
 * openSUSE 13.1 release
 * openSUSE Factory release
+
+Link: http://www.mixtile.com/downloads/loft-q/
  
 All you have to do is `Partion SD card`_ and `Burn Uboot to SD/Emmc`_ as described above, and decompress the tarball to the Ext4 partion, then the Linux world is open.
 
