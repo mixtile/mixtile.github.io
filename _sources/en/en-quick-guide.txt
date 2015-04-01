@@ -498,7 +498,7 @@ when making finished, it will create **u-boot-sunxi-with-spl.bin**, and this is 
 Build Linux kernel and its modules
 ''''''''''''''''''''''''''''''''''''''
 
-we have introduced the kernel building process, please refer to `Linux Kernel Building`_ . 
+we have introduced the kernel building process, please refer to `Mainline Linux kernel building`_ . 
 
 Partion SD card
 '''''''''''''''''''
@@ -586,13 +586,13 @@ Copy BSP files to ext4 partition
 
 .. code-block:: sh
    
-   sudo cp script.bin /mnt/boot
-
    sudo cp boot.scr /mnt/boot
 
-   sudo cp loftq-linux/output/uImage /mnt/boot
+   sudo cp linux/arch/arm/boot/zImage /mnt/boot/mainline
 
-   sudo cp -r loftq-linux/output/lib/modules /mnt/lib
+   sudo cp linux/arch/arm/boot/dts/sun6i-a31-mixtile-loftq.dtb /mnt/boot/mainline
+
+   sudo cp -r linux/output/lib/modules /mnt/lib
 
    sudo sync
 
@@ -678,9 +678,9 @@ GNU/Linux Archives
 
 We have precompiled tarballs of openSUSE and Debian linux system for booting up linux quickly. 
 
-* Debian sid release： http://mixtile.com/downloads/loft-q/loftq-debian-sid-20150312.tar.bz2
-* openSUSE 13.1 release： http://mixtile.com/downloads/loft-q/loftq-opensuse-13.1-20150312.tar.bz2
-* openSUSE Factory release： http://mixtile.com/downloads/loft-q/loftq-opensuse-factory-20150312.tar.bz2
+* Debian sid release
+* openSUSE 13.1 release
+* openSUSE Factory release
  
 All you have to do is `Partion SD card`_ and `Burn Uboot to SD/Emmc`_ as described above, and decompress the tarball to the Ext4 partion, then the Linux world is open.
 

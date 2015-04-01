@@ -188,7 +188,7 @@ Linux 旧版内核构建
 
 .. note:: 
   
-  对于 Linux 旧版内核，建议只用于 Android 系统。
+  对于 Linux 旧版内核，建议仅用于 Android 系统。
 
 对于全志的 linux 内核, 目前使用的是 linux 3.3 版本。目前这一版本的内核中统一了 linux 和 android 版本的内核。可以在同一份内核代码中完成对 Linux 和 android 内核的分开编译。
 
@@ -272,7 +272,7 @@ Linux 主流内核构建
 
   make INSTALL_MOD_PATH=output ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- modules_install
 
-在编译完成主流代码之后，需要根据自己的需要配置相应的 GNU/Linux 系统，如 Debian, OpenSUSE 等。
+在编译完成主流代码之后，我们可以将生成的内核，dts文件，以及内核模块添加到 GNU/Linux 系统 rootfs 的制定路径，需要根据自己的需要配置相应的 GNU/Linux 系统，如 Debian, OpenSUSE 等。
 
 Buildroot 构建
 ---------------
@@ -468,7 +468,7 @@ loftq-uboot-next 的构建指令如下：
 linux 内核及模块构建
 ''''''''''''''''''''''
 
-对于 Linux 内核及模块构建，可以参考 `Linux 内核构建`_ 。
+对于 Linux 内核及模块构建，可以参考 `Linux 主流内核构建`_ 。
   
 SD 卡分区
 '''''''''''''''''''''''''
@@ -550,14 +550,14 @@ SD 卡写入 U-Boot
 '''''''''''''''''''''''''''''''
 
 .. code-block:: sh
-   
-   sudo cp script.bin /mnt/boot
 
    sudo cp boot.scr /mnt/boot
 
-   sudo cp loftq-linux/output/uImage /mnt/boot
+   sudo cp linux/arch/arm/boot/zImage /mnt/boot/mainline
 
-   sudo cp -r loftq-linux/output/lib/modules /mnt/lib
+   sudo cp linux/arch/arm/boot/dts/sun6i-a31-mixtile-loftq.dtb /mnt/boot/mainline
+
+   sudo cp -r linux/output/lib/modules /mnt/lib
 
    sudo sync
 
@@ -567,6 +567,8 @@ SD 卡写入 U-Boot
 
 Ubuntu 构建
 ------------------
+
+Ubuntu 系统支持还在进行中...
 
 OpenSUSE 使用
 ---------------
@@ -604,9 +606,11 @@ Linux 系统
 
 为了方便快速的在 LOFT-Q 上使用 GNU/Linux 系统，我们为 LOFT-Q 提供了预编译了内核，启动配置文件的 Linux 系统压缩包，列表如下：
 
-* Debian sid 版本： http://mixtile.com/downloads/loft-q/loftq-debian-sid-20150312.tar.bz2
-* openSUSE 13.1 版本： http://mixtile.com/downloads/loft-q/loftq-opensuse-13.1-20150312.tar.bz2
-* openSUSE Factory 版本： http://mixtile.com/downloads/loft-q/loftq-opensuse-factory-20150312.tar.bz2
+* Debian sid 版本
+* openSUSE 13.1 版本
+* openSUSE Factory 版本
+
+链接地址: http://www.mixtile.com/downloads/loft-q/
 
 您只需要参照 `SD 卡分区`_ 和 `SD 卡写入 U-Boot`_ 完成分区和 U-Boot 烧录后，将上述的压缩文件解压到 Ext4 分区即可。
 

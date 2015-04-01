@@ -603,7 +603,7 @@ make <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnue
 </div>
 <div class="section" id="build-linux-kernel-and-its-modules">
 <h3>Build Linux kernel and its modules<a class="headerlink" href="#build-linux-kernel-and-its-modules" title="Permalink to this headline">¶</a></h3>
-<p>we have introduced the kernel building process, please refer to <a href="#id3"><span class="problematic" id="id4">`Linux Kernel Building`_</span></a> .</p>
+<p>we have introduced the kernel building process, please refer to <a class="reference internal" href="#mainline-linux-kernel-building">Mainline Linux kernel building</a> .</p>
 </div>
 <div class="section" id="partion-sd-card">
 <h3>Partion SD card<a class="headerlink" href="#partion-sd-card" title="Permalink to this headline">¶</a></h3>
@@ -709,13 +709,13 @@ sudo cp -r /chroot/sid-armhf/* /mnt
 </div>
 <div class="section" id="copy-bsp-files-to-ext4-partition">
 <h3>Copy BSP files to ext4 partition<a class="headerlink" href="#copy-bsp-files-to-ext4-partition" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-sh"><div class="highlight"><pre>sudo cp script.bin /mnt/boot
+<div class="highlight-sh"><div class="highlight"><pre>sudo cp boot.scr /mnt/boot
 
-sudo cp boot.scr /mnt/boot
+sudo cp linux/arch/arm/boot/zImage /mnt/boot/mainline
 
-sudo cp loftq-linux/output/uImage /mnt/boot
+sudo cp linux/arch/arm/boot/dts/sun6i-a31-mixtile-loftq.dtb /mnt/boot/mainline
 
-sudo cp -r loftq-linux/output/lib/modules /mnt/lib
+sudo cp -r linux/output/lib/modules /mnt/lib
 
 sudo sync
 
@@ -786,9 +786,9 @@ android_pack
 <h3>GNU/Linux Archives<a class="headerlink" href="#gnu-linux-archives" title="Permalink to this headline">¶</a></h3>
 <p>We have precompiled tarballs of openSUSE and Debian linux system for booting up linux quickly.</p>
 <ul class="simple">
-<li>Debian sid release： <a class="reference external" href="http://mixtile.com/downloads/loft-q/loftq-debian-sid-20150312.tar.bz2">http://mixtile.com/downloads/loft-q/loftq-debian-sid-20150312.tar.bz2</a></li>
-<li>openSUSE 13.1 release： <a class="reference external" href="http://mixtile.com/downloads/loft-q/loftq-opensuse-13.1-20150312.tar.bz2">http://mixtile.com/downloads/loft-q/loftq-opensuse-13.1-20150312.tar.bz2</a></li>
-<li>openSUSE Factory release： <a class="reference external" href="http://mixtile.com/downloads/loft-q/loftq-opensuse-factory-20150312.tar.bz2">http://mixtile.com/downloads/loft-q/loftq-opensuse-factory-20150312.tar.bz2</a></li>
+<li>Debian sid release</li>
+<li>openSUSE 13.1 release</li>
+<li>openSUSE Factory release</li>
 </ul>
 <p>All you have to do is <a class="reference internal" href="#partion-sd-card">Partion SD card</a> and <a class="reference internal" href="#burn-uboot-to-sd-emmc">Burn Uboot to SD/Emmc</a> as described above, and decompress the tarball to the Ext4 partion, then the Linux world is open.</p>
 </div>
