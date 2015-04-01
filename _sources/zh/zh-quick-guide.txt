@@ -183,8 +183,12 @@ UBoot 构建
   make -j4
 
 
-Linux 内核构建
----------------
+Linux 旧版内核构建
+--------------------
+
+.. note:: 
+  
+  对于 Linux 旧版内核，建议只用于 Android 系统。
 
 对于全志的 linux 内核, 目前使用的是 linux 3.3 版本。目前这一版本的内核中统一了 linux 和 android 版本的内核。可以在同一份内核代码中完成对 Linux 和 android 内核的分开编译。
 
@@ -235,6 +239,40 @@ Linux 内核构建
     make distclean
     ./build.sh -p sun6i_fiber
 
+
+Linux 主流内核构建
+------------------
+
+由于 sunxi 社区以及全球志愿者的努力和支持，目前主流内核已经提供了对全志 A31 的部分驱动支持，建议在使用 GNU/Linux 系统时，使用主流的 Linux 内核，可以使用最新的内核的一些特性。
+
+
+主流内核代码获取
+'''''''''''''''''''''''''
+
+目前 LOFT-Q 项目实时跟进 Linux 最新代码的进度，提供了一些配置文件的定制和更新。最新的代码已经托管在 Mixtile 项目的 github 仓库。相关代码获取指令如下
+
+
+.. code-block:: sh
+
+  git clone https://github.com/mixtile/linux.git -b loftq-dev
+
+**备注：** 我们的 master 分支为主流分支，而定制分支为 `loftq-dev`。
+
+
+主流内核代码构建
+''''''''''''''''''''''''''''
+
+在获取了上述的代码之后，需要执行如下过程来构建主流内核代码：
+
+.. code-block:: sh
+
+  cp arch/arm/configs/mixtile_loftq_defconfig .config
+
+  make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi-
+
+  make INSTALL_MOD_PATH=output ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- modules_install
+
+在编译完成主流代码之后，需要根据自己的需要配置相应的 GNU/Linux 系统，如 Debian, OpenSUSE 等。
 
 Buildroot 构建
 ---------------

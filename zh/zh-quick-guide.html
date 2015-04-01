@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
@@ -36,7 +36,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-inverse navbar-default ">
     <div class="container">
@@ -92,17 +92,22 @@
 <li><a class="reference internal" href="#id6">手动定制编译</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#linux">Linux 内核构建</a><ul>
+<li><a class="reference internal" href="#linux">Linux 旧版内核构建</a><ul>
 <li><a class="reference internal" href="#id7">基于 LOFT-Q 环境的编译</a></li>
 <li><a class="reference internal" href="#id8">手动定制编译</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#id9">Linux 主流内核构建</a><ul>
+<li><a class="reference internal" href="#id10">主流内核代码获取</a></li>
+<li><a class="reference internal" href="#id11">主流内核代码构建</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#buildroot">Buildroot 构建</a><ul>
-<li><a class="reference internal" href="#id9">获取源码</a></li>
-<li><a class="reference internal" href="#id10">编译构建</a></li>
-<li><a class="reference internal" href="#id11">镜像打包</a></li>
-<li><a class="reference internal" href="#id12">自我定制</a></li>
-<li><a class="reference internal" href="#id13">更多信息</a></li>
+<li><a class="reference internal" href="#id12">获取源码</a></li>
+<li><a class="reference internal" href="#id13">编译构建</a></li>
+<li><a class="reference internal" href="#id14">镜像打包</a></li>
+<li><a class="reference internal" href="#id15">自我定制</a></li>
+<li><a class="reference internal" href="#id16">更多信息</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#android">Android 构建使用</a><ul>
@@ -110,12 +115,12 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#debian">Debian 构建</a><ul>
-<li><a class="reference internal" href="#id14">文件准备</a></li>
+<li><a class="reference internal" href="#id17">文件准备</a></li>
 <li><a class="reference internal" href="#debian-rootfs">获取 Debian rootfs</a></li>
 <li><a class="reference internal" href="#script-bin">script.bin 生成</a></li>
 <li><a class="reference internal" href="#boot-scr">boot.scr 生成</a></li>
 <li><a class="reference internal" href="#loftq-uboot-next">下载并构建 loftq-uboot-next</a></li>
-<li><a class="reference internal" href="#id15">linux 内核及模块构建</a></li>
+<li><a class="reference internal" href="#id18">linux 内核及模块构建</a></li>
 <li><a class="reference internal" href="#sd">SD 卡分区</a></li>
 <li><a class="reference internal" href="#sd-u-boot">SD 卡写入 U-Boot</a></li>
 <li><a class="reference internal" href="#rootfs-sd-ext4">拷贝 rootfs 到 SD 卡的 ext4 分区</a></li>
@@ -127,8 +132,8 @@
 <li><a class="reference internal" href="#jeos-rootfs">JeOS rootfs 下载</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id16">更多说明</a><ul>
-<li><a class="reference internal" href="#id17">Linux 系统</a></li>
+<li><a class="reference internal" href="#id19">更多说明</a><ul>
+<li><a class="reference internal" href="#id20">Linux 系统</a></li>
 </ul>
 </li>
 </ul>
@@ -255,12 +260,12 @@ git clone https://github.com/mixtile/loftq-uboot-next
 <span class="nb">export </span><span class="nv">SUNXI_TOOLS_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-build
 <span class="nb">export </span><span class="nv">SUNXI_LINUX_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-linux
 <span class="nb">export </span><span class="nv">SUNXI_UBOOT_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-uboot
-<span class="nb">export </span><span class="nv">SUNXI_TOOLCHAIN_PATH</span><span class="o">=</span><span class="k">${</span><span class="nv">SUNXI_TOOLS_PATH</span><span class="k">}</span>/toolschain/gcc-linaro/bin/
+<span class="nb">export </span><span class="nv">SUNXI_TOOLCHAIN_PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">SUNXI_TOOLS_PATH</span><span class="si">}</span>/toolschain/gcc-linaro/bin/
 
 <span class="c"># envs for android</span>
 <span class="nb">export </span><span class="nv">ANDROID_TRUNK</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/android
 <span class="nb">export </span><span class="nv">ANDROID_DEVICE</span><span class="o">=</span>loftq
-<span class="nb">export </span><span class="nv">ANDROID_DEVICE_TRUNK</span><span class="o">=</span><span class="k">${</span><span class="nv">ANDROID_TRUNK</span><span class="k">}</span>/device/mixtile/<span class="k">${</span><span class="nv">ANDROID_DEVICE</span><span class="k">}</span>
+<span class="nb">export </span><span class="nv">ANDROID_DEVICE_TRUNK</span><span class="o">=</span><span class="si">${</span><span class="nv">ANDROID_TRUNK</span><span class="si">}</span>/device/mixtile/<span class="si">${</span><span class="nv">ANDROID_DEVICE</span><span class="si">}</span>
 
 <span class="c"># envs for ubuntu touch</span>
 <span class="c"># only used if we have android base sdk released by ubuntu touch team</span>
@@ -269,15 +274,15 @@ git clone https://github.com/mixtile/loftq-uboot-next
 <span class="nb">export </span><span class="nv">UBUNTU_TARBALL</span><span class="o">=</span><span class="nv">$UBUNTU_OUTPUT</span>/vivid-preinstalled-touch-armhf.tar.gz
 
 <span class="c"># commom env</span>
-<span class="nb">export </span><span class="nv">ANDROID_OUT</span><span class="o">=</span><span class="k">${</span><span class="nv">ANDROID_TRUNK</span><span class="k">}</span>/out
-<span class="nb">export </span><span class="nv">ANDROID_DEVICE_OUT</span><span class="o">=</span><span class="k">${</span><span class="nv">ANDROID_OUT</span><span class="k">}</span>/target/product/<span class="k">${</span><span class="nv">ANDROID_DEVICE</span><span class="k">}</span>
+<span class="nb">export </span><span class="nv">ANDROID_OUT</span><span class="o">=</span><span class="si">${</span><span class="nv">ANDROID_TRUNK</span><span class="si">}</span>/out
+<span class="nb">export </span><span class="nv">ANDROID_DEVICE_OUT</span><span class="o">=</span><span class="si">${</span><span class="nv">ANDROID_OUT</span><span class="si">}</span>/target/product/<span class="si">${</span><span class="nv">ANDROID_DEVICE</span><span class="si">}</span>
 
 <span class="nb">export </span><span class="nv">LINARO_GCC_PATH</span><span class="o">=</span><span class="nv">$SUNXI_TOOLCHAIN_PATH</span>
 <span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$LINARO_GCC_PATH</span>
 </pre></div>
 </div>
 <p>用户可以在其中添加自定义的指令，以 <em>linux_build_uboot</em> 为例：</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="k">function </span>linux_build_uboot<span class="o">()</span>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">function</span> linux_build_uboot<span class="o">()</span>
 <span class="o">{</span>
     <span class="nv">CURDIR</span><span class="o">=</span><span class="nv">$PWD</span>
 
@@ -322,7 +327,11 @@ make -j4
 </div>
 </div>
 <div class="section" id="linux">
-<h2>Linux 内核构建<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h2>
+<h2>Linux 旧版内核构建<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">对于 Linux 旧版内核，建议只用于 Android 系统。</p>
+</div>
 <p>对于全志的 linux 内核, 目前使用的是 linux 3.3 版本。目前这一版本的内核中统一了 linux 和 android 版本的内核。可以在同一份内核代码中完成对 Linux 和 android 内核的分开编译。</p>
 <div class="section" id="id7">
 <h3>基于 LOFT-Q 环境的编译<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
@@ -367,19 +376,43 @@ make -j4
 </ul>
 </div>
 </div>
+<div class="section" id="id9">
+<h2>Linux 主流内核构建<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>由于 sunxi 社区以及全球志愿者的努力和支持，目前主流内核已经提供了对全志 A31 的部分驱动支持，建议在使用 GNU/Linux 系统时，使用主流的 Linux 内核，可以使用最新的内核的一些特性。</p>
+<div class="section" id="id10">
+<h3>主流内核代码获取<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>目前 LOFT-Q 项目实时跟进 Linux 最新代码的进度，提供了一些配置文件的定制和更新。最新的代码已经托管在 Mixtile 项目的 github 仓库。相关代码获取指令如下</p>
+<div class="highlight-sh"><div class="highlight"><pre>git clone https://github.com/mixtile/linux.git -b loftq-dev
+</pre></div>
+</div>
+<p><strong>备注：</strong> 我们的 master 分支为主流分支，而定制分支为 <cite>loftq-dev</cite>。</p>
+</div>
+<div class="section" id="id11">
+<h3>主流内核代码构建<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>在获取了上述的代码之后，需要执行如下过程来构建主流内核代码：</p>
+<div class="highlight-sh"><div class="highlight"><pre>cp arch/arm/configs/mixtile_loftq_defconfig .config
+
+make <span class="nv">ARCH</span><span class="o">=</span>arm <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnueabi-
+
+make <span class="nv">INSTALL_MOD_PATH</span><span class="o">=</span>output <span class="nv">ARCH</span><span class="o">=</span>arm <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnueabi- modules_install
+</pre></div>
+</div>
+<p>在编译完成主流代码之后，需要根据自己的需要配置相应的 GNU/Linux 系统，如 Debian, OpenSUSE 等。</p>
+</div>
+</div>
 <div class="section" id="buildroot">
 <h2>Buildroot 构建<a class="headerlink" href="#buildroot" title="Permalink to this headline">¶</a></h2>
 <p>Buildroot 是非常易于使用，定制，和构建的一套编译工具系统，便于开发人员快速的构建基于 Linux 内核的嵌入式操作系统。</p>
-<div class="section" id="id9">
-<h3>获取源码<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id12">
+<h3>获取源码<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <p>我们参照全志提供的较老的 buildroot 配置方法, 目前已经适配了最新的 buildroot 。目前开发人员可以从我们的 Github 项目代码库中下载最新的 buildroot 代码：</p>
 <div class="highlight-sh"><div class="highlight"><pre>git clone https://github.com/mixtile/buildroot.git
 </pre></div>
 </div>
 <p>我们会定期对 buildroot 进行更新以方便于使用最新的软件。</p>
 </div>
-<div class="section" id="id10">
-<h3>编译构建<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id13">
+<h3>编译构建<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>在下载完 buildroot 源代码之后，可以使用下述命令完成对项目的编译和构建。</p>
 <div class="highlight-sh"><div class="highlight"><pre>make mixtile_loftq_defconfig
 make
@@ -393,24 +426,24 @@ make
 </ul>
 </div>
 </div>
-<div class="section" id="id11">
-<h3>镜像打包<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id14">
+<h3>镜像打包<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <p>在完成对 buildroot 的构建之后，将生成的 rootfs.ext4 文件拷贝到指定的目录，即 <em>$BUILD_TRUNK/out/linux/</em>。之后执行下述指令：</p>
 <div class="highlight-sh"><div class="highlight"><pre>linux_pack
 </pre></div>
 </div>
 <p>在执行完命令后将会打印出目标镜像的路径。则该文件就是 sunxi PhoenixTool 可以进行烧录的文件，可以烧录为卡启动，或者卡量产模式。</p>
 </div>
-<div class="section" id="id12">
-<h3>自我定制<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id15">
+<h3>自我定制<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <p>如果您需要根据自己的需要，添加或者删除指定的软件库，可以参照如下说明进行定制。</p>
 <div class="highlight-sh"><div class="highlight"><pre>make menuconfig
 </pre></div>
 </div>
 <p>执行上述指令时，可能会提示缺少某些库，以至于无法完成操作，可以根据错误提示信息，安装制定的系统软件。</p>
 </div>
-<div class="section" id="id13">
-<h3>更多信息<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id16">
+<h3>更多信息<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>buildroot 官网: <a class="reference external" href="http://buildroot.uclibc.org">http://buildroot.uclibc.org</a></li>
 <li>buildroot 文档: <a class="reference external" href="http://buildroot.uclibc.org/docs.html">http://buildroot.uclibc.org/docs.html</a></li>
@@ -455,8 +488,8 @@ android_pack
 <div class="section" id="debian">
 <h2>Debian 构建<a class="headerlink" href="#debian" title="Permalink to this headline">¶</a></h2>
 <p>Debian 衍生出了很多 GNU/Linux 系统，目前 LOFT-Q 上也可以运行这一系统，只要做一些基本的配置就可以实现让 Debian 在 LOFT-Q 上运行。</p>
-<div class="section" id="id14">
-<h3>文件准备<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id17">
+<h3>文件准备<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <p>对于 Debian 的构建，我们需要准备如下文件：</p>
 <ul class="simple">
 <li>script.bin: 全志平台专用的配置文件，用于内核和uboot的配置，由 sys_config.fex 生成。</li>
@@ -523,9 +556,9 @@ make <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnue
 </div>
 <p>在构建完成后，在 loftq-uboot-next 目录中生成 u-boot-sunxi-with-spl.bin 文件。</p>
 </div>
-<div class="section" id="id15">
-<h3>linux 内核及模块构建<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
-<p>对于 Linux 内核及模块构建，可以参考 <a class="reference internal" href="#linux">Linux 内核构建</a> 。</p>
+<div class="section" id="id18">
+<h3>linux 内核及模块构建<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<p>对于 Linux 内核及模块构建，可以参考 <a href="#id21"><span class="problematic" id="id22">`Linux 内核构建`_</span></a> 。</p>
 </div>
 <div class="section" id="sd">
 <h3>SD 卡分区<a class="headerlink" href="#sd" title="Permalink to this headline">¶</a></h3>
@@ -585,9 +618,9 @@ make <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnue
 </div>
 </li>
 <li><p class="first">执行分区</p>
-<div class="highlight-sh"><div class="highlight"><pre>Command <span class="o">(</span>m <span class="k">for </span><span class="nb">help</span><span class="o">)</span>: n                                 <span class="c"># 输入 n</span>
+<div class="highlight-sh"><div class="highlight"><pre>Command <span class="o">(</span>m <span class="k">for</span> <span class="nb">help</span><span class="o">)</span>: n                                 <span class="c"># 输入 n</span>
 Partition <span class="nb">type</span>:
-   p   primary <span class="o">(</span>0 primary, 0 extended, 4 free<span class="o">)</span>
+   p   primary <span class="o">(</span><span class="m">0</span> primary, <span class="m">0</span> extended, <span class="m">4</span> free<span class="o">)</span>
    e   extended
 Select <span class="o">(</span>default p<span class="o">)</span>:                                     <span class="c"># 按下 Enter</span>
 Using default response p
@@ -597,7 +630,7 @@ First sector <span class="o">(</span>2048-15523839, default 2048<span class="o">
 Using default value 2048
 Last sector, +sectors or +size<span class="o">{</span>K,M,G<span class="o">}</span> <span class="o">(</span>2048-15523839, default 15523839<span class="o">)</span>:      <span class="c"># 按下 Enter</span>
 
-Command <span class="o">(</span>m <span class="k">for </span><span class="nb">help</span><span class="o">)</span>: w                                   <span class="c"># 输入 w 并 按下 Enter</span>
+Command <span class="o">(</span>m <span class="k">for</span> <span class="nb">help</span><span class="o">)</span>: w                                   <span class="c"># 输入 w 并 按下 Enter</span>
 
 The partition table has been altered!
 </pre></div>
@@ -613,7 +646,7 @@ The partition table has been altered!
 <div class="section" id="sd-u-boot">
 <h3>SD 卡写入 U-Boot<a class="headerlink" href="#sd-u-boot" title="Permalink to this headline">¶</a></h3>
 <p>在完成分区的划分之后，执行下述指令向 SD/EMMC 中写入 U-Boot 文件。</p>
-<div class="highlight-sh"><div class="highlight"><pre>sudo dd <span class="k">if</span><span class="o">=</span>u-boot-sunxi-with-spl.bin <span class="nv">of</span><span class="o">=</span>/dev/mmcblk0 <span class="nv">bs</span><span class="o">=</span>1024 <span class="nv">seek</span><span class="o">=</span>8
+<div class="highlight-sh"><div class="highlight"><pre>sudo dd <span class="k">if</span><span class="o">=</span>u-boot-sunxi-with-spl.bin <span class="nv">of</span><span class="o">=</span>/dev/mmcblk0 <span class="nv">bs</span><span class="o">=</span><span class="m">1024</span> <span class="nv">seek</span><span class="o">=</span>8
 </pre></div>
 </div>
 </div>
@@ -666,10 +699,10 @@ sudo umount /mnt
 <p>在执行完该步骤之后，参照 <a class="reference internal" href="#debian">Debian 构建</a> 的步骤，在相应位置添加 BSP 及内核模块文件。</p>
 </div>
 </div>
-<div class="section" id="id16">
-<h2>更多说明<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id17">
-<h3>Linux 系统<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id19">
+<h2>更多说明<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id20">
+<h3>Linux 系统<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
 <p>为了方便快速的在 LOFT-Q 上使用 GNU/Linux 系统，我们为 LOFT-Q 提供了预编译了内核，启动配置文件的 Linux 系统压缩包，列表如下：</p>
 <ul class="simple">
 <li>Debian sid 版本： <a class="reference external" href="http://mixtile.com/downloads/loft-q/loftq-debian-sid-20150312.tar.bz2">http://mixtile.com/downloads/loft-q/loftq-debian-sid-20150312.tar.bz2</a></li>
@@ -701,7 +734,7 @@ sudo umount /mnt
     </p>
     <p>
         &copy; Copyright 2015, Mixtile Project.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

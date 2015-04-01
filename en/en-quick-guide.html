@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
@@ -36,7 +36,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-inverse navbar-default ">
     <div class="container">
@@ -92,9 +92,14 @@
 <li><a class="reference internal" href="#manually-building">Manually building</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#linux-kernel-building">Linux Kernel Building</a><ul>
+<li><a class="reference internal" href="#legacy-linux-kernel-building">Legacy Linux Kernel Building</a><ul>
 <li><a class="reference internal" href="#id1">Predefined building</a></li>
 <li><a class="reference internal" href="#id2">Manually building</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mainline-linux-kernel-building">Mainline Linux kernel building</a><ul>
+<li><a class="reference internal" href="#get-mainline-kernel">Get Mainline kernel</a></li>
+<li><a class="reference internal" href="#build-mainline-kernel">Build Mainline kernel</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#buildroot-building">Buildroot building</a><ul>
@@ -252,12 +257,12 @@ git clone https://github.com/mixtile/loftq-uboot-next
 <span class="nb">export </span><span class="nv">SUNXI_TOOLS_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-build
 <span class="nb">export </span><span class="nv">SUNXI_LINUX_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-linux
 <span class="nb">export </span><span class="nv">SUNXI_UBOOT_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-uboot
-<span class="nb">export </span><span class="nv">SUNXI_TOOLCHAIN_PATH</span><span class="o">=</span><span class="k">${</span><span class="nv">SUNXI_TOOLS_PATH</span><span class="k">}</span>/toolschain/gcc-linaro/bin/
+<span class="nb">export </span><span class="nv">SUNXI_TOOLCHAIN_PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">SUNXI_TOOLS_PATH</span><span class="si">}</span>/toolschain/gcc-linaro/bin/
 
 <span class="c"># envs for android</span>
 <span class="nb">export </span><span class="nv">ANDROID_TRUNK</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/android
 <span class="nb">export </span><span class="nv">ANDROID_DEVICE</span><span class="o">=</span>loftq
-<span class="nb">export </span><span class="nv">ANDROID_DEVICE_TRUNK</span><span class="o">=</span><span class="k">${</span><span class="nv">ANDROID_TRUNK</span><span class="k">}</span>/device/mixtile/<span class="k">${</span><span class="nv">ANDROID_DEVICE</span><span class="k">}</span>
+<span class="nb">export </span><span class="nv">ANDROID_DEVICE_TRUNK</span><span class="o">=</span><span class="si">${</span><span class="nv">ANDROID_TRUNK</span><span class="si">}</span>/device/mixtile/<span class="si">${</span><span class="nv">ANDROID_DEVICE</span><span class="si">}</span>
 
 <span class="c"># envs for ubuntu touch</span>
 <span class="c"># only used if we have android base sdk released by ubuntu touch team</span>
@@ -266,15 +271,15 @@ git clone https://github.com/mixtile/loftq-uboot-next
 <span class="nb">export </span><span class="nv">UBUNTU_TARBALL</span><span class="o">=</span><span class="nv">$UBUNTU_OUTPUT</span>/vivid-preinstalled-touch-armhf.tar.gz
 
 <span class="c"># commom env</span>
-<span class="nb">export </span><span class="nv">ANDROID_OUT</span><span class="o">=</span><span class="k">${</span><span class="nv">ANDROID_TRUNK</span><span class="k">}</span>/out
-<span class="nb">export </span><span class="nv">ANDROID_DEVICE_OUT</span><span class="o">=</span><span class="k">${</span><span class="nv">ANDROID_OUT</span><span class="k">}</span>/target/product/<span class="k">${</span><span class="nv">ANDROID_DEVICE</span><span class="k">}</span>
+<span class="nb">export </span><span class="nv">ANDROID_OUT</span><span class="o">=</span><span class="si">${</span><span class="nv">ANDROID_TRUNK</span><span class="si">}</span>/out
+<span class="nb">export </span><span class="nv">ANDROID_DEVICE_OUT</span><span class="o">=</span><span class="si">${</span><span class="nv">ANDROID_OUT</span><span class="si">}</span>/target/product/<span class="si">${</span><span class="nv">ANDROID_DEVICE</span><span class="si">}</span>
 
 <span class="nb">export </span><span class="nv">LINARO_GCC_PATH</span><span class="o">=</span><span class="nv">$SUNXI_TOOLCHAIN_PATH</span>
 <span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$LINARO_GCC_PATH</span>
 </pre></div>
 </div>
 <p>And developers can also add their own compiling instructions, sample as <em>linux_build_uboot</em> :</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="k">function </span>linux_build_uboot<span class="o">()</span>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">function</span> linux_build_uboot<span class="o">()</span>
 <span class="o">{</span>
     <span class="nv">CURDIR</span><span class="o">=</span><span class="nv">$PWD</span>
 
@@ -317,8 +322,12 @@ make -j4
 </div>
 </div>
 </div>
-<div class="section" id="linux-kernel-building">
-<h2>Linux Kernel Building<a class="headerlink" href="#linux-kernel-building" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="legacy-linux-kernel-building">
+<h2>Legacy Linux Kernel Building<a class="headerlink" href="#legacy-linux-kernel-building" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">As for the Legacy linux kernel, we advice it to be used only for Android system.</p>
+</div>
 <p>Now the kernel we use is based on the cuszomized version by Allwinner for A31 soc, whihc is linux 3.3 . this version contains the drivers and configurations for both android and common linux releases, and we can compile kernel for both GNU/Linux and Android.</p>
 <div class="section" id="id1">
 <h3>Predefined building<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
@@ -365,6 +374,30 @@ make distclean
 </ul>
 </div>
 </div>
+<div class="section" id="mainline-linux-kernel-building">
+<h2>Mainline Linux kernel building<a class="headerlink" href="#mainline-linux-kernel-building" title="Permalink to this headline">¶</a></h2>
+<p>Now, the mainline linux kernel has partly supported A31 soc with the help of sunxi community and volunteers all around the world. If we are using the GNU/Linux system, we can use the mainline kernel with latest features.</p>
+<div class="section" id="get-mainline-kernel">
+<h3>Get Mainline kernel<a class="headerlink" href="#get-mainline-kernel" title="Permalink to this headline">¶</a></h3>
+<p>LOFT-Q now has forked the mainline upstream kernel and add some customizations upon it. you can fork it from the github of Mixtile project.</p>
+<div class="highlight-sh"><div class="highlight"><pre>git clone https://github.com/mixtile/linux.git -b loftq-dev
+</pre></div>
+</div>
+<p><strong>Note：</strong> the <cite>master</cite> branch is the referring upstream branch, and <cite>loftq-dev</cite> is the customized branch.</p>
+</div>
+<div class="section" id="build-mainline-kernel">
+<h3>Build Mainline kernel<a class="headerlink" href="#build-mainline-kernel" title="Permalink to this headline">¶</a></h3>
+<p>After getting the code, we should follow commands below to build it.</p>
+<div class="highlight-sh"><div class="highlight"><pre>cp arch/arm/configs/mixtile_loftq_defconfig .config
+
+make <span class="nv">ARCH</span><span class="o">=</span>arm <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnueabi-
+
+make <span class="nv">INSTALL_MOD_PATH</span><span class="o">=</span>output <span class="nv">ARCH</span><span class="o">=</span>arm <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnueabi- modules_install
+</pre></div>
+</div>
+<p>When building completed, we can add the kernel images, dts and referring modules to referring paths of GNU/Linux rootfs to make it bootable.</p>
+</div>
+</div>
 <div class="section" id="buildroot-building">
 <h2>Buildroot building<a class="headerlink" href="#buildroot-building" title="Permalink to this headline">¶</a></h2>
 <p>Buildroot is a simple, efficient and easy-to-use tool to generate embedded Linux systems through cross-compilation.</p>
@@ -402,11 +435,11 @@ Generating linux out directory!
 Copiing uboot!
 Copying linux kernel and modules!
 Packing final image!
-Start packing <span class="k">for </span>Lichee system
+Start packing <span class="k">for</span> Lichee system
 
 All valid chips:
 0. sun6i
-Please <span class="k">select </span>a chip:
+Please <span class="k">select</span> a chip:
 </pre></div>
 </div>
 <p>then enter <strong>0</strong> for choosing <strong>sun6i</strong>, the next session for os :</p>
@@ -414,7 +447,7 @@ Please <span class="k">select </span>a chip:
 0. android
 1. dragonboard
 2. linux
-Please <span class="k">select </span>a platform:
+Please <span class="k">select</span> a platform:
 </pre></div>
 </div>
 <p>Now, we use linux, so enter <strong>2</strong> for <strong>linux</strong>, and then:</p>
@@ -425,7 +458,7 @@ Please <span class="k">select </span>a platform:
 3. loftq
 4. loftq_suse
 5. qc
-Please <span class="k">select </span>a board:
+Please <span class="k">select</span> a board:
 </pre></div>
 </div>
 <p>we use <strong>loftq</strong>, so enter <strong>3</strong>, maybe the options list will vary with time. so choose the specified option according to your request. and then it will continue packing according to your selections, screen info as below:</p>
@@ -438,7 +471,7 @@ find magic !!
 CPlugin Free lib
 CPlugin Free lib
 get rootfs from ../../../out/linux
-compute signature <span class="k">for </span>datafile /home/nano/mixtile/loftq/loftq-build/pack/out/boot.fex
+compute signature <span class="k">for</span> datafile /home/nano/mixtile/loftq/loftq-build/pack/out/boot.fex
 /home/nano/mixtile/loftq/loftq-build/pack/pctools/linux/eDragonEx/
 /home/nano/mixtile/loftq/loftq-build/pack/out
 Begin Parse sys_partion.fex
@@ -449,7 +482,7 @@ FilePath: bootloader.fex
 Add partion env.fex ENV_FEX000000000
 Add partion very env.fex ENV_FEX000000000
 FilePath: env.fex
-<span class="nv">FileLength</span><span class="o">=</span>20000 <span class="nv">FileSizeHigh</span><span class="o">=</span>0
+<span class="nv">FileLength</span><span class="o">=</span><span class="m">20000</span> <span class="nv">FileSizeHigh</span><span class="o">=</span>0
 Add partion boot.fex BOOT_FEX00000000
 Add partion very boot.fex BOOT_FEX00000000
 FilePath: boot.fex
@@ -457,7 +490,7 @@ FilePath: boot.fex
 Add partion rootfs.fex ROOTFS_FEX000000
 Add partion very rootfs.fex ROOTFS_FEX000000
 FilePath: rootfs.fex
-<span class="nv">FileLength</span><span class="o">=</span>8327800 <span class="nv">FileSizeHigh</span><span class="o">=</span>0
+<span class="nv">FileLength</span><span class="o">=</span><span class="m">8327800</span> <span class="nv">FileSizeHigh</span><span class="o">=</span>0
 BuildImg 0
 Dragon execute image.cfg SUCCESS !
 ---------image is at-------------
@@ -570,7 +603,7 @@ make <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnue
 </div>
 <div class="section" id="build-linux-kernel-and-its-modules">
 <h3>Build Linux kernel and its modules<a class="headerlink" href="#build-linux-kernel-and-its-modules" title="Permalink to this headline">¶</a></h3>
-<p>we have introduced the kernel building process, please refer to <a class="reference internal" href="#linux-kernel-building">Linux Kernel Building</a> .</p>
+<p>we have introduced the kernel building process, please refer to <a href="#id3"><span class="problematic" id="id4">`Linux Kernel Building`_</span></a> .</p>
 </div>
 <div class="section" id="partion-sd-card">
 <h3>Partion SD card<a class="headerlink" href="#partion-sd-card" title="Permalink to this headline">¶</a></h3>
@@ -630,9 +663,9 @@ make <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnue
 </div>
 </li>
 <li><p class="first">process partioning.</p>
-<div class="highlight-sh"><div class="highlight"><pre>Command <span class="o">(</span>m <span class="k">for </span><span class="nb">help</span><span class="o">)</span>: n                                 <span class="c"># Type n</span>
+<div class="highlight-sh"><div class="highlight"><pre>Command <span class="o">(</span>m <span class="k">for</span> <span class="nb">help</span><span class="o">)</span>: n                                 <span class="c"># Type n</span>
 Partition <span class="nb">type</span>:
-   p   primary <span class="o">(</span>0 primary, 0 extended, 4 free<span class="o">)</span>
+   p   primary <span class="o">(</span><span class="m">0</span> primary, <span class="m">0</span> extended, <span class="m">4</span> free<span class="o">)</span>
    e   extended
 Select <span class="o">(</span>default p<span class="o">)</span>:                                     <span class="c"># Press Enter Key</span>
 Using default response p
@@ -642,7 +675,7 @@ First sector <span class="o">(</span>2048-15523839, default 2048<span class="o">
 Using default value 2048
 Last sector, +sectors or +size<span class="o">{</span>K,M,G<span class="o">}</span> <span class="o">(</span>2048-15523839, default 15523839<span class="o">)</span>:      <span class="c"># Press Enter Key</span>
 
-Command <span class="o">(</span>m <span class="k">for </span><span class="nb">help</span><span class="o">)</span>: w                                   <span class="c"># Enter w and press Enter</span>
+Command <span class="o">(</span>m <span class="k">for</span> <span class="nb">help</span><span class="o">)</span>: w                                   <span class="c"># Enter w and press Enter</span>
 
 The partition table has been altered!
 </pre></div>
@@ -658,7 +691,7 @@ The partition table has been altered!
 <div class="section" id="burn-uboot-to-sd-emmc">
 <h3>Burn Uboot to SD/Emmc<a class="headerlink" href="#burn-uboot-to-sd-emmc" title="Permalink to this headline">¶</a></h3>
 <p>After partitions prepared, we can burn <strong>u-boot-sunxi-with-spl.bin</strong> to SD card.</p>
-<div class="highlight-sh"><div class="highlight"><pre>sudo dd <span class="k">if</span><span class="o">=</span>u-boot-sunxi-with-spl.bin <span class="nv">of</span><span class="o">=</span>/dev/mmcblk0 <span class="nv">bs</span><span class="o">=</span>1024 <span class="nv">seek</span><span class="o">=</span>8
+<div class="highlight-sh"><div class="highlight"><pre>sudo dd <span class="k">if</span><span class="o">=</span>u-boot-sunxi-with-spl.bin <span class="nv">of</span><span class="o">=</span>/dev/mmcblk0 <span class="nv">bs</span><span class="o">=</span><span class="m">1024</span> <span class="nv">seek</span><span class="o">=</span>8
 </pre></div>
 </div>
 </div>
@@ -782,7 +815,7 @@ android_pack
     </p>
     <p>
         &copy; Copyright 2015, Mixtile Project.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

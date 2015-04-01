@@ -171,8 +171,12 @@ Manually building is just the seperate instructions of predefined instruction. C
   make sun6i_config
   make -j4
 
-Linux Kernel Building
+Legacy Linux Kernel Building
 --------------------------------
+
+.. note:: 
+  
+  As for the Legacy linux kernel, we advice it to be used only for Android system.
 
 Now the kernel we use is based on the cuszomized version by Allwinner for A31 soc, whihc is linux 3.3 . this version contains the drivers and configurations for both android and common linux releases, and we can compile kernel for both GNU/Linux and Android.
 
@@ -225,6 +229,38 @@ Manually building for kernel will be a little complex, which needs external tool
     make distclean
     ./build.sh -p sun6i_fiber
 
+Mainline Linux kernel building
+----------------------------------
+
+Now, the mainline linux kernel has partly supported A31 soc with the help of sunxi community and volunteers all around the world. If we are using the GNU/Linux system, we can use the mainline kernel with latest features.
+
+
+Get Mainline kernel
+''''''''''''''''''''''''''
+
+LOFT-Q now has forked the mainline upstream kernel and add some customizations upon it. you can fork it from the github of Mixtile project.
+
+.. code-block:: sh
+
+  git clone https://github.com/mixtile/linux.git -b loftq-dev
+
+**Note：** the `master` branch is the referring upstream branch, and `loftq-dev` is the customized branch.
+
+
+Build Mainline kernel
+''''''''''''''''''''''''''
+
+After getting the code, we should follow commands below to build it.
+
+.. code-block:: sh
+
+  cp arch/arm/configs/mixtile_loftq_defconfig .config
+
+  make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi-
+
+  make INSTALL_MOD_PATH=output ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- modules_install
+
+When building completed, we can add the kernel images, dts and referring modules to referring paths of GNU/Linux rootfs to make it bootable.
 
 Buildroot building
 ---------------------------
