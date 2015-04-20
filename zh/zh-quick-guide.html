@@ -118,13 +118,20 @@
 <li><a class="reference internal" href="#id17">文件准备</a></li>
 <li><a class="reference internal" href="#debian-rootfs">获取 Debian rootfs</a></li>
 <li><a class="reference internal" href="#script-bin">script.bin 生成</a></li>
-<li><a class="reference internal" href="#boot-scr">boot.scr 生成</a></li>
+<li><a class="reference internal" href="#boot-scr">boot.scr 生成</a><ul>
+<li><a class="reference internal" href="#boot-cmd">boot.cmd 规则说明</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#loftq-uboot-next">下载并构建 loftq-uboot-next</a></li>
 <li><a class="reference internal" href="#id18">linux 内核及模块构建</a></li>
 <li><a class="reference internal" href="#sd">SD 卡分区</a></li>
 <li><a class="reference internal" href="#sd-u-boot">SD 卡写入 U-Boot</a></li>
 <li><a class="reference internal" href="#rootfs-sd-ext4">拷贝 rootfs 到 SD 卡的 ext4 分区</a></li>
-<li><a class="reference internal" href="#bsp-ext4">拷贝 BSP 文件到 ext4 分区</a></li>
+<li><a class="reference internal" href="#bsp-ext4">拷贝 BSP 文件到 ext4 分区</a><ul>
+<li><a class="reference internal" href="#bsp">主流内核 BSP 文件拷贝</a></li>
+<li><a class="reference internal" href="#id19">旧版内核 BSP 文件拷贝</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#ubuntu">Ubuntu 构建</a></li>
@@ -132,8 +139,8 @@
 <li><a class="reference internal" href="#jeos-rootfs">JeOS rootfs 下载</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id19">更多说明</a><ul>
-<li><a class="reference internal" href="#id20">Linux 系统</a></li>
+<li><a class="reference internal" href="#id20">更多说明</a><ul>
+<li><a class="reference internal" href="#id21">Linux 系统</a></li>
 </ul>
 </li>
 </ul>
@@ -397,7 +404,13 @@ make <span class="nv">ARCH</span><span class="o">=</span>arm <span class="nv">CR
 make <span class="nv">INSTALL_MOD_PATH</span><span class="o">=</span>output <span class="nv">ARCH</span><span class="o">=</span>arm <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnueabi- modules_install
 </pre></div>
 </div>
-<p>在编译完成主流代码之后，我们可以将生成的内核，dts文件，以及内核模块添加到 GNU/Linux 系统 rootfs 的制定路径，需要根据自己的需要配置相应的 GNU/Linux 系统，如 Debian, OpenSUSE 等。</p>
+<p>在主流内核代码构建完成之后将会生成如下我们所需要的文件和目录：</p>
+<ul class="simple">
+<li><cite>arch/arm/boot/zImage</cite>，主流内核文件 。</li>
+<li><cite>arch/arm/boot/dts/sun6i-a31-mixtile-loftq.dtb</cite>，主流内核所需的 dts 配置文件。</li>
+<li><cite>output/lib/modules</cite>，主流内核对应的内核模块。</li>
+</ul>
+<p>对于上述生成的内核，dts文件，以及内核模块，我们需要将它们分别添加到 GNU/Linux 系统 rootfs 指定路径，对于不同的系统可能会有所不同，当然也可以根据自己的需要进行配置。</p>
 </div>
 </div>
 <div class="section" id="buildroot">
@@ -490,10 +503,18 @@ android_pack
 <p>Debian 衍生出了很多 GNU/Linux 系统，目前 LOFT-Q 上也可以运行这一系统，只要做一些基本的配置就可以实现让 Debian 在 LOFT-Q 上运行。</p>
 <div class="section" id="id17">
 <h3>文件准备<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
-<p>对于 Debian 的构建，我们需要准备如下文件：</p>
+<p>对于 Debian 的构建，根据我们所使用的内核不同，需要不同的准备文件。</p>
+<p>全志内核依赖配置文件：</p>
 <ul class="simple">
 <li>script.bin: 全志平台专用的配置文件，用于内核和uboot的配置，由 sys_config.fex 生成。</li>
-<li>boot.scr: UBoot 可加载执行文件，主要包含 UBoot 启动内核之前所需要执行的一系列指令和配置，由 boot.cmd 生成。</li>
+</ul>
+<p>主流内核依赖配置文件：</p>
+<ul class="simple">
+<li>sun6i-a31-mixtile-loftq.dtb: 主流内核启动所需要的 dts 配置文件，在内核构建时会自动生成该文件。</li>
+</ul>
+<p>其他两者都需要的文件：</p>
+<ul class="simple">
+<li>boot.scr: UBoot 可加载执行文件，主要包含 UBoot 启动内核之前所需要执行的一系列指令和配置，由 boot.cmd 生成，对于全志内核和主流内核，两者会有很大不同。</li>
 <li>u-boot-sunxi-with-spl.bin: 基于 linux-sunxi 社区提供的 mainline uboot 定制的用于 LOFT-Q 的 UBoot 代码，该版本基于 <a class="reference external" href="http://git.denx.de/?p=u-boot/u-boot-sunxi.git;a=summary">u-boot-sunxi</a> 的 <strong>next</strong> 分支。</li>
 <li>uImage 及内核模块: LOFT-Q 的 linux 内核及模块文件。</li>
 <li>rootfs 压缩包: ARM 平台的系统 rootfs 所需要的根文件系统压缩包，包含一系列 GNU/Linux 系统用的基础系统和配置。</li>
@@ -509,7 +530,7 @@ android_pack
 </div>
 <p>指令的执行可能需要比较长的时间。</p>
 </li>
-<li><p class="first">添加 debian 源，在 /chroots/sid-armhf/etc/apt/sources.list 中添加如下内容：</p>
+<li><p class="first">添加 debian 源，在 <strong>/chroots/sid-armhf/etc/apt/sources.list</strong> 中添加如下内容：</p>
 <div class="highlight-sh"><div class="highlight"><pre>deb http://ftp.debian.org/debian sid main
 deb-src http://ftp.debian.org/debian sid main
 </pre></div>
@@ -521,7 +542,7 @@ deb-src http://ftp.debian.org/debian sid main
 <h3>script.bin 生成<a class="headerlink" href="#script-bin" title="Permalink to this headline">¶</a></h3>
 <p>script.bin 是全志平台所用到的UBoot和内核配置文件，您可以在如下地址获取到最新的文件：</p>
 <ul class="simple">
-<li>script.bin 获取地址：<a class="reference external" href="https://github.com/mixtile/loftq-build/tree/master/bsp/binary/boot">https://github.com/mixtile/loftq-build/tree/master/bsp/binary/boot</a></li>
+<li>script.bin 获取地址：<a class="reference external" href="https://github.com/mixtile/loftq-build/tree/master/bsp-legacy/binary/boot">https://github.com/mixtile/loftq-build/tree/master/bsp-legacy/binary/boot</a></li>
 </ul>
 <p>或者可以使用下述指令来生成 script.bin 文件。</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="nb">cd </span>loftq-build/bsp/configs
@@ -533,11 +554,60 @@ deb-src http://ftp.debian.org/debian sid main
 </div>
 <div class="section" id="boot-scr">
 <h3>boot.scr 生成<a class="headerlink" href="#boot-scr" title="Permalink to this headline">¶</a></h3>
-<p>boot.scr 是 UBoot 可以加载和执行的指令文件，主要用于执行加载内核以及执行内核之前的一些配置。当然，该文件也可以直接使用已生成的文件，如果根据自己的需要进行定制，在定制完成之后可以使用如下命令，生成该文件。</p>
+<p>boot.scr 是 UBoot 可以加载和执行的指令文件，主要用于执行加载内核以及执行内核之前的一些配置。当然，该文件也可以直接使用已生成的文件。</p>
+<p>如果根据自己的需要进行定制，具体的定制方法可以参考 <a class="reference internal" href="#boot-cmd">boot.cmd 规则说明</a> 在定制完成之后可以使用如下命令：</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="nb">cd </span>loftq-build/bsp/configs
 
 mkimage -C none -A arm -T script -d boot_single.cmd boot.scr
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>对于全志旧版内核，boot.scr 配置位于： <strong>loftq-build/bsp-legacy/configs/configs/boot_single.cmd</strong></li>
+<li>对于主流内核，boot.scr 配置位于： <strong>loftq-build/bsp/configs/boot_single.cmd</strong></li>
+</ul>
+</div>
+<div class="section" id="boot-cmd">
+<h4>boot.cmd 规则说明<a class="headerlink" href="#boot-cmd" title="Permalink to this headline">¶</a></h4>
+<p>boot.cmd 是用于生 boot.scr，即 uboot 可执行文件的源文件，我们以上述主流内核所用的 boot_single.cmd 文件为例，其内容如下：</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">bootdelay</span><span class="o">=</span>3
+<span class="nv">console</span><span class="o">=</span>ttyS0,115200
+<span class="nv">mmc_root</span><span class="o">=</span>/dev/mmcblk0p1
+<span class="nv">init</span><span class="o">=</span>/sbin/init
+<span class="nv">loglevel</span><span class="o">=</span>8
+
+setenv bootargs noinitrd <span class="nv">console</span><span class="o">=</span><span class="si">${</span><span class="nv">console</span><span class="si">}</span> <span class="nv">console</span><span class="o">=</span>tty0 <span class="nv">init</span><span class="o">=</span><span class="si">${</span><span class="nv">init</span><span class="si">}</span> <span class="nv">loglevel</span><span class="o">=</span><span class="si">${</span><span class="nv">loglevel</span><span class="si">}</span> <span class="nv">vmalloc</span><span class="o">=</span><span class="si">${</span><span class="nv">vmalloc</span><span class="si">}</span> <span class="nv">partitions</span><span class="o">=</span><span class="si">${</span><span class="nv">partitions</span><span class="si">}</span> <span class="nv">root</span><span class="o">=</span><span class="si">${</span><span class="nv">mmc_root</span><span class="si">}</span> rootwait rw <span class="nv">rootfstype</span><span class="o">=</span>ext4 <span class="nv">panic</span><span class="o">=</span><span class="m">10</span> <span class="nv">consoleblank</span><span class="o">=</span><span class="m">0</span> <span class="si">${</span><span class="nv">extra</span><span class="si">}</span>
+
+ext4load mmc <span class="m">0</span> 0x46000000 boot/mainline/zImage
+ext4load mmc <span class="m">0</span> 0x48000000 boot/mainline/sun6i-a31-mixtile-loftq.dtb
+bootz 0x46000000 - 0x48000000
+</pre></div>
+</div>
+<p>其中关键的内容如下：</p>
+<ul class="simple">
+<li><strong>bootdelay=3</strong>，指定 uboot 在启动后，在正式加载内核启动前，有3秒中的倒计时，用于用户可能选择的操作，比如进入 uboot，类似于 PC 启动时进入 BIOS 时的选择。</li>
+<li><strong>console=ttyS0,115200</strong>，指定开机后控制台登入端口和参数，这里指定开机后将 <strong>ttyS0</strong> 指定为控制台入口，并且其符号率设置为 <strong>115200</strong> 。</li>
+<li><strong>mmc_root</strong>，指定系统引导的 rootfs 所在的分区。</li>
+<li><strong>init=/sbin/init</strong>，指定系统初始化文件。</li>
+<li><strong>loglevel=8</strong>，指定系统日志等级。</li>
+<li><strong>setenv bootargs ...</strong>，这部分用于正式的将我们前几项设为 uboot 的环境变量。</li>
+<li><strong>ext4load mmc 0 0x46000000 boot/mainline/zImage</strong>，加载内核到指定的内存地址，为了统一放置主流内核固件文件，我们将内核放置在根分区的 <strong>/boot/mainline/</strong> 目录下，用户可以自行修改，通常放置在 <cite>/boot</cite>。</li>
+<li><strong>ext4load mmc 0 0x48000000 boot/mainline/sun6i-a31-mixtile-loftq.dtb</strong>，加载 dts 文件到指定的内存地址，dts 二进制文件的位置与 <strong>zImage</strong> 相同，尽量放在相同的位置。</li>
+<li><strong>bootz 0x46000000 - 0x48000000</strong>，系统引导指令，从指定位置运行内核，并传递 dts 配置文件地址到内核。</li>
+</ul>
+<p>对于旧版的内核，我们的配置文件会有所不同，主要不同部分内容如下：</p>
+<div class="highlight-sh"><div class="highlight"><pre>ext4load mmc <span class="m">0</span> 0x43000000 boot/script.bin
+ext4load mmc <span class="m">0</span> 0x48000000 boot/uImage
+bootm 0x48000000
+</pre></div>
+</div>
+<p>不同部分说明：</p>
+<ul class="simple">
+<li><strong>ext4load mmc 0 0x43000000 boot/script.bin</strong>，这里我们加载的是全志的内核配置文件，script.bin。</li>
+<li><strong>ext4load mmc 0 0x48000000 boot/uImage</strong>，我们使用了 uImage 而非 zImage，两者的主要差异可以查看 <a class="reference external" href="http://stackoverflow.com/questions/22322304/image-vs-zimage-vs-uimage">http://stackoverflow.com/questions/22322304/image-vs-zimage-vs-uimage</a> 。</li>
+<li><strong>bootm 0x48000000</strong>，在此我们仅需要知名 kernel 的内存位置，旧版内核会默认加载相应位置的 script.bin 配置。</li>
+</ul>
 </div>
 </div>
 <div class="section" id="loftq-uboot-next">
@@ -605,7 +675,7 @@ make <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnue
 </tr>
 </tbody>
 </table>
-<p>对于 SD/emmc 的分区，我们需要进行如下的设置。我们假定所使用的 sd 卡设备为 <cite>/dev/mmcblk0</cite> 。</p>
+<p>对于 SD/emmc 的分区，我们需要进行如下的设置。我们假定所使用的 sd 卡设备为 <strong>/dev/mmcblk0</strong> 。</p>
 <ul>
 <li><p class="first">清除原有分区信息，请在执行该动作之前，保存SD卡中原有重要数据。</p>
 <div class="highlight-sh"><div class="highlight"><pre>sudo dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>/dev/mmcblk0 <span class="nv">bs</span><span class="o">=</span>1M <span class="nv">count</span><span class="o">=</span>1
@@ -660,20 +730,44 @@ sudo cp -r /chroot/sid-armhf/* /mnt
 </div>
 <div class="section" id="bsp-ext4">
 <h3>拷贝 BSP 文件到 ext4 分区<a class="headerlink" href="#bsp-ext4" title="Permalink to this headline">¶</a></h3>
+<p>在完成 rootfs 的拷贝之后，我们需要将 BSP 相关文件拷贝到指定的位置。</p>
+<div class="section" id="bsp">
+<h4>主流内核 BSP 文件拷贝<a class="headerlink" href="#bsp" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><strong>boot.scr</strong> 文件拷贝到 <strong>/mnt/boot/</strong> 。</li>
+<li><strong>linux/arch/arm/boot/zImage</strong> 文件拷贝到 <strong>/mnt/boot/mainline/</strong> 。</li>
+<li><strong>linux/arch/arm/boot/dts/sun6i-a31-mixtile-loftq.dtb</strong> 文件拷贝到 <strong>/mnt/boot/mainline/</strong> 。</li>
+<li><strong>linux/output/lib/modules</strong> 目录拷贝到 <strong>/mnt/lib</strong> 。</li>
+</ul>
+<p>总体的参考命令如下：</p>
 <div class="highlight-sh"><div class="highlight"><pre>sudo cp boot.scr /mnt/boot
-
 sudo cp linux/arch/arm/boot/zImage /mnt/boot/mainline
-
 sudo cp linux/arch/arm/boot/dts/sun6i-a31-mixtile-loftq.dtb /mnt/boot/mainline
-
 sudo cp -r linux/output/lib/modules /mnt/lib
-
 sudo sync
-
+sudo umount /mnt
+</pre></div>
+</div>
+</div>
+<div class="section" id="id19">
+<h4>旧版内核 BSP 文件拷贝<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><strong>boot.scr</strong> 文件拷贝到 <strong>/mnt/boot/</strong> 。</li>
+<li><strong>linux/arch/arm/boot/uImage</strong> 文件拷贝到 <strong>/mnt/boot/</strong> 。</li>
+<li><strong>script.bin</strong> 文件拷贝到 <strong>/mnt/boot</strong> 。</li>
+<li><strong>linux/output/lib/modules</strong> 目录拷贝到 <strong>/mnt/lib</strong> 。</li>
+</ul>
+<p>总体的参考命令如下：</p>
+<div class="highlight-sh"><div class="highlight"><pre>sudo cp boot.scr /mnt/boot
+sudo cp loftq-linux/arch/arm/boot/uImage /mnt/boot
+sudo cp script.bin /mnt/boot
+sudo cp -r loftq-linux/output/lib/modules /mnt/lib
+sudo sync
 sudo umount /mnt
 </pre></div>
 </div>
 <p>在完成上述步骤之后，将 SD 卡接入 LOFT-Q SD卡座，连接电源，然后就可以进入 Debian 的世界。</p>
+</div>
 </div>
 </div>
 <div class="section" id="ubuntu">
@@ -700,10 +794,10 @@ sudo umount /mnt
 <p>在执行完该步骤之后，参照 <a class="reference internal" href="#debian">Debian 构建</a> 的步骤，在相应位置添加 BSP 及内核模块文件。</p>
 </div>
 </div>
-<div class="section" id="id19">
-<h2>更多说明<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id20">
-<h3>Linux 系统<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<h2>更多说明<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id21">
+<h3>Linux 系统<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
 <p>为了方便快速的在 LOFT-Q 上使用 GNU/Linux 系统，我们为 LOFT-Q 提供了预编译了内核，启动配置文件的 Linux 系统压缩包，列表如下：</p>
 <ul class="simple">
 <li>Debian sid 版本</li>

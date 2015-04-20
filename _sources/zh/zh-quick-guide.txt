@@ -272,7 +272,13 @@ Linux 主流内核构建
 
   make INSTALL_MOD_PATH=output ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- modules_install
 
-在编译完成主流代码之后，我们可以将生成的内核，dts文件，以及内核模块添加到 GNU/Linux 系统 rootfs 的制定路径，需要根据自己的需要配置相应的 GNU/Linux 系统，如 Debian, OpenSUSE 等。
+在主流内核代码构建完成之后将会生成如下我们所需要的文件和目录：
+
+* `arch/arm/boot/zImage`，主流内核文件 。
+* `arch/arm/boot/dts/sun6i-a31-mixtile-loftq.dtb`，主流内核所需的 dts 配置文件。
+* `output/lib/modules`，主流内核对应的内核模块。
+
+对于上述生成的内核，dts文件，以及内核模块，我们需要将它们分别添加到 GNU/Linux 系统 rootfs 指定路径，对于不同的系统可能会有所不同，当然也可以根据自己的需要进行配置。
 
 Buildroot 构建
 ---------------
@@ -386,10 +392,19 @@ Debian 衍生出了很多 GNU/Linux 系统，目前 LOFT-Q 上也可以运行这
 文件准备
 ''''''''''''''''''''''''''
 
-对于 Debian 的构建，我们需要准备如下文件：
+对于 Debian 的构建，根据我们所使用的内核不同，需要不同的准备文件。
+
+全志内核依赖配置文件：
 
 * script.bin: 全志平台专用的配置文件，用于内核和uboot的配置，由 sys_config.fex 生成。
-* boot.scr: UBoot 可加载执行文件，主要包含 UBoot 启动内核之前所需要执行的一系列指令和配置，由 boot.cmd 生成。
+
+主流内核依赖配置文件：
+
+* sun6i-a31-mixtile-loftq.dtb: 主流内核启动所需要的 dts 配置文件，在内核构建时会自动生成该文件。
+
+其他两者都需要的文件：
+
+* boot.scr: UBoot 可加载执行文件，主要包含 UBoot 启动内核之前所需要执行的一系列指令和配置，由 boot.cmd 生成，对于全志内核和主流内核，两者会有很大不同。
 * u-boot-sunxi-with-spl.bin: 基于 linux-sunxi 社区提供的 mainline uboot 定制的用于 LOFT-Q 的 UBoot 代码，该版本基于 `u-boot-sunxi <http://git.denx.de/?p=u-boot/u-boot-sunxi.git;a=summary>`_ 的 **next** 分支。
 * uImage 及内核模块: LOFT-Q 的 linux 内核及模块文件。
 * rootfs 压缩包: ARM 平台的系统 rootfs 所需要的根文件系统压缩包，包含一系列 GNU/Linux 系统用的基础系统和配置。
@@ -408,7 +423,7 @@ Debian 的根文件系统可以使用如下方式获取，更多信息可以参�
    
   指令的执行可能需要比较长的时间。
    
-* 添加 debian 源，在 /chroots/sid-armhf/etc/apt/sources.list 中添加如下内容：
+* 添加 debian 源，在 **/chroots/sid-armhf/etc/apt/sources.list** 中添加如下内容：
 
   .. code-block:: sh   
       
@@ -421,7 +436,7 @@ script.bin 生成
 
 script.bin 是全志平台所用到的UBoot和内核配置文件，您可以在如下地址获取到最新的文件：
 
-* script.bin 获取地址：https://github.com/mixtile/loftq-build/tree/master/bsp/binary/boot
+* script.bin 获取地址：https://github.com/mixtile/loftq-build/tree/master/bsp-legacy/binary/boot
 
 或者可以使用下述指令来生成 script.bin 文件。
 
@@ -436,13 +451,67 @@ script.bin 是全志平台所用到的UBoot和内核配置文件，您可以在�
 boot.scr 生成
 ''''''''''''''''''''''''
 
-boot.scr 是 UBoot 可以加载和执行的指令文件，主要用于执行加载内核以及执行内核之前的一些配置。当然，该文件也可以直接使用已生成的文件，如果根据自己的需要进行定制，在定制完成之后可以使用如下命令，生成该文件。
+boot.scr 是 UBoot 可以加载和执行的指令文件，主要用于执行加载内核以及执行内核之前的一些配置。当然，该文件也可以直接使用已生成的文件。
+
+如果根据自己的需要进行定制，具体的定制方法可以参考 `boot.cmd 规则说明`_ 在定制完成之后可以使用如下命令：
 
 .. code-block:: sh   
 
    cd loftq-build/bsp/configs
 
    mkimage -C none -A arm -T script -d boot_single.cmd boot.scr
+
+.. note:: 
+   
+   * 对于全志旧版内核，boot.scr 配置位于： **loftq-build/bsp-legacy/configs/configs/boot_single.cmd**
+   * 对于主流内核，boot.scr 配置位于： **loftq-build/bsp/configs/boot_single.cmd**
+
+
+boot.cmd 规则说明
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+boot.cmd 是用于生 boot.scr，即 uboot 可执行文件的源文件，我们以上述主流内核所用的 boot_single.cmd 文件为例，其内容如下：
+
+.. code-block:: sh  
+
+   bootdelay=3
+   console=ttyS0,115200
+   mmc_root=/dev/mmcblk0p1
+   init=/sbin/init
+   loglevel=8
+
+   setenv bootargs noinitrd console=${console} console=tty0 init=${init} loglevel=${loglevel} vmalloc=${vmalloc} partitions=${partitions} root=${mmc_root} rootwait rw rootfstype=ext4 panic=10 consoleblank=0 ${extra}
+
+   ext4load mmc 0 0x46000000 boot/mainline/zImage
+   ext4load mmc 0 0x48000000 boot/mainline/sun6i-a31-mixtile-loftq.dtb
+   bootz 0x46000000 - 0x48000000
+
+
+其中关键的内容如下：
+
+* **bootdelay=3**，指定 uboot 在启动后，在正式加载内核启动前，有3秒中的倒计时，用于用户可能选择的操作，比如进入 uboot，类似于 PC 启动时进入 BIOS 时的选择。
+* **console=ttyS0,115200**，指定开机后控制台登入端口和参数，这里指定开机后将 **ttyS0** 指定为控制台入口，并且其符号率设置为 **115200** 。
+* **mmc_root**，指定系统引导的 rootfs 所在的分区。
+* **init=/sbin/init**，指定系统初始化文件。
+* **loglevel=8**，指定系统日志等级。
+* **setenv bootargs ...**，这部分用于正式的将我们前几项设为 uboot 的环境变量。
+* **ext4load mmc 0 0x46000000 boot/mainline/zImage**，加载内核到指定的内存地址，为了统一放置主流内核固件文件，我们将内核放置在根分区的 **/boot/mainline/** 目录下，用户可以自行修改，通常放置在 `/boot`。
+* **ext4load mmc 0 0x48000000 boot/mainline/sun6i-a31-mixtile-loftq.dtb**，加载 dts 文件到指定的内存地址，dts 二进制文件的位置与 **zImage** 相同，尽量放在相同的位置。
+* **bootz 0x46000000 - 0x48000000**，系统引导指令，从指定位置运行内核，并传递 dts 配置文件地址到内核。
+
+对于旧版的内核，我们的配置文件会有所不同，主要不同部分内容如下：
+
+.. code-block:: sh  
+
+   ext4load mmc 0 0x43000000 boot/script.bin
+   ext4load mmc 0 0x48000000 boot/uImage
+   bootm 0x48000000
+
+不同部分说明：
+
+* **ext4load mmc 0 0x43000000 boot/script.bin**，这里我们加载的是全志的内核配置文件，script.bin。
+* **ext4load mmc 0 0x48000000 boot/uImage**，我们使用了 uImage 而非 zImage，两者的主要差异可以查看 http://stackoverflow.com/questions/22322304/image-vs-zimage-vs-uimage 。
+* **bootm 0x48000000**，在此我们仅需要知名 kernel 的内存位置，旧版内核会默认加载相应位置的 script.bin 配置。
 
 下载并构建 loftq-uboot-next
 '''''''''''''''''''''''''''''
@@ -488,7 +557,7 @@ SD 卡分区
 ==========  =================  =====================
 
 
-对于 SD/emmc 的分区，我们需要进行如下的设置。我们假定所使用的 sd 卡设备为 `/dev/mmcblk0` 。
+对于 SD/emmc 的分区，我们需要进行如下的设置。我们假定所使用的 sd 卡设备为 **/dev/mmcblk0** 。
 
 * 清除原有分区信息，请在执行该动作之前，保存SD卡中原有重要数据。
 
@@ -549,18 +618,44 @@ SD 卡写入 U-Boot
 拷贝 BSP 文件到 ext4 分区
 '''''''''''''''''''''''''''''''
 
+在完成 rootfs 的拷贝之后，我们需要将 BSP 相关文件拷贝到指定的位置。
+
+主流内核 BSP 文件拷贝
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* **boot.scr** 文件拷贝到 **/mnt/boot/** 。
+* **linux/arch/arm/boot/zImage** 文件拷贝到 **/mnt/boot/mainline/** 。
+* **linux/arch/arm/boot/dts/sun6i-a31-mixtile-loftq.dtb** 文件拷贝到 **/mnt/boot/mainline/** 。
+* **linux/output/lib/modules** 目录拷贝到 **/mnt/lib** 。
+
+总体的参考命令如下：
+
 .. code-block:: sh
 
    sudo cp boot.scr /mnt/boot
-
    sudo cp linux/arch/arm/boot/zImage /mnt/boot/mainline
-
    sudo cp linux/arch/arm/boot/dts/sun6i-a31-mixtile-loftq.dtb /mnt/boot/mainline
-
    sudo cp -r linux/output/lib/modules /mnt/lib
-
    sudo sync
+   sudo umount /mnt
 
+旧版内核 BSP 文件拷贝
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* **boot.scr** 文件拷贝到 **/mnt/boot/** 。
+* **linux/arch/arm/boot/uImage** 文件拷贝到 **/mnt/boot/** 。
+* **script.bin** 文件拷贝到 **/mnt/boot** 。
+* **linux/output/lib/modules** 目录拷贝到 **/mnt/lib** 。
+
+总体的参考命令如下：
+
+.. code-block:: sh
+
+   sudo cp boot.scr /mnt/boot
+   sudo cp loftq-linux/arch/arm/boot/uImage /mnt/boot
+   sudo cp script.bin /mnt/boot
+   sudo cp -r loftq-linux/output/lib/modules /mnt/lib
+   sudo sync
    sudo umount /mnt
 
 在完成上述步骤之后，将 SD 卡接入 LOFT-Q SD卡座，连接电源，然后就可以进入 Debian 的世界。
