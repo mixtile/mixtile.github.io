@@ -61,6 +61,7 @@ LOFT-Q 外围器件
 * sound/soc/sun6i/
 
 字符设备相关驱动：
+
 * drivers/char/ar100_test/
 * drivers/char/dma_test
 * drivers/char/gpio_test/
@@ -92,11 +93,13 @@ gpu 相关驱动：
 * drivers/input/touchscreen/ft5x_ts.c
 
 多媒体驱动：
+
 * drivers/media/video/sun6i/ 全志 cedar 相关驱动
 * drivers/media/video/sunxi-vfe/ 全志 CSI1 v4l2 驱动
 * drivers/media/video/sunxi_csi 全志摄像头驱动
 
 其他驱动：
+
 * drivers/misc/sun6i-vibrator.c 
 * drivers/misc/sunxi-reg.c 用户寄存器访问驱动
 * drivers/misc/sunxi_hw_test.c
