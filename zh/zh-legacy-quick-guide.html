@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>LOFT-Q 旧版系统快速指南 &mdash; mixtile 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.2.0/paper/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="mixtile 0.1 documentation" href="../index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          Mixtile Project</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="http://focalcrest.com">Focalcrest</a></li>
+                <li><a href="http://mixtile.com">Mixtile</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">LOFT-Q 旧版系统快速指南</a><ul>
+<li><a class="reference internal" href="#id1">旧版环境准备</a><ul>
+<li><a class="reference internal" href="#loftq-build">关于 loftq-build</a></li>
+<li><a class="reference internal" href="#id2">更多说明</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#uboot">旧版 UBoot 构建</a><ul>
+<li><a class="reference internal" href="#id3">基于 LOFT-Q 环境编译</a></li>
+<li><a class="reference internal" href="#id4">手动定制编译</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#linux">旧版 Linux 内核构建</a><ul>
+<li><a class="reference internal" href="#id5">基于 LOFT-Q 环境的编译</a></li>
+<li><a class="reference internal" href="#id6">手动定制编译</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#buildroot">Buildroot 构建</a><ul>
+<li><a class="reference internal" href="#id7">获取源码</a></li>
+<li><a class="reference internal" href="#id8">编译构建</a></li>
+<li><a class="reference internal" href="#id9">镜像打包</a></li>
+<li><a class="reference internal" href="#id10">自我定制</a></li>
+<li><a class="reference internal" href="#id11">更多信息</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#android">Android 构建使用</a><ul>
+<li><a class="reference internal" href="#loft-q-android">基于 LOFT-Q 环境构建 Android</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="loft-q">
+<h1>LOFT-Q 旧版系统快速指南<a class="headerlink" href="#loft-q" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">组织:</th><td class="field-body">Mixtile Team</td>
+</tr>
+<tr class="field-even field"><th class="field-name">编写:</th><td class="field-body">Phil.Han &lt;<a class="reference external" href="mailto:phil&#46;han&#37;&#52;&#48;focalcrest&#46;com">phil<span>&#46;</span>han<span>&#64;</span>focalcrest<span>&#46;</span>com</a>&gt;</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">版本:</th><td class="field-body">0.1</td>
+</tr>
+<tr class="field-even field"><th class="field-name">日期:</th><td class="field-body">2015.01.23</td>
+</tr>
+</tbody>
+</table>
+<p>LOFT-Q 是 Mixtile 项目的第二代原型板，基于全志 A31 芯片，主要面向嵌入式开发人员，工程师，创客，以及极客，可以作为家庭影音中心，个人云存储设备，NAS，等。该指南主要用于向开发人员介绍如何快速的根据自己的需要搭建合适的开发环境，并基于 LOFT-Q 定制自己的应用。</p>
+<p>对于全志 A31 系列芯片，目前主流内核已经提供了很多的支持，但在无线网卡，显示系统，电源管理等方面仍存在功能缺失等问题，这也是旧版内核目前所优于主流内核的方面。为了和基于主流内核的系统构建方法进行区分，现在将旧版内核各个方面的资料，构建方法等从原本的快速指南中取出来单独组成新的资料。</p>
+<div class="section" id="id1">
+<h2>旧版环境准备<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>在进行正式的 LOFT-Q 使用之前，如果在板子中已经烧录了最新稳定的系统镜像，则可以直接使用。如果需要根据自己的需要对硬件进行重新配置，或者添加一些硬件接口，需要重新构建系统镜像，需要执行如下的准备工作。</p>
+<p>对于旧版系统，其主要可以用于支持和构建如下系统：</p>
+<ul class="simple">
+<li>buildroot</li>
+<li>Android</li>
+</ul>
+<p>我们需要准备的代码包括如下几个部分：</p>
+<ul class="simple">
+<li>构建工具： <a class="reference external" href="https://github.com/mixtile/loftq-build">https://github.com/mixtile/loftq-build</a></li>
+<li>旧版内核： <a class="reference external" href="https://github.com/mixtile/loftq-linux">https://github.com/mixtile/loftq-linux</a></li>
+<li>旧版uboot: <a class="reference external" href="https://github.com/mixtile/loftq-uboot">https://github.com/mixtile/loftq-uboot</a></li>
+<li>android: <a class="reference external" href="https://bitbucket.org/Mixtile/loftq-android">https://bitbucket.org/Mixtile/loftq-android</a></li>
+<li>buildroot: <a class="reference external" href="https://github.com/mixtile/buildroot">https://github.com/mixtile/buildroot</a></li>
+</ul>
+<p>对于上述的代码和工具，我们需要按如下的目录结构进行组织</p>
+<p>那么我们可以参照如下命令来搭建基本的构建环境：</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre>mkdir loftq
+<span class="nb">cd </span>loftq
+
+git clone https://github.com/mixtile/loftq-build.git
+git clone https://github.com/mixtile/loftq-uboot.git
+git clone https://github.com/mixtile/loftq-linux.git
+git clone https://github.com/mixtile/buildroot.git
+</pre></div>
+</div>
+</div></blockquote>
+<div class="section" id="loftq-build">
+<h3>关于 loftq-build<a class="headerlink" href="#loftq-build" title="Permalink to this headline">¶</a></h3>
+<p>loftq-build 主要用于旧版系统的构建和打包使用，包含用于完成 uboot， linux , android, 以及后续添加代码的构建指令, 以及 sunxi 的一部分打包相关工具。</p>
+<p>在执行具体的构建指令之前，我们需要执行如下指令，在当前的命令行环境下导入相关的构建指令：</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">source </span>loftq-build/sunxi_env.sh
+</pre></div>
+</div>
+<p>之后，我们可以执行后续的构建指令，下述是构建 linux 用的 uboot 的指令：</p>
+<div class="highlight-sh"><div class="highlight"><pre>linux_build_uboot
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>更多说明<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>sunxi_env.sh 类似于 android 的 lunch 配置文件。用于向当前终端中导入可用环境变量以及一些指令。</p>
+<p>sunxi_env.sh 的开头部分定义了 uboot, linux, 以及 buildroot, android 等的路径，用户可以根据自己的需要进行修改，所有的可配置环境变量如下：</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">export </span><span class="nv">BUILD_TRUNK</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>
+<span class="nb">export </span><span class="nv">BUILD_TRUNK_OUT</span><span class="o">=</span><span class="nv">$BUILD_TRUNK</span>/out
+
+<span class="c"># envs for sunxi tools</span>
+<span class="nb">export </span><span class="nv">SUNXI_TOOLS_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-build
+<span class="nb">export </span><span class="nv">SUNXI_LINUX_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-linux
+<span class="nb">export </span><span class="nv">SUNXI_UBOOT_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-uboot
+<span class="nb">export </span><span class="nv">SUNXI_TOOLCHAIN_PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">SUNXI_TOOLS_PATH</span><span class="si">}</span>/toolschain/gcc-linaro/bin/
+
+<span class="c"># envs for android</span>
+<span class="nb">export </span><span class="nv">ANDROID_TRUNK</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/android
+<span class="nb">export </span><span class="nv">ANDROID_DEVICE</span><span class="o">=</span>loftq
+<span class="nb">export </span><span class="nv">ANDROID_DEVICE_TRUNK</span><span class="o">=</span><span class="si">${</span><span class="nv">ANDROID_TRUNK</span><span class="si">}</span>/device/mixtile/<span class="si">${</span><span class="nv">ANDROID_DEVICE</span><span class="si">}</span>
+
+<span class="c"># envs for ubuntu touch</span>
+<span class="c"># only used if we have android base sdk released by ubuntu touch team</span>
+<span class="c"># Note: now we can build this image but can&#39;t burn it to disk with PhoenixTool</span>
+<span class="nb">export </span><span class="nv">UBUNTU_OUTPUT</span><span class="o">=</span><span class="nv">$BUILD_TRUNK_OUT</span>/ubuntu
+<span class="nb">export </span><span class="nv">UBUNTU_TARBALL</span><span class="o">=</span><span class="nv">$UBUNTU_OUTPUT</span>/vivid-preinstalled-touch-armhf.tar.gz
+
+<span class="c"># commom env</span>
+<span class="nb">export </span><span class="nv">ANDROID_OUT</span><span class="o">=</span><span class="si">${</span><span class="nv">ANDROID_TRUNK</span><span class="si">}</span>/out
+<span class="nb">export </span><span class="nv">ANDROID_DEVICE_OUT</span><span class="o">=</span><span class="si">${</span><span class="nv">ANDROID_OUT</span><span class="si">}</span>/target/product/<span class="si">${</span><span class="nv">ANDROID_DEVICE</span><span class="si">}</span>
+
+<span class="nb">export </span><span class="nv">LINARO_GCC_PATH</span><span class="o">=</span><span class="nv">$SUNXI_TOOLCHAIN_PATH</span>
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$LINARO_GCC_PATH</span>
+</pre></div>
+</div>
+<p>用户可以在其中添加自定义的指令，以 <em>linux_build_uboot</em> 为例：</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">function</span> linux_build_uboot<span class="o">()</span>
+<span class="o">{</span>
+    <span class="nv">CURDIR</span><span class="o">=</span><span class="nv">$PWD</span>
+
+    <span class="nb">cd</span> <span class="nv">$SUNXI_UBOOT_PATH</span>
+    make distclean
+    make sun6i_config
+    make -j4
+    <span class="nb">cd</span> <span class="nv">$CURDIR</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>可以参照上述格式进行添加。</p>
+</div>
+</div>
+<div class="section" id="uboot">
+<h2>旧版 UBoot 构建<a class="headerlink" href="#uboot" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>基于 LOFT-Q 环境编译<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>目前可以使用 loftq-build 中的工具实现对 uboot 的快速编译。</p>
+<p>对于构建适用于 Linux 和 Android 的构建指令分别如下：</p>
+<ul>
+<li><p class="first">构建适用于 Linux 的 Uboot.</p>
+<div class="highlight-sh"><div class="highlight"><pre>linux_build_uboot
+</pre></div>
+</div>
+</li>
+<li><p class="first">构建适用于 Android 的 Uboot.</p>
+<div class="highlight-sh"><div class="highlight"><pre>android_build_uboot
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h3>手动定制编译<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>目前使用的 Uboot 除了可以使用构建工具进行编译之外, 还可以在 Uboot 目录下进行编译，相应的指令如下：</p>
+<div class="highlight-sh"><div class="highlight"><pre>make distclean
+make sun6i_config
+make -j4
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="linux">
+<h2>旧版 Linux 内核构建<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">对于 Linux 旧版内核，建议仅用于 Android 系统。</p>
+</div>
+<p>对于全志的 linux 内核, 目前使用的是 linux 3.3 版本。目前这一版本的内核中统一了 linux 和 android 版本的内核。可以在同一份内核代码中完成对 Linux 和 android 内核的分开编译。</p>
+<div class="section" id="id5">
+<h3>基于 LOFT-Q 环境的编译<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>目前可以使用 loftq-build 中的工具实现对 linux 内核的快速编译。下述指令分别实现对标准 linux 内核和 android 定制内核的编译。</p>
+<ul>
+<li><p class="first">标准 linux 内核编译</p>
+<div class="highlight-sh"><div class="highlight"><pre>linux_build_kernel
+</pre></div>
+</div>
+</li>
+<li><p class="first">定制 android 内核编译</p>
+<div class="highlight-sh"><div class="highlight"><pre>android_build_kernel
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h3>手动定制编译<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>如果用户需要直接在 loftq-linux 中使用 linux 的 Makefile 进行内核的编译，需要完成如下工作。</p>
+<ul>
+<li><p class="first">导入 sunxi 的 linaro-gcc 编译工具链</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">export </span><span class="nv">SUNXI_TOOLS_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-build
+<span class="nb">export </span><span class="nv">SUNXI_TOOLCHAIN_PATH</span><span class="o">=</span><span class="nv">$SUNXI_TOOLS_PATH</span>/toolschain/gcc-linaro/bin/
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$SUNXI_TOOLCHAIN_PATH</span>
+</pre></div>
+</div>
+<p>对于上述的环境变量，需要根据自己的路径进行正确的配置。</p>
+</li>
+<li><p class="first">标准 linux 内核编译</p>
+<div class="highlight-sh"><div class="highlight"><pre>make distclean
+./build.sh -p sun6i
+</pre></div>
+</div>
+</li>
+<li><p class="first">定制 android 内核编译</p>
+<div class="highlight-sh"><div class="highlight"><pre>make distclean
+./build.sh -p sun6i_fiber
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="buildroot">
+<h2>Buildroot 构建<a class="headerlink" href="#buildroot" title="Permalink to this headline">¶</a></h2>
+<p>Buildroot 是非常易于使用，定制，和构建的一套编译工具系统，便于开发人员快速的构建基于 Linux 内核的嵌入式操作系统。</p>
+<div class="section" id="id7">
+<h3>获取源码<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>我们参照全志提供的较老的 buildroot 配置方法, 目前已经适配了最新的 buildroot 。目前开发人员可以从我们的 Github 项目代码库中下载最新的 buildroot 代码：</p>
+<div class="highlight-sh"><div class="highlight"><pre>git clone https://github.com/mixtile/buildroot.git
+</pre></div>
+</div>
+<p>我们会定期对 buildroot 进行更新以方便于使用最新的软件。</p>
+</div>
+<div class="section" id="id8">
+<h3>编译构建<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>在下载完 buildroot 源代码之后，可以使用下述命令完成对项目的编译和构建。</p>
+<div class="highlight-sh"><div class="highlight"><pre>make mixtile_loftq_defconfig
+make
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>在执行 make 指令时, 将会从相关站点下载最新的代码, 同时在构建时将会编译生成很多临时文件, 因此应根据自己编译是选择的包的数量, 准备一定空余的磁盘空间, 否则可能会因为没有足够的空间而造成构建失败。</li>
+<li>在构建完成之后，将会在 output/images 目录中生成 rootfs.ext4 镜像，如果生成该文件，则表示构建成功。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id9">
+<h3>镜像打包<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>在完成对 buildroot 的构建之后，将生成的 rootfs.ext4 文件拷贝到指定的目录，即 <em>$BUILD_TRUNK/out/linux/</em>。之后执行下述指令：</p>
+<div class="highlight-sh"><div class="highlight"><pre>linux_pack
+</pre></div>
+</div>
+<p>在执行完命令后将会打印出目标镜像的路径。则该文件就是 sunxi PhoenixTool 可以进行烧录的文件，可以烧录为卡启动，或者卡量产模式。</p>
+</div>
+<div class="section" id="id10">
+<h3>自我定制<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>如果您需要根据自己的需要，添加或者删除指定的软件库，可以参照如下说明进行定制。</p>
+<div class="highlight-sh"><div class="highlight"><pre>make menuconfig
+</pre></div>
+</div>
+<p>执行上述指令时，可能会提示缺少某些库，以至于无法完成操作，可以根据错误提示信息，安装制定的系统软件。</p>
+</div>
+<div class="section" id="id11">
+<h3>更多信息<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>buildroot 官网: <a class="reference external" href="http://buildroot.uclibc.org">http://buildroot.uclibc.org</a></li>
+<li>buildroot 文档: <a class="reference external" href="http://buildroot.uclibc.org/docs.html">http://buildroot.uclibc.org/docs.html</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="android">
+<h2>Android 构建使用<a class="headerlink" href="#android" title="Permalink to this headline">¶</a></h2>
+<p>LOFT-Q 原型板的 Android 源码基于全志原厂提供的 Android 4.4.2 版本源码提供，增添了 LOFT-Q 相关的蓝牙, Wifi 部分驱动, 固件, 外接硬盘, USB, 红外遥控等的配置文件。由于 Android 源码过于庞大，我们提供了可供下载的压缩包，并未提供源码库，并且在源码中去除了提交日志等内容。</p>
+<p>Android 的构建，同样可以使用类似于上述 Linux 和 buildroot 的基于 LOFT-Q 环境的编译和手动定制编译两种方式。</p>
+<div class="section" id="loft-q-android">
+<h3>基于 LOFT-Q 环境构建 Android<a class="headerlink" href="#loft-q-android" title="Permalink to this headline">¶</a></h3>
+<p>基于 LOFT-Q 环境构建 Android 的指令如下：</p>
+<ol class="arabic">
+<li><p class="first">进入 android 源码目录</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">cd </span>android
+</pre></div>
+</div>
+</li>
+<li><p class="first">构建 android 用 Uboot</p>
+<div class="highlight-sh"><div class="highlight"><pre>android_build_uboot
+</pre></div>
+</div>
+</li>
+<li><p class="first">构建 android 用 Linux 内核</p>
+<div class="highlight-sh"><div class="highlight"><pre>android_build_kernel
+</pre></div>
+</div>
+</li>
+<li><p class="first">构建 Android 项目</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">source </span>build/envsetup.sh
+lunch mars_loftq-eng
+android_extract_bsp
+make -j16
+android_pack
+</pre></div>
+</div>
+</li>
+</ol>
+<p>与 buildroot 最后的打包过程类似，在执行完命令后将会打印出目标镜像的路径。则该文件就是 sunxi PhoenixTool 可以进行烧录的文件，可以烧录为卡启动，或者卡量产模式。</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../_sources/zh/zh-legacy-quick-guide.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, Mixtile Project.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

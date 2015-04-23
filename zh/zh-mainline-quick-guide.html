@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>LOFT-Q 主流系统快速指南 &mdash; mixtile 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.2.0/paper/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="mixtile 0.1 documentation" href="../index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          Mixtile Project</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="http://focalcrest.com">Focalcrest</a></li>
+                <li><a href="http://mixtile.com">Mixtile</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">LOFT-Q 主流系统快速指南</a><ul>
+<li><a class="reference internal" href="#uboot">主流 Uboot 构建</a><ul>
+<li><a class="reference internal" href="#id1">主流 Uboot 代码获取</a></li>
+<li><a class="reference internal" href="#id2">主流 Uboot 代码构建</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#linux">主流 Linux 构建</a><ul>
+<li><a class="reference internal" href="#id3">主流内核代码获取</a></li>
+<li><a class="reference internal" href="#id4">主流内核代码构建</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#debian">Debian 构建</a><ul>
+<li><a class="reference internal" href="#id5">文件准备</a></li>
+<li><a class="reference internal" href="#debian-rootfs">获取 Debian rootfs</a></li>
+<li><a class="reference internal" href="#script-bin">script.bin 生成</a></li>
+<li><a class="reference internal" href="#boot-scr">boot.scr 生成</a><ul>
+<li><a class="reference internal" href="#boot-cmd">boot.cmd 规则说明</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#loftq-uboot-next">下载并构建 loftq-uboot-next</a></li>
+<li><a class="reference internal" href="#id6">linux 内核及模块构建</a></li>
+<li><a class="reference internal" href="#sd">SD 卡分区</a></li>
+<li><a class="reference internal" href="#sd-u-boot">SD 卡写入 U-Boot</a></li>
+<li><a class="reference internal" href="#rootfs-sd-ext4">拷贝 rootfs 到 SD 卡的 ext4 分区</a></li>
+<li><a class="reference internal" href="#bsp-ext4">拷贝 BSP 文件到 ext4 分区</a><ul>
+<li><a class="reference internal" href="#bsp">主流内核 BSP 文件拷贝</a></li>
+<li><a class="reference internal" href="#id7">旧版内核 BSP 文件拷贝</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ubuntu">Ubuntu 构建</a></li>
+<li><a class="reference internal" href="#opensuse">OpenSUSE 使用</a><ul>
+<li><a class="reference internal" href="#jeos-rootfs">JeOS rootfs 下载</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id8">更多说明</a><ul>
+<li><a class="reference internal" href="#id9">Linux 系统</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="loft-q">
+<h1>LOFT-Q 主流系统快速指南<a class="headerlink" href="#loft-q" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">组织:</th><td class="field-body">Mixtile Team</td>
+</tr>
+<tr class="field-even field"><th class="field-name">编写:</th><td class="field-body">Phil.Han &lt;<a class="reference external" href="mailto:phil&#46;han&#37;&#52;&#48;focalcrest&#46;com">phil<span>&#46;</span>han<span>&#64;</span>focalcrest<span>&#46;</span>com</a>&gt;</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">版本:</th><td class="field-body">0.1</td>
+</tr>
+<tr class="field-even field"><th class="field-name">日期:</th><td class="field-body">2015.01.23</td>
+</tr>
+</tbody>
+</table>
+<p>LOFT-Q 是 Mixtile 项目的第二代原型板，基于全志 A31 芯片，主要面向嵌入式开发人员，工程师，创客，以及极客，可以作为家庭影音中心，个人云存储设备，NAS，等。该指南主要用于向开发人员介绍如何快速的根据自己的需要搭建合适的开发环境，并基于 LOFT-Q 定制自己的应用。</p>
+<p>目前主流的内核和Uboot已经对 A31 系列芯片很多功能和特性提供了支持，虽然在显示驱动，wifi和蓝牙，以及电源管理等方面还存在缺陷，但是基本的功能和以太网驱动已经能够很好的支持，为了和旧版的内核和系统进行区分，也为了更好的描述主流内核和Uboot的支持情况和构建方法，我们将原有的快速指南进行了拆分，将主流内核及系统的支持独立出来，方便开发者和爱好者参考。</p>
+<div class="section" id="uboot">
+<h2>主流 Uboot 构建<a class="headerlink" href="#uboot" title="Permalink to this headline">¶</a></h2>
+<p>目前 uboot 对于全志系列芯片的支持已经取得了很大的进展，对于 A31 系列芯片的支持已经非常完善。</p>
+<div class="section" id="id1">
+<h3>主流 Uboot 代码获取<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>loftq-uboot-next 下载指令如下：</p>
+<div class="highlight-sh"><div class="highlight"><pre>git clone https://github.com/mixtile/loftq-uboot-next.git
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>主流 Uboot 代码构建<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>loftq-uboot-next 的构建指令如下：</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">cd </span>loftq-uboot-next
+
+make <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnueabi- mixtile_loftq_defconfig
+
+make <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnueabi-
+</pre></div>
+</div>
+<p>在构建完成后，在 loftq-uboot-next 目录中生成 u-boot-sunxi-with-spl.bin 文件。</p>
+</div>
+</div>
+<div class="section" id="linux">
+<h2>主流 Linux 构建<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h2>
+<p>由于 sunxi 社区以及全球志愿者的努力和支持，目前主流内核已经提供了对全志 A31 的部分驱动支持，建议在使用 GNU/Linux 系统时，使用主流的 Linux 内核，可以使用最新的内核的一些特性。</p>
+<div class="section" id="id3">
+<h3>主流内核代码获取<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>目前 LOFT-Q 项目实时跟进 Linux 最新代码的进度，提供了一些配置文件的定制和更新。最新的代码已经托管在 Mixtile 项目的 github 仓库。相关代码获取指令如下</p>
+<div class="highlight-sh"><div class="highlight"><pre>git clone https://github.com/mixtile/linux.git -b loftq-dev
+</pre></div>
+</div>
+<p><strong>备注：</strong> 我们的 master 分支为主流分支，而定制分支为 <cite>loftq-dev</cite>。</p>
+</div>
+<div class="section" id="id4">
+<h3>主流内核代码构建<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>在获取了上述的代码之后，需要执行如下过程来构建主流内核代码：</p>
+<div class="highlight-sh"><div class="highlight"><pre>cp arch/arm/configs/mixtile_loftq_defconfig .config
+
+make <span class="nv">ARCH</span><span class="o">=</span>arm <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnueabi-
+
+make <span class="nv">INSTALL_MOD_PATH</span><span class="o">=</span>output <span class="nv">ARCH</span><span class="o">=</span>arm <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnueabi- modules_install
+</pre></div>
+</div>
+<p>在主流内核代码构建完成之后将会生成如下我们所需要的文件和目录：</p>
+<ul class="simple">
+<li><cite>arch/arm/boot/zImage</cite>，主流内核文件 。</li>
+<li><cite>arch/arm/boot/dts/sun6i-a31-mixtile-loftq.dtb</cite>，主流内核所需的 dts 配置文件。</li>
+<li><cite>output/lib/modules</cite>，主流内核对应的内核模块。</li>
+</ul>
+<p>对于上述生成的内核，dts文件，以及内核模块，我们需要将它们分别添加到 GNU/Linux 系统 rootfs 指定路径，对于不同的系统可能会有所不同，当然也可以根据自己的需要进行配置。</p>
+</div>
+</div>
+<div class="section" id="debian">
+<h2>Debian 构建<a class="headerlink" href="#debian" title="Permalink to this headline">¶</a></h2>
+<p>Debian 衍生出了很多 GNU/Linux 系统，目前 LOFT-Q 上也可以运行这一系统，只要做一些基本的配置就可以实现让 Debian 在 LOFT-Q 上运行。</p>
+<div class="section" id="id5">
+<h3>文件准备<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>对于 Debian 的构建，根据我们所使用的内核不同，需要不同的准备文件。</p>
+<p>全志内核依赖配置文件：</p>
+<ul class="simple">
+<li>script.bin: 全志平台专用的配置文件，用于内核和uboot的配置，由 sys_config.fex 生成。</li>
+</ul>
+<p>主流内核依赖配置文件：</p>
+<ul class="simple">
+<li>sun6i-a31-mixtile-loftq.dtb: 主流内核启动所需要的 dts 配置文件，在内核构建时会自动生成该文件。</li>
+</ul>
+<p>其他两者都需要的文件：</p>
+<ul class="simple">
+<li>boot.scr: UBoot 可加载执行文件，主要包含 UBoot 启动内核之前所需要执行的一系列指令和配置，由 boot.cmd 生成，对于全志内核和主流内核，两者会有很大不同。</li>
+<li>u-boot-sunxi-with-spl.bin: 基于 linux-sunxi 社区提供的 mainline uboot 定制的用于 LOFT-Q 的 UBoot 代码，该版本基于 <a class="reference external" href="http://git.denx.de/?p=u-boot/u-boot-sunxi.git;a=summary">u-boot-sunxi</a> 的 <strong>next</strong> 分支。</li>
+<li>uImage 及内核模块: LOFT-Q 的 linux 内核及模块文件。</li>
+<li>rootfs 压缩包: ARM 平台的系统 rootfs 所需要的根文件系统压缩包，包含一系列 GNU/Linux 系统用的基础系统和配置。</li>
+</ul>
+</div>
+<div class="section" id="debian-rootfs">
+<h3>获取 Debian rootfs<a class="headerlink" href="#debian-rootfs" title="Permalink to this headline">¶</a></h3>
+<p>Debian 的根文件系统可以使用如下方式获取，更多信息可以参考 <a class="reference external" href="https://wiki.debian.org/ArmHardFloatChroot">https://wiki.debian.org/ArmHardFloatChroot</a> 。</p>
+<ul>
+<li><p class="first">使用 qemu-debootstrap 获取最新的 armhf 基础系统。</p>
+<div class="highlight-sh"><div class="highlight"><pre>qemu-debootstrap --no-check-gpg --arch<span class="o">=</span>armhf sid /chroots/sid-armhf ftp://ftp.debian.org/debian/
+</pre></div>
+</div>
+<p>指令的执行可能需要比较长的时间。</p>
+</li>
+<li><p class="first">添加 debian 源，在 <strong>/chroots/sid-armhf/etc/apt/sources.list</strong> 中添加如下内容：</p>
+<div class="highlight-sh"><div class="highlight"><pre>deb http://ftp.debian.org/debian sid main
+deb-src http://ftp.debian.org/debian sid main
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="script-bin">
+<h3>script.bin 生成<a class="headerlink" href="#script-bin" title="Permalink to this headline">¶</a></h3>
+<p>script.bin 是全志平台所用到的UBoot和内核配置文件，您可以在如下地址获取到最新的文件：</p>
+<ul class="simple">
+<li>script.bin 获取地址：<a class="reference external" href="https://github.com/mixtile/loftq-build/tree/master/bsp-legacy/binary/boot">https://github.com/mixtile/loftq-build/tree/master/bsp-legacy/binary/boot</a></li>
+</ul>
+<p>或者可以使用下述指令来生成 script.bin 文件。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">cd </span>loftq-build/bsp/configs
+
+./bin/fexc sys_config.fex script.bin
+</pre></div>
+</div>
+<p>上述指令生成的 script.bin 即为可用的配置文件。</p>
+</div>
+<div class="section" id="boot-scr">
+<h3>boot.scr 生成<a class="headerlink" href="#boot-scr" title="Permalink to this headline">¶</a></h3>
+<p>boot.scr 是 UBoot 可以加载和执行的指令文件，主要用于执行加载内核以及执行内核之前的一些配置。当然，该文件也可以直接使用已生成的文件。</p>
+<p>如果根据自己的需要进行定制，具体的定制方法可以参考 <a class="reference internal" href="#boot-cmd">boot.cmd 规则说明</a> 在定制完成之后可以使用如下命令：</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">cd </span>loftq-build/bsp/configs
+
+mkimage -C none -A arm -T script -d boot_single.cmd boot.scr
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>对于全志旧版内核，boot.scr 配置位于： <strong>loftq-build/bsp-legacy/configs/configs/boot_single.cmd</strong></li>
+<li>对于主流内核，boot.scr 配置位于： <strong>loftq-build/bsp/configs/boot_single.cmd</strong></li>
+</ul>
+</div>
+<div class="section" id="boot-cmd">
+<h4>boot.cmd 规则说明<a class="headerlink" href="#boot-cmd" title="Permalink to this headline">¶</a></h4>
+<p>boot.cmd 是用于生 boot.scr，即 uboot 可执行文件的源文件，我们以上述主流内核所用的 boot_single.cmd 文件为例，其内容如下：</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">bootdelay</span><span class="o">=</span>3
+<span class="nv">console</span><span class="o">=</span>ttyS0,115200
+<span class="nv">mmc_root</span><span class="o">=</span>/dev/mmcblk0p1
+<span class="nv">init</span><span class="o">=</span>/sbin/init
+<span class="nv">loglevel</span><span class="o">=</span>8
+
+setenv bootargs noinitrd <span class="nv">console</span><span class="o">=</span><span class="si">${</span><span class="nv">console</span><span class="si">}</span> <span class="nv">console</span><span class="o">=</span>tty0 <span class="nv">init</span><span class="o">=</span><span class="si">${</span><span class="nv">init</span><span class="si">}</span> <span class="nv">loglevel</span><span class="o">=</span><span class="si">${</span><span class="nv">loglevel</span><span class="si">}</span> <span class="nv">vmalloc</span><span class="o">=</span><span class="si">${</span><span class="nv">vmalloc</span><span class="si">}</span> <span class="nv">partitions</span><span class="o">=</span><span class="si">${</span><span class="nv">partitions</span><span class="si">}</span> <span class="nv">root</span><span class="o">=</span><span class="si">${</span><span class="nv">mmc_root</span><span class="si">}</span> rootwait rw <span class="nv">rootfstype</span><span class="o">=</span>ext4 <span class="nv">panic</span><span class="o">=</span><span class="m">10</span> <span class="nv">consoleblank</span><span class="o">=</span><span class="m">0</span> <span class="si">${</span><span class="nv">extra</span><span class="si">}</span>
+
+ext4load mmc <span class="m">0</span> 0x46000000 boot/mainline/zImage
+ext4load mmc <span class="m">0</span> 0x48000000 boot/mainline/sun6i-a31-mixtile-loftq.dtb
+bootz 0x46000000 - 0x48000000
+</pre></div>
+</div>
+<p>其中关键的内容如下：</p>
+<ul class="simple">
+<li><strong>bootdelay=3</strong>，指定 uboot 在启动后，在正式加载内核启动前，有3秒中的倒计时，用于用户可能选择的操作，比如进入 uboot，类似于 PC 启动时进入 BIOS 时的选择。</li>
+<li><strong>console=ttyS0,115200</strong>，指定开机后控制台登入端口和参数，这里指定开机后将 <strong>ttyS0</strong> 指定为控制台入口，并且其符号率设置为 <strong>115200</strong> 。</li>
+<li><strong>mmc_root</strong>，指定系统引导的 rootfs 所在的分区。</li>
+<li><strong>init=/sbin/init</strong>，指定系统初始化文件。</li>
+<li><strong>loglevel=8</strong>，指定系统日志等级。</li>
+<li><strong>setenv bootargs ...</strong>，这部分用于正式的将我们前几项设为 uboot 的环境变量。</li>
+<li><strong>ext4load mmc 0 0x46000000 boot/mainline/zImage</strong>，加载内核到指定的内存地址，为了统一放置主流内核固件文件，我们将内核放置在根分区的 <strong>/boot/mainline/</strong> 目录下，用户可以自行修改，通常放置在 <cite>/boot</cite>。</li>
+<li><strong>ext4load mmc 0 0x48000000 boot/mainline/sun6i-a31-mixtile-loftq.dtb</strong>，加载 dts 文件到指定的内存地址，dts 二进制文件的位置与 <strong>zImage</strong> 相同，尽量放在相同的位置。</li>
+<li><strong>bootz 0x46000000 - 0x48000000</strong>，系统引导指令，从指定位置运行内核，并传递 dts 配置文件地址到内核。</li>
+</ul>
+<p>对于旧版的内核，我们的配置文件会有所不同，主要不同部分内容如下：</p>
+<div class="highlight-sh"><div class="highlight"><pre>ext4load mmc <span class="m">0</span> 0x43000000 boot/script.bin
+ext4load mmc <span class="m">0</span> 0x48000000 boot/uImage
+bootm 0x48000000
+</pre></div>
+</div>
+<p>不同部分说明：</p>
+<ul class="simple">
+<li><strong>ext4load mmc 0 0x43000000 boot/script.bin</strong>，这里我们加载的是全志的内核配置文件，script.bin。</li>
+<li><strong>ext4load mmc 0 0x48000000 boot/uImage</strong>，我们使用了 uImage 而非 zImage，两者的主要差异可以查看 <a class="reference external" href="http://stackoverflow.com/questions/22322304/image-vs-zimage-vs-uimage">http://stackoverflow.com/questions/22322304/image-vs-zimage-vs-uimage</a> 。</li>
+<li><strong>bootm 0x48000000</strong>，在此我们仅需要知名 kernel 的内存位置，旧版内核会默认加载相应位置的 script.bin 配置。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="loftq-uboot-next">
+<h3>下载并构建 loftq-uboot-next<a class="headerlink" href="#loftq-uboot-next" title="Permalink to this headline">¶</a></h3>
+<p>主流 Uboot 构建，可以参考 <a class="reference internal" href="#uboot">主流 Uboot 构建</a> 。</p>
+</div>
+<div class="section" id="id6">
+<h3>linux 内核及模块构建<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>对于 Linux 内核及模块构建，可以参考 <a class="reference internal" href="#linux">主流 Linux 构建</a> 。</p>
+</div>
+<div class="section" id="sd">
+<h3>SD 卡分区<a class="headerlink" href="#sd" title="Permalink to this headline">¶</a></h3>
+<p>对于可启动的 SD/EMMC，其分区如下：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="35%" />
+<col width="44%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">起始地址</th>
+<th class="head">大小</th>
+<th class="head">使用</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>0</td>
+<td>8KB</td>
+<td>未使用，用于分区表</td>
+</tr>
+<tr class="row-odd"><td>8</td>
+<td>24KB</td>
+<td>用于 SPL</td>
+</tr>
+<tr class="row-even"><td>32</td>
+<td>512KB</td>
+<td>用于 U-Boot</td>
+</tr>
+<tr class="row-odd"><td>544</td>
+<td>128KB</td>
+<td>环境变量</td>
+</tr>
+<tr class="row-even"><td>672</td>
+<td>352KB</td>
+<td>保留</td>
+</tr>
+<tr class="row-odd"><td>1024</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>可用分区</td>
+</tr>
+</tbody>
+</table>
+<p>对于 SD/emmc 的分区，我们需要进行如下的设置。我们假定所使用的 sd 卡设备为 <strong>/dev/mmcblk0</strong> 。</p>
+<ul>
+<li><p class="first">清除原有分区信息，请在执行该动作之前，保存SD卡中原有重要数据。</p>
+<div class="highlight-sh"><div class="highlight"><pre>sudo dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>/dev/mmcblk0 <span class="nv">bs</span><span class="o">=</span>1M <span class="nv">count</span><span class="o">=</span>1
+</pre></div>
+</div>
+</li>
+<li><p class="first">新建 ext4 分区</p>
+<div class="highlight-sh"><div class="highlight"><pre>sudo fdisk /dev/mmcblk0
+</pre></div>
+</div>
+</li>
+<li><p class="first">执行分区</p>
+<div class="highlight-sh"><div class="highlight"><pre>Command <span class="o">(</span>m <span class="k">for</span> <span class="nb">help</span><span class="o">)</span>: n                                 <span class="c"># 输入 n</span>
+Partition <span class="nb">type</span>:
+   p   primary <span class="o">(</span><span class="m">0</span> primary, <span class="m">0</span> extended, <span class="m">4</span> free<span class="o">)</span>
+   e   extended
+Select <span class="o">(</span>default p<span class="o">)</span>:                                     <span class="c"># 按下 Enter</span>
+Using default response p
+Partition number <span class="o">(</span>1-4, default 1<span class="o">)</span>:                      <span class="c"># 按下 Enter</span>
+Using default value 1
+First sector <span class="o">(</span>2048-15523839, default 2048<span class="o">)</span>:             <span class="c"># 按下 Enter</span>
+Using default value 2048
+Last sector, +sectors or +size<span class="o">{</span>K,M,G<span class="o">}</span> <span class="o">(</span>2048-15523839, default 15523839<span class="o">)</span>:      <span class="c"># 按下 Enter</span>
+
+Command <span class="o">(</span>m <span class="k">for</span> <span class="nb">help</span><span class="o">)</span>: w                                   <span class="c"># 输入 w 并 按下 Enter</span>
+
+The partition table has been altered!
+</pre></div>
+</div>
+</li>
+<li><p class="first">格式化分区为 ext4 格式</p>
+<div class="highlight-sh"><div class="highlight"><pre>sudo mkfs.ext4 /dev/mmcblk0p1
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="sd-u-boot">
+<h3>SD 卡写入 U-Boot<a class="headerlink" href="#sd-u-boot" title="Permalink to this headline">¶</a></h3>
+<p>在完成分区的划分之后，执行下述指令向 SD/EMMC 中写入 U-Boot 文件。</p>
+<div class="highlight-sh"><div class="highlight"><pre>sudo dd <span class="k">if</span><span class="o">=</span>u-boot-sunxi-with-spl.bin <span class="nv">of</span><span class="o">=</span>/dev/mmcblk0 <span class="nv">bs</span><span class="o">=</span><span class="m">1024</span> <span class="nv">seek</span><span class="o">=</span>8
+</pre></div>
+</div>
+</div>
+<div class="section" id="rootfs-sd-ext4">
+<h3>拷贝 rootfs 到 SD 卡的 ext4 分区<a class="headerlink" href="#rootfs-sd-ext4" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sh"><div class="highlight"><pre>sudo mount -t ext4 /dev/mmcblk0p1 /mnt
+
+sudo cp -r /chroot/sid-armhf/* /mnt
+</pre></div>
+</div>
+</div>
+<div class="section" id="bsp-ext4">
+<h3>拷贝 BSP 文件到 ext4 分区<a class="headerlink" href="#bsp-ext4" title="Permalink to this headline">¶</a></h3>
+<p>在完成 rootfs 的拷贝之后，我们需要将 BSP 相关文件拷贝到指定的位置。</p>
+<div class="section" id="bsp">
+<h4>主流内核 BSP 文件拷贝<a class="headerlink" href="#bsp" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><strong>boot.scr</strong> 文件拷贝到 <strong>/mnt/boot/</strong> 。</li>
+<li><strong>linux/arch/arm/boot/zImage</strong> 文件拷贝到 <strong>/mnt/boot/mainline/</strong> 。</li>
+<li><strong>linux/arch/arm/boot/dts/sun6i-a31-mixtile-loftq.dtb</strong> 文件拷贝到 <strong>/mnt/boot/mainline/</strong> 。</li>
+<li><strong>linux/output/lib/modules</strong> 目录拷贝到 <strong>/mnt/lib</strong> 。</li>
+</ul>
+<p>总体的参考命令如下：</p>
+<div class="highlight-sh"><div class="highlight"><pre>sudo cp boot.scr /mnt/boot
+sudo cp linux/arch/arm/boot/zImage /mnt/boot/mainline
+sudo cp linux/arch/arm/boot/dts/sun6i-a31-mixtile-loftq.dtb /mnt/boot/mainline
+sudo cp -r linux/output/lib/modules /mnt/lib
+sudo sync
+sudo umount /mnt
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h4>旧版内核 BSP 文件拷贝<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><strong>boot.scr</strong> 文件拷贝到 <strong>/mnt/boot/</strong> 。</li>
+<li><strong>linux/arch/arm/boot/uImage</strong> 文件拷贝到 <strong>/mnt/boot/</strong> 。</li>
+<li><strong>script.bin</strong> 文件拷贝到 <strong>/mnt/boot</strong> 。</li>
+<li><strong>linux/output/lib/modules</strong> 目录拷贝到 <strong>/mnt/lib</strong> 。</li>
+</ul>
+<p>总体的参考命令如下：</p>
+<div class="highlight-sh"><div class="highlight"><pre>sudo cp boot.scr /mnt/boot
+sudo cp loftq-linux/arch/arm/boot/uImage /mnt/boot
+sudo cp script.bin /mnt/boot
+sudo cp -r loftq-linux/output/lib/modules /mnt/lib
+sudo sync
+sudo umount /mnt
+</pre></div>
+</div>
+<p>在完成上述步骤之后，将 SD 卡接入 LOFT-Q SD卡座，连接电源，然后就可以进入 Debian 的世界。</p>
+</div>
+</div>
+</div>
+<div class="section" id="ubuntu">
+<h2>Ubuntu 构建<a class="headerlink" href="#ubuntu" title="Permalink to this headline">¶</a></h2>
+<p>Ubuntu 系统支持还在进行中...</p>
+</div>
+<div class="section" id="opensuse">
+<h2>OpenSUSE 使用<a class="headerlink" href="#opensuse" title="Permalink to this headline">¶</a></h2>
+<p>openSUSE 是来自德国的 Linux 发行版, 目前我们可以使用定制的 Uboot 和 Linux 内核来实现对 openSUSE ARM 版 JeOS 最简系统的引导和使用。</p>
+<div class="section" id="jeos-rootfs">
+<h3>JeOS rootfs 下载<a class="headerlink" href="#jeos-rootfs" title="Permalink to this headline">¶</a></h3>
+<p>openSUSE 社区提供了多个版本的 JeOS rootfs 可供下载，如下：</p>
+<ul class="simple">
+<li>Factory 版本: <a class="reference external" href="http://download.opensuse.org/ports/armv7hl/factory/images/">http://download.opensuse.org/ports/armv7hl/factory/images/</a></li>
+<li>13.1 版本: <a class="reference external" href="http://download.opensuse.org/ports/armv7hl/distribution/13.1/appliances/">http://download.opensuse.org/ports/armv7hl/distribution/13.1/appliances/</a></li>
+<li>12.3 版本: <a class="reference external" href="http://download.opensuse.org/ports/armv7hl/distribution/12.3/images/">http://download.opensuse.org/ports/armv7hl/distribution/12.3/images/</a></li>
+</ul>
+<p>我们可以从中选择一个版本的进行测试使用, 更多有关各个版本之间的异同信息, 可以参阅 <a class="reference external" href="https://en.opensuse.org/HCL:Chroot">https://en.opensuse.org/HCL:Chroot</a> 。</p>
+<p>以 13.1 版本的 openSUSE Jeos 根文件系统为例，我们需要下载名称如 <strong>openSUSE-*-ARM-JeOS.armv7-rootfs-*.tbz</strong> 的镜像文件，对于可启动 SD 卡的创建，其步骤和需要的文件与 <a class="reference internal" href="#debian">Debian 构建</a> 相同。只是在 rootfs 的生成和拷贝过程存在不同，其他过程按照 Debian 构建过程进行即可。</p>
+<p>那么对于 rootfs 到 ext4 分区的拷贝，我们以 <strong>openSUSE-Factory-ARM-JeOS.armv7-rootfs.armv7l-Current.tbz</strong> 为例，所需执行指令如下：</p>
+<div class="highlight-sh"><div class="highlight"><pre>sudo tar -C /mnt -xjf openSUSE-Factory-ARM-JeOS.armv7-rootfs.armv7l-Current.tbz
+</pre></div>
+</div>
+<p>在执行完该步骤之后，参照 <a class="reference internal" href="#debian">Debian 构建</a> 的步骤，在相应位置添加 BSP 及内核模块文件。</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>更多说明<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id9">
+<h3>Linux 系统<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>为了方便快速的在 LOFT-Q 上使用 GNU/Linux 系统，我们为 LOFT-Q 提供了预编译了内核，启动配置文件的 Linux 系统压缩包，列表如下：</p>
+<ul class="simple">
+<li>Debian sid 版本</li>
+<li>openSUSE 13.1 版本</li>
+<li>openSUSE Factory 版本</li>
+</ul>
+<p>链接地址: <a class="reference external" href="http://www.mixtile.com/downloads/loft-q/">http://www.mixtile.com/downloads/loft-q/</a></p>
+<p>您只需要参照 <a class="reference internal" href="#sd">SD 卡分区</a> 和 <a class="reference internal" href="#sd-u-boot">SD 卡写入 U-Boot</a> 完成分区和 U-Boot 烧录后，将上述的压缩文件解压到 Ext4 分区即可。</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../_sources/zh/zh-mainline-quick-guide.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, Mixtile Project.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
