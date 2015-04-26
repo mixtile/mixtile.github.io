@@ -1,21 +1,20 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>LOFT-Q Owncloud 说明 &mdash; mixtile 0.1 documentation</title>
+    <title>LOFT-Q Owncloud 说明 &mdash; mixtile 3.0 documentation</title>
     
-    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/haiku.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootswatch-3.2.0/paper/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1',
+        VERSION:     '3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,100 +23,23 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="mixtile 0.1 documentation" href="../index.html" />
-<meta charset='utf-8'>
-<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
-<meta name="apple-mobile-web-app-capable" content="yes">
-
+    <link rel="top" title="mixtile 3.0 documentation" href="../index.html" /> 
   </head>
-  <body role="document">
-
-  <div id="navbar" class="navbar navbar-inverse navbar-default ">
-    <div class="container">
-      <div class="navbar-header">
-        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="../index.html">
-          Mixtile Project</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>mixtile 3.0 documentation</span></a></h1>
+        <h2 class="heading"><span>LOFT-Q Owncloud 说明</span></h2>
       </div>
-
-        <div class="collapse navbar-collapse nav-collapse">
-          <ul class="nav navbar-nav">
-            
-                <li><a href="http://focalcrest.com">Focalcrest</a></li>
-                <li><a href="http://mixtile.com">Mixtile</a></li>
-            
-            
-              <li class="dropdown globaltoc-container">
-  <a role="button"
-     id="dLabelGlobalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="../index.html">Site <b class="caret"></b></a>
-  <ul class="dropdown-menu globaltoc"
-      role="menu"
-      aria-labelledby="dLabelGlobalToc"></ul>
-</li>
-              
-                <li class="dropdown">
-  <a role="button"
-     id="dLabelLocalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="#">Page <b class="caret"></b></a>
-  <ul class="dropdown-menu localtoc"
-      role="menu"
-      aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">LOFT-Q Owncloud 说明</a><ul>
-<li><a class="reference internal" href="#debian">Debian 配置</a></li>
-<li><a class="reference internal" href="#opensuse">openSUSE 配置</a></li>
-<li><a class="reference internal" href="#id1">更多参考</a></li>
-</ul>
-</li>
-</ul>
-</ul>
-</li>
-              
-            
-            
-              
-                
-              
-            
-            
-            
-            
-          </ul>
-
-          
-            
-<form class="navbar-form navbar-right" action="../search.html" method="get">
- <div class="form-group">
-  <input type="text" name="q" class="form-control" placeholder="Search" />
- </div>
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
-</form>
-          
-        </div>
-    </div>
-  </div>
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
+      <div class="topnav">
       
+        <p>
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
   <div class="section" id="loft-q-owncloud">
 <h1>LOFT-Q Owncloud 说明<a class="headerlink" href="#loft-q-owncloud" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://owncloud.org">ownCloud</a> 是一个自由且开源的个人云存储解决方案，最初由 KDE 开发者 <a class="reference external" href="http://zh.wikipedia.org/wiki/Frank_Karlitschek">Frank Karlitschek</a> 于2010年一月创建，目标是替代商业的云服务提供商。对于 owncloud, 用于可以自由免费的获取，但是自行架设该服务器，则需要一些基本的安装和配置。</p>
@@ -142,15 +64,15 @@ zypper install owncloud
 <li><p class="first">启动和配置 Maria DB</p>
 <div class="highlight-sh"><div class="highlight"><pre>Message from package mariadb:
 
-You just installed MySQL server <span class="k">for</span> the first time.
+You just installed MySQL server <span class="k">for </span>the first time.
 
 You can start it using:
  rcmysql start
 
-During first start empty database will be created <span class="k">for</span> your automatically.
+During first start empty database will be created <span class="k">for </span>your automatically.
 
 PLEASE REMEMBER TO SET A PASSWORD FOR THE MariaDB root USER !
-To <span class="k">do</span> so, start the server, <span class="k">then</span> issue the following commands:
+To <span class="k">do </span>so, start the server, <span class="k">then </span>issue the following commands:
 
 <span class="s1">&#39;/usr/bin/mysqladmin&#39;</span> -u root password <span class="s1">&#39;new-password&#39;</span>
 <span class="s1">&#39;/usr/bin/mysqladmin&#39;</span> -u root -h misibook password <span class="s1">&#39;new-password&#39;</span>
@@ -160,7 +82,7 @@ Alternatively you can run:
 
 which will also give you the option of removing the <span class="nb">test</span>
 databases and anonymous user created by default.  This is
-strongly recommended <span class="k">for</span> production servers.
+strongly recommended <span class="k">for </span>production servers.
 </pre></div>
 </div>
 <p>根据上述提示执行如下命令：</p>
@@ -215,28 +137,18 @@ strongly recommended <span class="k">for</span> production servers.
 </div>
 
 
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2015, Mixtile Project.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
-      
-  </div>
-</div>
-<footer class="footer">
-  <div class="container">
-    <p class="pull-right">
-      <a href="#">Back to top</a>
-      
-        <br/>
-        
-<div id="sourcelink">
-  <a href="../_sources/zh/zh-owncloud-howto.txt"
-     rel="nofollow">Source</a>
-</div>
-      
-    </p>
-    <p>
-        &copy; Copyright 2015, Mixtile Project.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
-    </p>
-  </div>
-</footer>
   </body>
 </html>

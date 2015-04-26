@@ -1,21 +1,20 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>LOFT-Q 旧版系统快速指南 &mdash; mixtile 0.1 documentation</title>
+    <title>LOFT-Q 旧版系统快速指南 &mdash; mixtile 3.0 documentation</title>
     
-    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/haiku.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootswatch-3.2.0/paper/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1',
+        VERSION:     '3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,124 +23,23 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="mixtile 0.1 documentation" href="../index.html" />
-<meta charset='utf-8'>
-<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
-<meta name="apple-mobile-web-app-capable" content="yes">
-
+    <link rel="top" title="mixtile 3.0 documentation" href="../index.html" /> 
   </head>
-  <body role="document">
-
-  <div id="navbar" class="navbar navbar-inverse navbar-default ">
-    <div class="container">
-      <div class="navbar-header">
-        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="../index.html">
-          Mixtile Project</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>mixtile 3.0 documentation</span></a></h1>
+        <h2 class="heading"><span>LOFT-Q 旧版系统快速指南</span></h2>
       </div>
-
-        <div class="collapse navbar-collapse nav-collapse">
-          <ul class="nav navbar-nav">
-            
-                <li><a href="http://focalcrest.com">Focalcrest</a></li>
-                <li><a href="http://mixtile.com">Mixtile</a></li>
-            
-            
-              <li class="dropdown globaltoc-container">
-  <a role="button"
-     id="dLabelGlobalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="../index.html">Site <b class="caret"></b></a>
-  <ul class="dropdown-menu globaltoc"
-      role="menu"
-      aria-labelledby="dLabelGlobalToc"></ul>
-</li>
-              
-                <li class="dropdown">
-  <a role="button"
-     id="dLabelLocalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="#">Page <b class="caret"></b></a>
-  <ul class="dropdown-menu localtoc"
-      role="menu"
-      aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">LOFT-Q 旧版系统快速指南</a><ul>
-<li><a class="reference internal" href="#id1">旧版环境准备</a><ul>
-<li><a class="reference internal" href="#loftq-build">关于 loftq-build</a></li>
-<li><a class="reference internal" href="#id2">更多说明</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#uboot">旧版 UBoot 构建</a><ul>
-<li><a class="reference internal" href="#id3">基于 LOFT-Q 环境编译</a></li>
-<li><a class="reference internal" href="#id4">手动定制编译</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#linux">旧版 Linux 内核构建</a><ul>
-<li><a class="reference internal" href="#id5">基于 LOFT-Q 环境的编译</a></li>
-<li><a class="reference internal" href="#id6">手动定制编译</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#buildroot">Buildroot 构建</a><ul>
-<li><a class="reference internal" href="#id7">获取源码</a></li>
-<li><a class="reference internal" href="#id8">编译构建</a></li>
-<li><a class="reference internal" href="#id9">镜像打包</a></li>
-<li><a class="reference internal" href="#id10">自我定制</a></li>
-<li><a class="reference internal" href="#id11">更多信息</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#android">Android 构建使用</a><ul>
-<li><a class="reference internal" href="#loft-q-android">基于 LOFT-Q 环境构建 Android</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</ul>
-</li>
-              
-            
-            
-              
-                
-              
-            
-            
-            
-            
-          </ul>
-
-          
-            
-<form class="navbar-form navbar-right" action="../search.html" method="get">
- <div class="form-group">
-  <input type="text" name="q" class="form-control" placeholder="Search" />
- </div>
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
-</form>
-          
-        </div>
-    </div>
-  </div>
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
+      <div class="topnav">
       
+        <p>
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
   <div class="section" id="loft-q">
 <h1>LOFT-Q 旧版系统快速指南<a class="headerlink" href="#loft-q" title="Permalink to this headline">¶</a></h1>
 <table class="docutils field-list" frame="void" rules="none">
@@ -152,9 +50,9 @@
 </tr>
 <tr class="field-even field"><th class="field-name">编写:</th><td class="field-body">Phil.Han &lt;<a class="reference external" href="mailto:phil&#46;han&#37;&#52;&#48;focalcrest&#46;com">phil<span>&#46;</span>han<span>&#64;</span>focalcrest<span>&#46;</span>com</a>&gt;</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">版本:</th><td class="field-body">0.1</td>
+<tr class="field-odd field"><th class="field-name">版本:</th><td class="field-body">0.2</td>
 </tr>
-<tr class="field-even field"><th class="field-name">日期:</th><td class="field-body">2015.01.23</td>
+<tr class="field-even field"><th class="field-name">日期:</th><td class="field-body">2015.04.23</td>
 </tr>
 </tbody>
 </table>
@@ -212,12 +110,12 @@ git clone https://github.com/mixtile/buildroot.git
 <span class="nb">export </span><span class="nv">SUNXI_TOOLS_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-build
 <span class="nb">export </span><span class="nv">SUNXI_LINUX_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-linux
 <span class="nb">export </span><span class="nv">SUNXI_UBOOT_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-uboot
-<span class="nb">export </span><span class="nv">SUNXI_TOOLCHAIN_PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">SUNXI_TOOLS_PATH</span><span class="si">}</span>/toolschain/gcc-linaro/bin/
+<span class="nb">export </span><span class="nv">SUNXI_TOOLCHAIN_PATH</span><span class="o">=</span><span class="k">${</span><span class="nv">SUNXI_TOOLS_PATH</span><span class="k">}</span>/toolschain/gcc-linaro/bin/
 
 <span class="c"># envs for android</span>
 <span class="nb">export </span><span class="nv">ANDROID_TRUNK</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/android
 <span class="nb">export </span><span class="nv">ANDROID_DEVICE</span><span class="o">=</span>loftq
-<span class="nb">export </span><span class="nv">ANDROID_DEVICE_TRUNK</span><span class="o">=</span><span class="si">${</span><span class="nv">ANDROID_TRUNK</span><span class="si">}</span>/device/mixtile/<span class="si">${</span><span class="nv">ANDROID_DEVICE</span><span class="si">}</span>
+<span class="nb">export </span><span class="nv">ANDROID_DEVICE_TRUNK</span><span class="o">=</span><span class="k">${</span><span class="nv">ANDROID_TRUNK</span><span class="k">}</span>/device/mixtile/<span class="k">${</span><span class="nv">ANDROID_DEVICE</span><span class="k">}</span>
 
 <span class="c"># envs for ubuntu touch</span>
 <span class="c"># only used if we have android base sdk released by ubuntu touch team</span>
@@ -226,15 +124,15 @@ git clone https://github.com/mixtile/buildroot.git
 <span class="nb">export </span><span class="nv">UBUNTU_TARBALL</span><span class="o">=</span><span class="nv">$UBUNTU_OUTPUT</span>/vivid-preinstalled-touch-armhf.tar.gz
 
 <span class="c"># commom env</span>
-<span class="nb">export </span><span class="nv">ANDROID_OUT</span><span class="o">=</span><span class="si">${</span><span class="nv">ANDROID_TRUNK</span><span class="si">}</span>/out
-<span class="nb">export </span><span class="nv">ANDROID_DEVICE_OUT</span><span class="o">=</span><span class="si">${</span><span class="nv">ANDROID_OUT</span><span class="si">}</span>/target/product/<span class="si">${</span><span class="nv">ANDROID_DEVICE</span><span class="si">}</span>
+<span class="nb">export </span><span class="nv">ANDROID_OUT</span><span class="o">=</span><span class="k">${</span><span class="nv">ANDROID_TRUNK</span><span class="k">}</span>/out
+<span class="nb">export </span><span class="nv">ANDROID_DEVICE_OUT</span><span class="o">=</span><span class="k">${</span><span class="nv">ANDROID_OUT</span><span class="k">}</span>/target/product/<span class="k">${</span><span class="nv">ANDROID_DEVICE</span><span class="k">}</span>
 
 <span class="nb">export </span><span class="nv">LINARO_GCC_PATH</span><span class="o">=</span><span class="nv">$SUNXI_TOOLCHAIN_PATH</span>
 <span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$LINARO_GCC_PATH</span>
 </pre></div>
 </div>
 <p>用户可以在其中添加自定义的指令，以 <em>linux_build_uboot</em> 为例：</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="k">function</span> linux_build_uboot<span class="o">()</span>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">function </span>linux_build_uboot<span class="o">()</span>
 <span class="o">{</span>
     <span class="nv">CURDIR</span><span class="o">=</span><span class="nv">$PWD</span>
 
@@ -417,28 +315,18 @@ android_pack
 </div>
 
 
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2015, Mixtile Project.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
-      
-  </div>
-</div>
-<footer class="footer">
-  <div class="container">
-    <p class="pull-right">
-      <a href="#">Back to top</a>
-      
-        <br/>
-        
-<div id="sourcelink">
-  <a href="../_sources/zh/zh-legacy-quick-guide.txt"
-     rel="nofollow">Source</a>
-</div>
-      
-    </p>
-    <p>
-        &copy; Copyright 2015, Mixtile Project.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
-    </p>
-  </div>
-</footer>
   </body>
 </html>
