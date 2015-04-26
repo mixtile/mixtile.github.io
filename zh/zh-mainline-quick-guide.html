@@ -168,7 +168,10 @@ deb-src http://ftp.debian.org/debian sid main
 <div class="section" id="boot-scr">
 <h3>boot.scr 生成<a class="headerlink" href="#boot-scr" title="Permalink to this headline">¶</a></h3>
 <p>boot.scr 是 UBoot 可以加载和执行的指令文件，主要用于执行加载内核以及执行内核之前的一些配置。当然，该文件也可以直接使用已生成的文件。</p>
-<p>如果根据自己的需要进行定制，具体的定制方法可以参考 <a class="reference internal" href="#boot-cmd">boot.cmd 规则说明</a> 在定制完成之后可以使用如下命令：</p>
+<ul>
+<li><p class="first">预编译 boot.scr: <a class="reference external" href="https://github.com/mixtile/loftq-build/tree/master/bsp/binary/boot">https://github.com/mixtile/loftq-build/tree/master/bsp/binary/boot</a> .</p>
+</li>
+<li><p class="first">如果根据自己的需要进行定制，具体的定制方法可以参考 <a class="reference internal" href="#boot-cmd">boot.cmd 规则说明</a> 在定制完成之后可以使用如下命令：</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="nb">cd </span>loftq-build/bsp/configs
 
 mkimage -C none -A arm -T script -d boot_single.cmd boot.scr
@@ -181,6 +184,8 @@ mkimage -C none -A arm -T script -d boot_single.cmd boot.scr
 <li>对于主流内核，boot.scr 配置位于： <strong>loftq-build/bsp/configs/boot_single.cmd</strong></li>
 </ul>
 </div>
+</li>
+</ul>
 <div class="section" id="boot-cmd">
 <h4>boot.cmd 规则说明<a class="headerlink" href="#boot-cmd" title="Permalink to this headline">¶</a></h4>
 <p>boot.cmd 是用于生 boot.scr，即 uboot 可执行文件的源文件，我们以上述主流内核所用的 boot_single.cmd 文件为例，其内容如下：</p>
@@ -327,6 +332,10 @@ The partition table has been altered!
 
 sudo cp -r /chroot/sid-armhf/* /mnt
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><strong>/chroot/sid-armhf</strong> 是指我们在 <a class="reference internal" href="#debian-rootfs">获取 Debian rootfs</a> 中所指定的 rootfs 路径。</p>
 </div>
 </div>
 <div class="section" id="bsp-ext4">

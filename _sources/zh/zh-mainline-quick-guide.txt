@@ -154,18 +154,19 @@ boot.scr 生成
 
 boot.scr 是 UBoot 可以加载和执行的指令文件，主要用于执行加载内核以及执行内核之前的一些配置。当然，该文件也可以直接使用已生成的文件。
 
-如果根据自己的需要进行定制，具体的定制方法可以参考 `boot.cmd 规则说明`_ 在定制完成之后可以使用如下命令：
+* 预编译 boot.scr: https://github.com/mixtile/loftq-build/tree/master/bsp/binary/boot .
+* 如果根据自己的需要进行定制，具体的定制方法可以参考 `boot.cmd 规则说明`_ 在定制完成之后可以使用如下命令：
 
-.. code-block:: sh   
+  .. code-block:: sh   
 
-   cd loftq-build/bsp/configs
+     cd loftq-build/bsp/configs
 
-   mkimage -C none -A arm -T script -d boot_single.cmd boot.scr
+     mkimage -C none -A arm -T script -d boot_single.cmd boot.scr
 
-.. note:: 
+  .. note:: 
    
-   * 对于全志旧版内核，boot.scr 配置位于： **loftq-build/bsp-legacy/configs/configs/boot_single.cmd**
-   * 对于主流内核，boot.scr 配置位于： **loftq-build/bsp/configs/boot_single.cmd**
+    * 对于全志旧版内核，boot.scr 配置位于： **loftq-build/bsp-legacy/configs/configs/boot_single.cmd**
+    * 对于主流内核，boot.scr 配置位于： **loftq-build/bsp/configs/boot_single.cmd**
 
 
 boot.cmd 规则说明
@@ -299,6 +300,10 @@ SD 卡写入 U-Boot
    sudo mount -t ext4 /dev/mmcblk0p1 /mnt
    
    sudo cp -r /chroot/sid-armhf/* /mnt
+
+.. note::
+
+  **/chroot/sid-armhf** 是指我们在 `获取 Debian rootfs`_ 中所指定的 rootfs 路径。
 
 拷贝 BSP 文件到 ext4 分区
 '''''''''''''''''''''''''''''''
