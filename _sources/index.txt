@@ -19,4 +19,9 @@ English
 
 :doc:`en_root`
 
+索引
+==================
 
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
