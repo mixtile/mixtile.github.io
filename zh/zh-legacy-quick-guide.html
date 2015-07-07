@@ -25,12 +25,12 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="Mixtile Project documentation" href="../index.html" /> 
   </head>
-  <body>
-      <div class="header"><img class="rightlogo" src="../_static/mixtile-logo.png" alt="Logo"/><h1 class="heading"><a href="../index.html">
+  <body role="document">
+      <div class="header" role="banner"><img class="rightlogo" src="../_static/mixtile-logo.png" alt="Logo"/><h1 class="heading"><a href="../index.html">
           <span>Mixtile Project documentation</span></a></h1>
         <h2 class="heading"><span>LOFT-Q 旧版系统快速指南</span></h2>
       </div>
-      <div class="topnav">
+      <div class="topnav" role="navigation" aria-label="top navigation">
       
         <p>
         <a class="uplink" href="../index.html">Contents</a>
@@ -118,12 +118,12 @@ git clone https://github.com/mixtile/buildroot.git
 <span class="nb">export </span><span class="nv">SUNXI_TOOLS_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-build
 <span class="nb">export </span><span class="nv">SUNXI_LINUX_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-linux
 <span class="nb">export </span><span class="nv">SUNXI_UBOOT_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-uboot
-<span class="nb">export </span><span class="nv">SUNXI_TOOLCHAIN_PATH</span><span class="o">=</span><span class="k">${</span><span class="nv">SUNXI_TOOLS_PATH</span><span class="k">}</span>/toolschain/gcc-linaro/bin/
+<span class="nb">export </span><span class="nv">SUNXI_TOOLCHAIN_PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">SUNXI_TOOLS_PATH</span><span class="si">}</span>/toolschain/gcc-linaro/bin/
 
 <span class="c"># envs for android</span>
 <span class="nb">export </span><span class="nv">ANDROID_TRUNK</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/android
 <span class="nb">export </span><span class="nv">ANDROID_DEVICE</span><span class="o">=</span>loftq
-<span class="nb">export </span><span class="nv">ANDROID_DEVICE_TRUNK</span><span class="o">=</span><span class="k">${</span><span class="nv">ANDROID_TRUNK</span><span class="k">}</span>/device/mixtile/<span class="k">${</span><span class="nv">ANDROID_DEVICE</span><span class="k">}</span>
+<span class="nb">export </span><span class="nv">ANDROID_DEVICE_TRUNK</span><span class="o">=</span><span class="si">${</span><span class="nv">ANDROID_TRUNK</span><span class="si">}</span>/device/mixtile/<span class="si">${</span><span class="nv">ANDROID_DEVICE</span><span class="si">}</span>
 
 <span class="c"># envs for ubuntu touch</span>
 <span class="c"># only used if we have android base sdk released by ubuntu touch team</span>
@@ -132,15 +132,15 @@ git clone https://github.com/mixtile/buildroot.git
 <span class="nb">export </span><span class="nv">UBUNTU_TARBALL</span><span class="o">=</span><span class="nv">$UBUNTU_OUTPUT</span>/vivid-preinstalled-touch-armhf.tar.gz
 
 <span class="c"># commom env</span>
-<span class="nb">export </span><span class="nv">ANDROID_OUT</span><span class="o">=</span><span class="k">${</span><span class="nv">ANDROID_TRUNK</span><span class="k">}</span>/out
-<span class="nb">export </span><span class="nv">ANDROID_DEVICE_OUT</span><span class="o">=</span><span class="k">${</span><span class="nv">ANDROID_OUT</span><span class="k">}</span>/target/product/<span class="k">${</span><span class="nv">ANDROID_DEVICE</span><span class="k">}</span>
+<span class="nb">export </span><span class="nv">ANDROID_OUT</span><span class="o">=</span><span class="si">${</span><span class="nv">ANDROID_TRUNK</span><span class="si">}</span>/out
+<span class="nb">export </span><span class="nv">ANDROID_DEVICE_OUT</span><span class="o">=</span><span class="si">${</span><span class="nv">ANDROID_OUT</span><span class="si">}</span>/target/product/<span class="si">${</span><span class="nv">ANDROID_DEVICE</span><span class="si">}</span>
 
 <span class="nb">export </span><span class="nv">LINARO_GCC_PATH</span><span class="o">=</span><span class="nv">$SUNXI_TOOLCHAIN_PATH</span>
 <span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$LINARO_GCC_PATH</span>
 </pre></div>
 </div>
 <p>用户可以在其中添加自定义的指令，以 <em>linux_build_uboot</em> 为例：</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="k">function </span>linux_build_uboot<span class="o">()</span>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">function</span> linux_build_uboot<span class="o">()</span>
 <span class="o">{</span>
     <span class="nv">CURDIR</span><span class="o">=</span><span class="nv">$PWD</span>
 
@@ -324,7 +324,7 @@ android_pack
 
 
       </div>
-      <div class="bottomnav">
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
       
         <p>
         <a class="uplink" href="../index.html">Contents</a>
@@ -332,9 +332,9 @@ android_pack
 
       </div>
 
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2015, Mixtile Project.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

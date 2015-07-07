@@ -25,12 +25,12 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="Mixtile Project documentation" href="../index.html" /> 
   </head>
-  <body>
-      <div class="header"><img class="rightlogo" src="../_static/mixtile-logo.png" alt="Logo"/><h1 class="heading"><a href="../index.html">
+  <body role="document">
+      <div class="header" role="banner"><img class="rightlogo" src="../_static/mixtile-logo.png" alt="Logo"/><h1 class="heading"><a href="../index.html">
           <span>Mixtile Project documentation</span></a></h1>
         <h2 class="heading"><span>LOFT-Q Quick Guide for Lebacy Kernel</span></h2>
       </div>
-      <div class="topnav">
+      <div class="topnav" role="navigation" aria-label="top navigation">
       
         <p>
         <a class="uplink" href="../index.html">Contents</a>
@@ -127,12 +127,12 @@ git clone https://github.com/mixtile/buildroot.git
 <span class="nb">export </span><span class="nv">SUNXI_TOOLS_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-build
 <span class="nb">export </span><span class="nv">SUNXI_LINUX_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-linux
 <span class="nb">export </span><span class="nv">SUNXI_UBOOT_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-uboot
-<span class="nb">export </span><span class="nv">SUNXI_TOOLCHAIN_PATH</span><span class="o">=</span><span class="k">${</span><span class="nv">SUNXI_TOOLS_PATH</span><span class="k">}</span>/toolschain/gcc-linaro/bin/
+<span class="nb">export </span><span class="nv">SUNXI_TOOLCHAIN_PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">SUNXI_TOOLS_PATH</span><span class="si">}</span>/toolschain/gcc-linaro/bin/
 
 <span class="c"># envs for android</span>
 <span class="nb">export </span><span class="nv">ANDROID_TRUNK</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/android
 <span class="nb">export </span><span class="nv">ANDROID_DEVICE</span><span class="o">=</span>loftq
-<span class="nb">export </span><span class="nv">ANDROID_DEVICE_TRUNK</span><span class="o">=</span><span class="k">${</span><span class="nv">ANDROID_TRUNK</span><span class="k">}</span>/device/mixtile/<span class="k">${</span><span class="nv">ANDROID_DEVICE</span><span class="k">}</span>
+<span class="nb">export </span><span class="nv">ANDROID_DEVICE_TRUNK</span><span class="o">=</span><span class="si">${</span><span class="nv">ANDROID_TRUNK</span><span class="si">}</span>/device/mixtile/<span class="si">${</span><span class="nv">ANDROID_DEVICE</span><span class="si">}</span>
 
 <span class="c"># envs for ubuntu touch</span>
 <span class="c"># only used if we have android base sdk released by ubuntu touch team</span>
@@ -141,15 +141,15 @@ git clone https://github.com/mixtile/buildroot.git
 <span class="nb">export </span><span class="nv">UBUNTU_TARBALL</span><span class="o">=</span><span class="nv">$UBUNTU_OUTPUT</span>/vivid-preinstalled-touch-armhf.tar.gz
 
 <span class="c"># commom env</span>
-<span class="nb">export </span><span class="nv">ANDROID_OUT</span><span class="o">=</span><span class="k">${</span><span class="nv">ANDROID_TRUNK</span><span class="k">}</span>/out
-<span class="nb">export </span><span class="nv">ANDROID_DEVICE_OUT</span><span class="o">=</span><span class="k">${</span><span class="nv">ANDROID_OUT</span><span class="k">}</span>/target/product/<span class="k">${</span><span class="nv">ANDROID_DEVICE</span><span class="k">}</span>
+<span class="nb">export </span><span class="nv">ANDROID_OUT</span><span class="o">=</span><span class="si">${</span><span class="nv">ANDROID_TRUNK</span><span class="si">}</span>/out
+<span class="nb">export </span><span class="nv">ANDROID_DEVICE_OUT</span><span class="o">=</span><span class="si">${</span><span class="nv">ANDROID_OUT</span><span class="si">}</span>/target/product/<span class="si">${</span><span class="nv">ANDROID_DEVICE</span><span class="si">}</span>
 
 <span class="nb">export </span><span class="nv">LINARO_GCC_PATH</span><span class="o">=</span><span class="nv">$SUNXI_TOOLCHAIN_PATH</span>
 <span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$LINARO_GCC_PATH</span>
 </pre></div>
 </div>
 <p>And developers can also add their own compiling instructions, sample as <em>linux_build_uboot</em> :</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="k">function </span>linux_build_uboot<span class="o">()</span>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">function</span> linux_build_uboot<span class="o">()</span>
 <span class="o">{</span>
     <span class="nv">CURDIR</span><span class="o">=</span><span class="nv">$PWD</span>
 
@@ -281,11 +281,11 @@ Generating linux out directory!
 Copiing uboot!
 Copying linux kernel and modules!
 Packing final image!
-Start packing <span class="k">for </span>Lichee system
+Start packing <span class="k">for</span> Lichee system
 
 All valid chips:
 0. sun6i
-Please <span class="k">select </span>a chip:
+Please <span class="k">select</span> a chip:
 </pre></div>
 </div>
 <p>then enter <strong>0</strong> for choosing <strong>sun6i</strong>, the next session for os :</p>
@@ -293,7 +293,7 @@ Please <span class="k">select </span>a chip:
 0. android
 1. dragonboard
 2. linux
-Please <span class="k">select </span>a platform:
+Please <span class="k">select</span> a platform:
 </pre></div>
 </div>
 <p>Now, we use linux, so enter <strong>2</strong> for <strong>linux</strong>, and then:</p>
@@ -304,7 +304,7 @@ Please <span class="k">select </span>a platform:
 3. loftq
 4. loftq_suse
 5. qc
-Please <span class="k">select </span>a board:
+Please <span class="k">select</span> a board:
 </pre></div>
 </div>
 <p>we use <strong>loftq</strong>, so enter <strong>3</strong>, maybe the options list will vary with time. so choose the specified option according to your request. and then it will continue packing according to your selections, screen info as below:</p>
@@ -317,7 +317,7 @@ find magic !!
 CPlugin Free lib
 CPlugin Free lib
 get rootfs from ../../../out/linux
-compute signature <span class="k">for </span>datafile /home/nano/mixtile/loftq/loftq-build/pack/out/boot.fex
+compute signature <span class="k">for</span> datafile /home/nano/mixtile/loftq/loftq-build/pack/out/boot.fex
 /home/nano/mixtile/loftq/loftq-build/pack/pctools/linux/eDragonEx/
 /home/nano/mixtile/loftq/loftq-build/pack/out
 Begin Parse sys_partion.fex
@@ -328,7 +328,7 @@ FilePath: bootloader.fex
 Add partion env.fex ENV_FEX000000000
 Add partion very env.fex ENV_FEX000000000
 FilePath: env.fex
-<span class="nv">FileLength</span><span class="o">=</span>20000 <span class="nv">FileSizeHigh</span><span class="o">=</span>0
+<span class="nv">FileLength</span><span class="o">=</span><span class="m">20000</span> <span class="nv">FileSizeHigh</span><span class="o">=</span>0
 Add partion boot.fex BOOT_FEX00000000
 Add partion very boot.fex BOOT_FEX00000000
 FilePath: boot.fex
@@ -336,7 +336,7 @@ FilePath: boot.fex
 Add partion rootfs.fex ROOTFS_FEX000000
 Add partion very rootfs.fex ROOTFS_FEX000000
 FilePath: rootfs.fex
-<span class="nv">FileLength</span><span class="o">=</span>8327800 <span class="nv">FileSizeHigh</span><span class="o">=</span>0
+<span class="nv">FileLength</span><span class="o">=</span><span class="m">8327800</span> <span class="nv">FileSizeHigh</span><span class="o">=</span>0
 BuildImg 0
 Dragon execute image.cfg SUCCESS !
 ---------image is at-------------
@@ -405,7 +405,7 @@ android_pack
 
 
       </div>
-      <div class="bottomnav">
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
       
         <p>
         <a class="uplink" href="../index.html">Contents</a>
@@ -413,9 +413,9 @@ android_pack
 
       </div>
 
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2015, Mixtile Project.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>
