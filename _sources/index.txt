@@ -8,16 +8,11 @@ Welcome to Mixtile Zone
 
 Welcom to Mixtile Zone. 
 
-
-Chinese
--------------
-
-:doc:`zh_root`
-
-English
-------------
-
-:doc:`en_root`
+.. toctree::
+   :maxdepth: 2
+   
+   zh_root.rst
+   en_root.rst
 
 索引
 ==================

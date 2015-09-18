@@ -1,5 +1,5 @@
 .. header::
-  .. image:: ../_static/pictures/mixtile-logo.png
+  .. image:: ../../_static/pictures/mixtile-logo.png
     :align: left
 
 ===========================================================
@@ -29,7 +29,7 @@ LOFT-Q 提供了 3 个 FPC 座子，分别为 J4, J5, J6，其中每个提供 60
 * 3 Expansion LVDS 为显示屏，触摸屏所用 IO 口，也可以作为通用 GPIO 使用。
 * 5 Expansion CSPIO 包含一些可用作 SPI，UART，I2C 等接口的 GPIO, 以及通用的 GPIO。
 
-.. image:: ../_static/pictures/loftq-interface-map.png
+.. image:: ../../_static/pictures/loftq-interface-map.png
   :width: 100%
   :align: center
 

@@ -1,0 +1,396 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>LOFT-Q Owncloud 说明 &mdash; Mixtile Project documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Mixtile Project documentation" href="../../index.html"/>
+        <link rel="up" title="中文文档" href="../../zh_root.html"/>
+        <link rel="next" title="LOFT-Q 产品说明" href="zh-product-intro.html"/>
+        <link rel="prev" title="LOFT-Q 主流系统快速指南" href="zh-mainline-quick-guide.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../index.html" class="icon icon-home"> mixtile
+        
+
+        
+          
+          <img src="../../_static/mixtile-logo.png" class="logo" />
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../zh_root.html">中文文档</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../zh_root.html#loft-q">LOFT-Q 相关文档</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="zh-android-cust.html">LOFT-Q Android 定制化指南</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zh-android-network-debug.html">Android adb 网络调试</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="zh-android-network-debug.html#id1">前期准备</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-android-network-debug.html#gnu-linux">GNU/Linux 系统准备</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-android-network-debug.html#windows">Windows 系统准备</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-android-network-debug.html#adb">连接网络 ADB</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-android-network-debug.html#eclipse">Eclipse 调试</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-android-network-debug.html#id3">注意事项</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="zh-gpio-guide.html">LOFT-Q GPIO 使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="zh-gpio-guide.html#id2">介绍</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-gpio-guide.html#gpio">GPIO 引脚说明</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-gpio-guide.html#id3">GPIO 内核配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-gpio-guide.html#id4">GPIO 使用示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-gpio-guide.html#id6">更多参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="zh-intro.html">LOFT-Q 简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="zh-intro.html#id1">开放硬件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-intro.html#id2">软件介绍</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-intro.html#id3">硬件介绍</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="zh-jn5168-guide.html">LOFT-Q JN5168 使用说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zh-legacy-driver-guide.html">LOFT-Q 旧版内核驱动指南</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="zh-legacy-driver-guide.html#id1">驱动介绍</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-legacy-driver-guide.html#id3">内核驱动结构</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="zh-legacy-quick-guide.html">LOFT-Q 旧版系统快速指南</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="zh-legacy-quick-guide.html#id1">旧版环境准备</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-legacy-quick-guide.html#uboot">旧版 UBoot 构建</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-legacy-quick-guide.html#linux">旧版 Linux 内核构建</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-legacy-quick-guide.html#buildroot">Buildroot 构建</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-legacy-quick-guide.html#android">Android 构建使用</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="zh-mainline-quick-guide.html">LOFT-Q 主流系统快速指南</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="zh-mainline-quick-guide.html#uboot">主流 Uboot 构建</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-mainline-quick-guide.html#linux">主流 Linux 构建</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-mainline-quick-guide.html#debian">Debian 构建</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-mainline-quick-guide.html#ubuntu">Ubuntu 构建</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-mainline-quick-guide.html#opensuse">OpenSUSE 使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-mainline-quick-guide.html#id8">更多说明</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">LOFT-Q Owncloud 说明</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#debian">Debian 配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opensuse">openSUSE 配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">更多参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="zh-product-intro.html">LOFT-Q 产品说明</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="zh-product-intro.html#id1">产品概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-product-intro.html#id2">产品特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-product-intro.html#id3">产品配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-product-intro.html#id5">硬件详细参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-product-intro.html#id15">软件资源</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="zh-seafile-howto.html">LOFT-Q Seafile 说明</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="zh-seafile-howto.html#debian-chroot">配置 Debian chroot 环境</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zh-seafile-howto.html#seafile">编译 Seafile 服务软件</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../zh_root.html#gena">GENA 相关文档</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../en_root.html">English Documents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../en_root.html#loft-q">LOFT-Q</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../en/loftq/en-android-cust.html">LOFT-Q Android Customization guide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../en/loftq/en-intro.html">LOFT-Q Introduction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-intro.html#open-hardware">Open Hardware</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-intro.html#software">Software</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-intro.html#hardware">Hardware</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../en/loftq/en-legacy-quick-guide.html">LOFT-Q Quick Guide for Lebacy Kernel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-legacy-quick-guide.html#lebacy-build-environment">Lebacy Build Environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-legacy-quick-guide.html#legacy-uboot-building">Legacy Uboot Building</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-legacy-quick-guide.html#legacy-linux-kernel-building">Legacy Linux Kernel Building</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-legacy-quick-guide.html#buildroot-building">Buildroot building</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-legacy-quick-guide.html#android-building">Android building</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../en/loftq/en-mainline-quick-guide.html">LOFT-Q Quick Guide for mainline kernel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-mainline-quick-guide.html#mainline-u-boot-building">Mainline u-boot building</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-mainline-quick-guide.html#mainline-kernel-building">Mainline kernel building</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-mainline-quick-guide.html#debian-building">Debian building</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-mainline-quick-guide.html#ubuntu-building">Ubuntu building</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-mainline-quick-guide.html#opensuse">OpenSUSE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-mainline-quick-guide.html#miscellaneous">Miscellaneous</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../en/loftq/en-owncloud-howto.html">LOFT-Q Owncloud Guide</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-owncloud-howto.html#owncloud-for-debian">Owncloud for Debian</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-owncloud-howto.html#owncloud-for-opensuse">Owncloud for openSUSE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-owncloud-howto.html#reference">Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../en/loftq/en-seafile-howto.html">LOFT-Q Seafile Guide</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-seafile-howto.html#debian-chroot-setup">Debian chroot setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-seafile-howto.html#seafile-service-building">Seafile Service building</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../en_root.html#gena">GENA</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">mixtile</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../zh_root.html">中文文档</a> &raquo;</li>
+      
+    <li>LOFT-Q Owncloud 说明</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/zh/loftq/zh-owncloud-howto.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="loft-q-owncloud">
+<h1>LOFT-Q Owncloud 说明<a class="headerlink" href="#loft-q-owncloud" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://owncloud.org">ownCloud</a> 是一个自由且开源的个人云存储解决方案，最初由 KDE 开发者 <a class="reference external" href="http://zh.wikipedia.org/wiki/Frank_Karlitschek">Frank Karlitschek</a> 于2010年一月创建，目标是替代商业的云服务提供商。对于 owncloud, 用于可以自由免费的获取，但是自行架设该服务器，则需要一些基本的安装和配置。</p>
+<p>LOFT-Q 提供了 Debian 和 OpenSUSE 两个 Linux 系统，对于它们，我们可以使用如下的方法来配置属于自己的 owncloud 专属云服务器，所有的安装和配置基于 <a class="reference external" href="https://owncloud.org/eight">owncloud 8.0</a> 。</p>
+<div class="section" id="debian">
+<h2>Debian 配置<a class="headerlink" href="#debian" title="Permalink to this headline">¶</a></h2>
+<p>对于 Debian SID 版本安装方法如下：</p>
+<div class="highlight-sh"><div class="highlight"><pre>sudo apt-get install owncloud
+</pre></div>
+</div>
+</div>
+<div class="section" id="opensuse">
+<h2>openSUSE 配置<a class="headerlink" href="#opensuse" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">安装 Owncloud:</p>
+<div class="highlight-sh"><div class="highlight"><pre>zypper addrepo http://download.opensuse.org/repositories/isv:ownCloud:community/openSUSE_Factory_ARM/isv:ownCloud:community.repo
+zypper refresh
+zypper install owncloud
+</pre></div>
+</div>
+</li>
+<li><p class="first">启动和配置 Maria DB</p>
+<div class="highlight-sh"><div class="highlight"><pre>Message from package mariadb:
+
+You just installed MySQL server <span class="k">for</span> the first time.
+
+You can start it using:
+ rcmysql start
+
+During first start empty database will be created <span class="k">for</span> your automatically.
+
+PLEASE REMEMBER TO SET A PASSWORD FOR THE MariaDB root USER !
+To <span class="k">do</span> so, start the server, <span class="k">then</span> issue the following commands:
+
+<span class="s1">&#39;/usr/bin/mysqladmin&#39;</span> -u root password <span class="s1">&#39;new-password&#39;</span>
+<span class="s1">&#39;/usr/bin/mysqladmin&#39;</span> -u root -h misibook password <span class="s1">&#39;new-password&#39;</span>
+
+Alternatively you can run:
+<span class="s1">&#39;/usr/bin/mysql_secure_installation&#39;</span>
+
+which will also give you the option of removing the <span class="nb">test</span>
+databases and anonymous user created by default.  This is
+strongly recommended <span class="k">for</span> production servers.
+</pre></div>
+</div>
+<p>根据上述提示执行如下命令：</p>
+<ul>
+<li><p class="first">启动 MySQL 服务器</p>
+<div class="highlight-sh"><div class="highlight"><pre>rcmysql start
+</pre></div>
+</div>
+</li>
+<li><p class="first">设置数据库 root 密码</p>
+<div class="highlight-sh"><div class="highlight"><pre>  mysqladmin -u root password <span class="s1">&#39;new-password&#39;</span>
+
+  mysqladmin -u root -h misibook password <span class="s1">&#39;new-password&#39;</span>
+
+**<span class="s1">&#39;new-password&#39;</span>** 是根据需要设置的密码.
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p class="first">设置和启动 Apache2</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>对于 openSUSE，目前存在一个问题，其默认安装的 apache2, 版本为2.4, 该版本的 <strong>authz_default</strong> 模块已经被移除，并且其中相应功能由 <strong>authz_core</strong> 所替换。因此我们需要在 <strong>/etc/sysconfig/apache2</strong> 中移除 <strong>authz_default</strong> 而将其替换为 <strong>authz_core</strong>。</p>
+<p>最终，在 <strong>/etc/sysconfig/apache2</strong> 中的默认模块加载配置为：</p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="nv">APACHE_MODULES</span><span class="o">=</span><span class="s2">&quot;php5 actions alias auth_basic authn_file authz_host authz_groupffile</span>
+<span class="s2">authz_user authz_core autoindex cgi dir env expires include log_config mime negotiation</span>
+<span class="s2">setenvif ssl socache_shmcb userdir  reqtimeout&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>参照上述说明修改完配置之后，需要执行下述命令重新启动 apache2 服务：</p>
+<div class="highlight-sh"><div class="highlight"><pre>rcapache2 start
+</pre></div>
+</div>
+</li>
+<li><p class="first">初始化设置 owncloud</p>
+<p>在完成上述的全部配置之后，在浏览器中输入 <strong>http://192.168.1.102/owncloud</strong> 开始探索和配置自己的私人专属云服务器。</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><strong>http://192.168.1.102/owncloud</strong> 是 owncloud 的网络地址，需要根据不同的 IP 地址进行修改。</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="id1">
+<h2>更多参考<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://doc.owncloud.org/">owncloud 文档</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="zh-product-intro.html" class="btn btn-neutral float-right" title="LOFT-Q 产品说明" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="zh-mainline-quick-guide.html" class="btn btn-neutral" title="LOFT-Q 主流系统快速指南" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Mixtile Project.
+      Last updated on Sep 18, 2015.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
