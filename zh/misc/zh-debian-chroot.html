@@ -1,0 +1,402 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ArmHF Debian Chroot &mdash; Mixtile Project documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Mixtile Project documentation" href="../../index.html"/>
+        <link rel="up" title="中文文档" href="../../zh_root.html"/>
+        <link rel="next" title="English Documents" href="../../en_root.html"/>
+        <link rel="prev" title="LOFT-Q Seafile 说明" href="../loftq/zh-seafile-howto.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../index.html" class="icon icon-home"> mixtile
+        
+
+        
+          
+          <img src="../../_static/mixtile-logo.png" class="logo" />
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../zh_root.html">中文文档</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../zh_root.html#loft-q">LOFT-Q 相关文档</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../loftq/zh-android-cust.html">LOFT-Q Android 定制化指南</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../loftq/zh-android-network-debug.html">Android adb 网络调试</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-android-network-debug.html#id1">前期准备</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-android-network-debug.html#gnu-linux">GNU/Linux 系统准备</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-android-network-debug.html#windows">Windows 系统准备</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-android-network-debug.html#adb">连接网络 ADB</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-android-network-debug.html#eclipse">Eclipse 调试</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-android-network-debug.html#id3">注意事项</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../loftq/zh-gpio-guide.html">LOFT-Q GPIO 使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-gpio-guide.html#id2">介绍</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-gpio-guide.html#gpio">GPIO 引脚说明</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-gpio-guide.html#id3">GPIO 内核配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-gpio-guide.html#id4">GPIO 使用示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-gpio-guide.html#id6">更多参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../loftq/zh-intro.html">LOFT-Q 简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-intro.html#id1">开放硬件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-intro.html#id2">软件介绍</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-intro.html#id3">硬件介绍</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../loftq/zh-jn5168-guide.html">LOFT-Q JN5168 使用说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../loftq/zh-legacy-driver-guide.html">LOFT-Q 旧版内核驱动指南</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-legacy-driver-guide.html#id1">驱动介绍</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-legacy-driver-guide.html#id3">内核驱动结构</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../loftq/zh-legacy-quick-guide.html">LOFT-Q 旧版系统快速指南</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-legacy-quick-guide.html#id1">旧版环境准备</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-legacy-quick-guide.html#uboot">旧版 UBoot 构建</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-legacy-quick-guide.html#linux">旧版 Linux 内核构建</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-legacy-quick-guide.html#buildroot">Buildroot 构建</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-legacy-quick-guide.html#android">Android 构建使用</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../loftq/zh-mainline-quick-guide.html">LOFT-Q 主流系统快速指南</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-mainline-quick-guide.html#uboot">主流 Uboot 构建</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-mainline-quick-guide.html#linux">主流 Linux 构建</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-mainline-quick-guide.html#debian">Debian 构建</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-mainline-quick-guide.html#ubuntu">Ubuntu 构建</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-mainline-quick-guide.html#opensuse">OpenSUSE 使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-mainline-quick-guide.html#id8">更多说明</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../loftq/zh-owncloud-howto.html">LOFT-Q Owncloud 说明</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-owncloud-howto.html#debian">Debian 配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-owncloud-howto.html#opensuse">openSUSE 配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-owncloud-howto.html#id1">更多参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../loftq/zh-product-intro.html">LOFT-Q 产品说明</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-product-intro.html#id1">产品概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-product-intro.html#id2">产品特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-product-intro.html#id3">产品配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-product-intro.html#id5">硬件详细参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-product-intro.html#id15">软件资源</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../loftq/zh-seafile-howto.html">LOFT-Q Seafile 说明</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-seafile-howto.html#debian-chroot">配置 Debian chroot 环境</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../loftq/zh-seafile-howto.html#seafile">编译 Seafile 服务软件</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../zh_root.html#gena">GENA 相关文档</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../zh_root.html#id2">其他文档</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="">ArmHF Debian Chroot</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#chroot">配置 chroot 环境</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">准备开发环境</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../en_root.html">English Documents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../en_root.html#loft-q">LOFT-Q</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../en/loftq/en-android-cust.html">LOFT-Q Android Customization guide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../en/loftq/en-intro.html">LOFT-Q Introduction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-intro.html#open-hardware">Open Hardware</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-intro.html#software">Software</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-intro.html#hardware">Hardware</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../en/loftq/en-legacy-quick-guide.html">LOFT-Q Quick Guide for Lebacy Kernel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-legacy-quick-guide.html#lebacy-build-environment">Lebacy Build Environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-legacy-quick-guide.html#legacy-uboot-building">Legacy Uboot Building</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-legacy-quick-guide.html#legacy-linux-kernel-building">Legacy Linux Kernel Building</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-legacy-quick-guide.html#buildroot-building">Buildroot building</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-legacy-quick-guide.html#android-building">Android building</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../en/loftq/en-mainline-quick-guide.html">LOFT-Q Quick Guide for mainline kernel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-mainline-quick-guide.html#mainline-u-boot-building">Mainline u-boot building</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-mainline-quick-guide.html#mainline-kernel-building">Mainline kernel building</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-mainline-quick-guide.html#debian-building">Debian building</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-mainline-quick-guide.html#ubuntu-building">Ubuntu building</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-mainline-quick-guide.html#opensuse">OpenSUSE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-mainline-quick-guide.html#miscellaneous">Miscellaneous</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../en/loftq/en-owncloud-howto.html">LOFT-Q Owncloud Guide</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-owncloud-howto.html#owncloud-for-debian">Owncloud for Debian</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-owncloud-howto.html#owncloud-for-opensuse">Owncloud for openSUSE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-owncloud-howto.html#reference">Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../en/loftq/en-seafile-howto.html">LOFT-Q Seafile Guide</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-seafile-howto.html#debian-chroot-setup">Debian chroot setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../en/loftq/en-seafile-howto.html#seafile-service-building">Seafile Service building</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../en_root.html#gena">GENA</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">mixtile</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../zh_root.html">中文文档</a> &raquo;</li>
+      
+    <li>ArmHF Debian Chroot</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/zh/misc/zh-debian-chroot.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="armhf-debian-chroot">
+<h1>ArmHF Debian Chroot<a class="headerlink" href="#armhf-debian-chroot" title="Permalink to this headline">¶</a></h1>
+<p>在 Linux 系统上进行嵌入式开发时，通常使用交叉编译或者qemu虚拟环境进行软件的构建，生成可以在目标机器上运行的可执行程序。对于 Debian ,为了加快软件开发速度，同时避免交叉编译时自行构建各个依赖库产生各种不必要的干扰，可以选择基于 QEMU 虚拟环境的 Debian Chroot 环境进行软件的开发，构建，以及调试。本篇主要对 Debian Chroot 环境的构建，开发，调试环境进行介绍，方便开发人员能够快速的搭建相关环境，介入软件开发过程。</p>
+<div class="section" id="chroot">
+<h2>配置 chroot 环境<a class="headerlink" href="#chroot" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="qemu-debootstrap">
+<h3>安装 qemu 和 debootstrap 等工具<a class="headerlink" href="#qemu-debootstrap" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell"><div class="highlight"><pre>sudo apt-get install binfmt-support qemu qemu-user-static debootstrap
+</pre></div>
+</div>
+</div>
+<div class="section" id="armhf">
+<h3>获取 armhf 系统包<a class="headerlink" href="#armhf" title="Permalink to this headline">¶</a></h3>
+<p>Debian Arm 硬浮点系统包有两种方式可以获取，包括 <em>debootstrap</em> 和 <em>qemu-debootstrap</em> ，两者获取方式如下说明。</p>
+<div class="section" id="debootstrap">
+<h4>基于 debootstrap 获取<a class="headerlink" href="#debootstrap" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic">
+<li><p class="first">安装 debootstrap, qemu, qemu-arm 等工具。</p>
+</li>
+<li><p class="first">获取 chroot 系统及软件包。</p>
+<div class="highlight-shell"><div class="highlight"><pre>sudo debootstrap --no-check-gpg --arch<span class="o">=</span>armhf sid ./sid-armhf ftp://ftp.debian.org/debian/
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">对于上述指令中的 <strong>sid</strong> 为 Debian 的每日构建版本，属于 Factory 版本，软件时时更新，可能并不稳定。如果希望使用稳定版本，可以选择 <strong>jessie</strong> (Debian 8)，<strong>wheezy</strong> (Debian 7)， <strong>squeeze</strong> (Debian 6)等稳定版本，不过建议使用最新的稳定版本 <strong>jessie</strong> 作为生产系统，如果是用于测试或者开发者环境，可以选择 <strong>sid</strong> 。</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="id1">
+<h4>基于 qemu-debootstrap 获取<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">对于 <strong>qemu-debootstrap</strong> 仅适用于 Debian 或者 Ubuntu 系统，以及这两个系统的衍生系统版本。</p>
+</div>
+<p>对于 <strong>x86</strong> 机器，则可以使用 qemu-user-static 包中的 qemu-debootstrap 来获取系统包。系统选择参照备注里的说明。</p>
+<div class="highlight-shell"><div class="highlight"><pre>qemu-debootstrap --no-check-gpg --arch<span class="o">=</span>armhf sid /chroots/sid-armhf ftp://ftp.debian.org/debian/
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>切入 Chroot 环境<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>在完成 Arm 硬浮点架构的系统包获取之后，可以切入 Chroot 环境，进行第一次环境设置。</p>
+<ol class="arabic">
+<li><p class="first">进入 chroot 环境，挂载 <em>/proc</em> 文件系统</p>
+<div class="highlight-shell"><div class="highlight"><pre>sudo cp /usr/bin/qemu-arm-static sid-armhf/usr/bin
+sudo chroot /chroots/sid-armhf
+
+mount -t proc proc /proc
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>如果使用的是 <em>qemu-bootstrap</em> 和 <em>schroot</em> ，那么 <em>/proc</em> 的挂载将会有配置文件自动执行。</p>
+<p class="last">对于 <strong>openSUSE</strong> ， 则需要拷贝 <em>/usr/bin/qemu-arm</em> 和 <em>/usr/bin/qemu-arm-binfmt</em> 到 <em>sid-armhf/usr/bin</em> 目录。</p>
+</div>
+</li>
+<li><p class="first">首次进入系统设置。</p>
+<p>在第一次进入系统之后，需要对系统进行设置。在首次进入系统后，需要对系统进行设置，包括阻止系统服务启动，配置软件源等。</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>建议创建 <strong>/usr/sbin/policy-rc.d</strong> 阻止 chroot 环境中的后台服务启动。该文件权限需要修改为 <strong>0755</strong> ，其中的内容如下（内容取自pbuilder）。</p>
+<div class="last highlight-shell"><div class="highlight"><pre><span class="nb">echo</span> <span class="s2">&quot;************************************&quot;</span> &gt;<span class="p">&amp;</span>2
+<span class="nb">echo</span> <span class="s2">&quot;All rc.d operations denied by policy&quot;</span> &gt;<span class="p">&amp;</span>2
+<span class="nb">echo</span> <span class="s2">&quot;************************************&quot;</span> &gt;<span class="p">&amp;</span>2
+<span class="nb">exit </span>101
+</pre></div>
+</div>
+</div>
+<p>系统更新源配置位于 <strong>/etc/apt/sources.list</strong> ，由于 debootstrap 生成的软件源不可用，我们需要在其中添加可用的软件源，如下是 armhf 的二进制和源代码源：</p>
+<div class="highlight-python"><div class="highlight"><pre>deb http://ftp.debian.org/debian sid main
+deb-src http://ftp.debian.org/debian sid main
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">软件源需要根据自己的系统版本进行设置，这里使用的是 <strong>sid</strong> ，对于生产用系统需要根据选择的系统版本进行设置，如 <strong>jessie</strong> ， <strong>wheezy</strong> ，或者 <strong>sequeeze</strong> 等。</p>
+</div>
+<p>在完成软件源的添加之后，可以根据需要更新系统，或者添加自己需要的软件源。</p>
+<div class="highlight-shell"><div class="highlight"><pre>sudo apt-get update
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>准备开发环境<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>安装 gcc, build-essential, scons 等开发工具</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../en_root.html" class="btn btn-neutral float-right" title="English Documents" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../loftq/zh-seafile-howto.html" class="btn btn-neutral" title="LOFT-Q Seafile 说明" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Mixtile Project.
+      Last updated on Oct 15, 2015.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

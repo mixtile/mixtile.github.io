@@ -5,7 +5,6 @@
 LOFT-Q Introduction
 ===================
 :Organization:    Mixtile Team
-:Authors:         Phil.Han <phil.han@focalcrest.com>
 :Version:         0.1
 :Date:            2015.01.23
 

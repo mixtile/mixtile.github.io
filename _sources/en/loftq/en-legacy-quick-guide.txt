@@ -6,7 +6,6 @@
 LOFT-Q Quick Guide for Lebacy Kernel
 =======================================
 :Organization: Mixtile Team 
-:Author: Phil.Han <phil.han@focalcrest.com>
 :Version: 0.1
 :Date: 2015.01.23
 
