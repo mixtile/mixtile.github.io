@@ -1,0 +1,58 @@
+====================================================
+Linux 常用命令
+====================================================
+
+
+
+音频相关命令
+====================================================
+
+查看系统中的音频设备：
+
+.. code-block::shell
+  
+   # cat /proc/asound/cards 
+   
+   0 [audiocodec     ]: audiocodec - audiocodec
+                      audiocodec
+   1 [sndhdmi        ]: sndhdmi - sndhdmi
+                      sndhdmi
+
+   
+   
+
+
+麦克风相关
+----------------------------------------------------
+
+使用 arecord 查看麦克风，即音频捕获设备：
+
+.. code-block::shell
+
+   arecord -l 
+   
+   **** List of CAPTURE Hardware Devices ****
+   card 0: audiocodec [audiocodec], device 0: SUNXI-CODEC sndcodec-0 []
+    Subdevices: 1/1
+    Subdevice #0: subdevice #0
+
+
+扬声器相关
+----------------------------------------------------
+
+使用 aplay 查看扬声器，即音频输出设备：
+
+.. code-block::shell
+
+   aplay -l
+   
+   **** List of PLAYBACK Hardware Devices ****
+   card 0: audiocodec [audiocodec], device 0: SUNXI-CODEC sndcodec-0 []
+     Subdevices: 1/1
+     Subdevice #0: subdevice #0
+   card 1: sndhdmi [sndhdmi], device 0: SUNXI-HDMIAUDIO sndhdmi-0 []
+     Subdevices: 1/1
+     Subdevice #0: subdevice #0
+
+
+

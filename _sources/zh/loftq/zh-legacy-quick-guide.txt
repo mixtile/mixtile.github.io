@@ -29,9 +29,9 @@ LOFT-Q 是 Mixtile 项目的第二代原型板，基于全志 A31 芯片，主�
 
 我们需要准备的代码包括如下几个部分：
 
-* 构建工具： https://github.com/mixtile/loftq-build
-* 旧版内核： https://github.com/mixtile/loftq-linux
-* 旧版uboot: https://github.com/mixtile/loftq-uboot
+* 构建工具： https://github.com/mixtile/sunxi-build
+* 旧版内核： https://github.com/mixtile/a31-linux
+* 旧版uboot: https://github.com/mixtile/a31-uboot
 * android: http://www.mixtile.com/downloads/loft-q/ （建议使用 loftq_android_20150407.tar.bz2）
 * buildroot: https://github.com/mixtile/buildroot
 
@@ -40,9 +40,9 @@ LOFT-Q 是 Mixtile 项目的第二代原型板，基于全志 A31 芯片，主�
 .. code-block:: sh
 
   android
-  loftq-build
-  loftq-linux
-  loftq-uboot
+  sunxi-build
+  a31-linux
+  a31-uboot
 
 那么我们可以参照如下命令来搭建基本的构建环境：
 
@@ -51,21 +51,21 @@ LOFT-Q 是 Mixtile 项目的第二代原型板，基于全志 A31 芯片，主�
   mkdir loftq
   cd loftq
 
-  git clone https://github.com/mixtile/loftq-build.git
-  git clone https://github.com/mixtile/loftq-uboot.git
-  git clone https://github.com/mixtile/loftq-linux.git
+  git clone https://github.com/mixtile/sunxi-build.git
+  git clone https://github.com/mixtile/a31-uboot.git
+  git clone https://github.com/mixtile/a31-linux.git
   git clone https://github.com/mixtile/buildroot.git
 
-关于 loftq-build
+关于 sunxi-build
 ''''''''''''''''''
 
-loftq-build 主要用于旧版系统的构建和打包使用，包含用于完成 uboot， linux , android, 以及后续添加代码的构建指令, 以及 sunxi 的一部分打包相关工具。
+sunxi-build 主要用于旧版系统的构建和打包使用，包含用于完成 uboot， linux , android, 以及后续添加代码的构建指令, 以及 sunxi 的一部分打包相关工具。
 
 在执行具体的构建指令之前，我们需要执行如下指令，在当前的命令行环境下导入相关的构建指令：
 
 .. code-block:: sh
 
-  source loftq-build/sunxi_env.sh
+  source sunxi-build/sunxi_env.sh
 
 
 之后，我们可以执行后续的构建指令，下述是构建 linux 用的 uboot 的指令：
@@ -84,12 +84,12 @@ sunxi_env.sh 的开头部分定义了 uboot, linux, 以及 buildroot, android �
 .. code-block:: sh
 
   export BUILD_TRUNK=$(pwd)
-  export BUILD_TRUNK_OUT=$BUILD_TRUNK/out
+  export BUILD_TRUNK_OUT=$BUILD_TRUNK/out_loftq
   
   # envs for sunxi tools
-  export SUNXI_TOOLS_PATH=$(pwd)/loftq-build
-  export SUNXI_LINUX_PATH=$(pwd)/loftq-linux
-  export SUNXI_UBOOT_PATH=$(pwd)/loftq-uboot
+  export SUNXI_TOOLS_PATH=$(pwd)/sunxi-build
+  export SUNXI_LINUX_PATH=$(pwd)/a31-linux
+  export SUNXI_UBOOT_PATH=$(pwd)/a31-uboot
   export SUNXI_TOOLCHAIN_PATH=${SUNXI_TOOLS_PATH}/toolschain/gcc-linaro/bin/
   
   # envs for android
@@ -135,7 +135,7 @@ sunxi_env.sh 的开头部分定义了 uboot, linux, 以及 buildroot, android �
 基于 LOFT-Q 环境编译
 ''''''''''''''''''''''
 
-目前可以使用 loftq-build 中的工具实现对 uboot 的快速编译。
+目前可以使用 sunxi-build 中的工具实现对 uboot 的快速编译。
 
 对于构建适用于 Linux 和 Android 的构建指令分别如下：
 
@@ -176,7 +176,7 @@ sunxi_env.sh 的开头部分定义了 uboot, linux, 以及 buildroot, android �
 基于 LOFT-Q 环境的编译
 '''''''''''''''''''''''
 
-目前可以使用 loftq-build 中的工具实现对 linux 内核的快速编译。下述指令分别实现对标准 linux 内核和 android 定制内核的编译。
+目前可以使用 sunxi-build 中的工具实现对 linux 内核的快速编译。下述指令分别实现对标准 linux 内核和 android 定制内核的编译。
 
 * 标准 linux 内核编译
 
@@ -194,13 +194,13 @@ sunxi_env.sh 的开头部分定义了 uboot, linux, 以及 buildroot, android �
 手动定制编译
 '''''''''''''''''''''''''''
 
-如果用户需要直接在 loftq-linux 中使用 linux 的 Makefile 进行内核的编译，需要完成如下工作。
+如果用户需要直接在 a31-linux 中使用 linux 的 Makefile 进行内核的编译，需要完成如下工作。
 
 * 导入 sunxi 的 linaro-gcc 编译工具链
 
   .. code-block:: sh
 
-    export SUNXI_TOOLS_PATH=$(pwd)/loftq-build
+    export SUNXI_TOOLS_PATH=$(pwd)/sunxi-build
     export SUNXI_TOOLCHAIN_PATH=$SUNXI_TOOLS_PATH/toolschain/gcc-linaro/bin/
     export PATH=$PATH:$SUNXI_TOOLCHAIN_PATH
 

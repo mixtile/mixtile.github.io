@@ -53,23 +53,23 @@ LOFT-Q is based on A31 soc which is designed by Allwinner, and it is supported b
 
   Repository: https://github.com/mixtile/loftq-docs
 
-* loftq-build
+* sunxi-build
 
   This is the tools set for building, packing uboot, linux kernel, android, buildroot, which contains some referring configurations, like sys_config, sys_partition, boot logo specified for Allwinner socs, gcc tool chain, etc.
 
-  Repository: https://github.com/mixtile/loftq-build
+  Repository: https://github.com/mixtile/sunxi-build
 
-* loftq-uboot
+* a31-uboot
 
   The Uboot for LOFT-Q project, which is based on the origin vendor with customized configuration for LOFT-Q prototyping board, and can be used for booting linux kernel for linux/Android.
 
-  Repository: https://github.com/mixtile/loftq-uboot
+  Repository: https://github.com/mixtile/a31-uboot
 
-* loftq-linux
+* a31-linux
 
   Linux kernel for LOFT-Q project, based on source code provided by the original vendor for A31 soc with specified configuration for LOFT-Q.
 
-  Repository: https://github.com/mixtile/loftq-linux
+  Repository: https://github.com/mixtile/a31-linux
 
 * mixtile-android-device
 

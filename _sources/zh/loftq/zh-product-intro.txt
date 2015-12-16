@@ -358,26 +358,26 @@ LOFT-Q 项目软件相关文档，主要文档包括：LOFT-Q 相关说明（环
 
 链接地址： https://github.com/mixtile/loftq-docs
 
-loftq-build
+sunxi-build
 '''''''''''''''
 
 主要用于完成 LOFT-Q 项目中 uboot, linux, android, buildroot, 以及 ubuntu touch 等的构建，打包工作，包含有原厂的一些构建工具，linaro-gcc 工具链， LOFT-Q 项目的 linux/android 的 sys_config, sys_partition, 开机画面等配置文件。
 
-链接地址： https://github.com/mixtile/loftq-build
+链接地址： https://github.com/mixtile/sunxi-build
 
-loftq-uboot
+a31-uboot
 '''''''''''''''
 
 用于 LOFT-Q 项目中引导 linux/android 以及其他项目的 uboot 代码，基于原厂提供的 A31 的 uboot 源代码。
 
-链接地址： https://github.com/mixtile/loftq-uboot
+链接地址： https://github.com/mixtile/a31-uboot
 
-loftq-linux
+a31-linux
 '''''''''''''''
 
 用于 LOFT-Q 项目的 linux kernel, 基于原厂提供 A31 内核源代码，并添加了一些适用于 LOFT-Q 的硬件配置。
 
-链接地址： https://github.com/mixtile/loftq-linux
+链接地址： https://github.com/mixtile/a31-linux
 
 
 mixtile-android-device

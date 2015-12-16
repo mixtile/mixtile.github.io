@@ -39,9 +39,9 @@ The Legacy kernel mainly used for building system as below:
 
 The code we need to prepare includes:
 
-* Building tools： https://github.com/mixtile/loftq-build
-* Legacy kernel： https://github.com/mixtile/loftq-linux
-* Legacy u-boot: https://github.com/mixtile/loftq-uboot
+* Building tools： https://github.com/mixtile/sunxi-build
+* Legacy kernel： https://github.com/mixtile/a31-linux
+* Legacy u-boot: https://github.com/mixtile/a31-uboot
 * android: http://www.mixtile.com/downloads/loft-q/ (tartall suggested: loftq_android_20150407.tar.bz2)
 * buildroot: https://github.com/mixtile/buildroot
 
@@ -50,9 +50,9 @@ And the structure layout for building as below:
 .. code-block:: sh
 
   android
-  loftq-build
-  loftq-linux
-  loftq-uboot
+  sunxi-build
+  a31-linux
+  a31-uboot
 
 we can build the layout above with commands:
 
@@ -61,21 +61,21 @@ we can build the layout above with commands:
   mkdir loftq
   cd loftq
 
-  git clone https://github.com/mixtile/loftq-build.git
-  git clone https://github.com/mixtile/loftq-uboot.git
-  git clone https://github.com/mixtile/loftq-linux.git
+  git clone https://github.com/mixtile/sunxi-build.git
+  git clone https://github.com/mixtile/a31-uboot.git
+  git clone https://github.com/mixtile/a31-linux.git
   git clone https://github.com/mixtile/buildroot.git
 
-About loftq-build
+About sunxi-build
 ''''''''''''''''''''''''''''
 
-loftq-build contains the srcipts and tools for building uboot, linux, android, and packing system image.
+sunxi-build contains the srcipts and tools for building uboot, linux, android, and packing system image.
 
 Before accurately building, we will have to import the building environments to current working command line.
 
 .. code-block:: sh
 
-  source loftq-build/sunxi_env.sh
+  source sunxi-build/mixtile_loftq_env.sh
 
 After environment importing, we can start compiling instructions, such as building uboot for linux:
 
@@ -84,22 +84,22 @@ After environment importing, we can start compiling instructions, such as buildi
   linux_build_uboot
 
 
-About sunxi_env
+About mixtile_loftq_env
 ''''''''''''''''''''''''''
 
-sunxi_env.sh is the env importing script for LOFT-Q, working as the lunch script for Android. it will import environment variables and compiling instructions to current working shell.
+mixtile_loftq_env.sh is the env importing script for LOFT-Q, working as the lunch script for Android. it will import environment variables and compiling instructions to current working shell.
 
 At the front, it's the definations of the repository paths for uboot, linux, buildroot and android, developers could make some modifitations according to their own configurations. The following the the original configs:
 
 .. code-block:: sh
 
   export BUILD_TRUNK=$(pwd)
-  export BUILD_TRUNK_OUT=$BUILD_TRUNK/out
+  export BUILD_TRUNK_OUT=$BUILD_TRUNK/out_loftq
   
   # envs for sunxi tools
-  export SUNXI_TOOLS_PATH=$(pwd)/loftq-build
-  export SUNXI_LINUX_PATH=$(pwd)/loftq-linux
-  export SUNXI_UBOOT_PATH=$(pwd)/loftq-uboot
+  export SUNXI_TOOLS_PATH=$(pwd)/sunxi-build
+  export SUNXI_LINUX_PATH=$(pwd)/a31-linux
+  export SUNXI_UBOOT_PATH=$(pwd)/a31-uboot
   export SUNXI_TOOLCHAIN_PATH=${SUNXI_TOOLS_PATH}/toolschain/gcc-linaro/bin/
   
   # envs for android
@@ -138,7 +138,7 @@ And developers can also add their own compiling instructions, sample as *linux_b
 Legacy Uboot Building
 -----------------------
 
-As for building of uboot, we have two methods. we can build it with predefined building instruction in sunxi_env and follow the manual commands step by step.
+As for building of uboot, we have two methods. we can build it with predefined building instruction in mixtile_loftq_env and follow the manual commands step by step.
 
 Predefined building
 ''''''''''''''''''''''''''''''''''''''''
@@ -182,7 +182,7 @@ Now the kernel we use is based on the cuszomized version by Allwinner for A31 so
 Predefined building
 ''''''''''''''''''''''''''''''''''''''''
 
-loftq-build also provides predefined instructions for kernel building.
+sunxi-build also provides predefined instructions for kernel building.
 
 * kernel for GNU/Linux
 
@@ -205,7 +205,7 @@ Manually building for kernel will be a little complex, which needs external tool
 
   .. code-block:: sh
 
-    export SUNXI_TOOLS_PATH=$(pwd)/loftq-build
+    export SUNXI_TOOLS_PATH=$(pwd)/sunxi-build
     export SUNXI_TOOLCHAIN_PATH=$SUNXI_TOOLS_PATH/toolschain/gcc-linaro/bin/
     export PATH=$PATH:$SUNXI_TOOLCHAIN_PATH
 
@@ -215,7 +215,7 @@ Manually building for kernel will be a little complex, which needs external tool
 
   .. code-block:: sh
 
-    cd loftq-linux
+    cd a31-linux
     make distclean
     ./build.sh -p sun6i
 
@@ -223,7 +223,7 @@ Manually building for kernel will be a little complex, which needs external tool
 
   .. code-block:: sh
     
-    cd loftq-linux
+    cd a31-linux
     make distclean
     ./build.sh -p sun6i_fiber
 
@@ -317,9 +317,9 @@ we use **loftq**, so enter **3**, maybe the options list will vary with time. so
   CPlugin Free lib 
   CPlugin Free lib 
   get rootfs from ../../../out/linux
-  compute signature for datafile /home/nano/mixtile/loftq/loftq-build/pack/out/boot.fex
-  /home/nano/mixtile/loftq/loftq-build/pack/pctools/linux/eDragonEx/
-  /home/nano/mixtile/loftq/loftq-build/pack/out
+  compute signature for datafile /home/nano/mixtile/loftq/sunxi-build/pack/out/boot.fex
+  /home/nano/mixtile/loftq/sunxi-build/pack/pctools/linux/eDragonEx/
+  /home/nano/mixtile/loftq/sunxi-build/pack/out
   Begin Parse sys_partion.fex
   Add partion bootloader.fex BOOTLOADER_FEX00
   Add partion very bootloader.fex BOOTLOADER_FEX00
@@ -341,12 +341,12 @@ we use **loftq**, so enter **3**, maybe the options list will vary with time. so
   Dragon execute image.cfg SUCCESS !
   ---------image is at-------------
 
-   /home/nano/mixtile/loftq/loftq-build/pack/sun6i_linux_loftq.img
+   /home/nano/mixtile/loftq/sunxi-build/pack/sun6i_linux_loftq.img
 
   pack finish
 
 
-**/home/nano/mixtile/loftq/loftq-build/pack/sun6i_linux_loftq.img** is the target image that we need. And next, we can burn this image to sdcard for installing or booting with **PhoenixCard**.
+**/home/nano/mixtile/loftq/sunxi-build/pack/sun6i_linux_loftq.img** is the target image that we need. And next, we can burn this image to sdcard for installing or booting with **PhoenixCard**.
 
 .. note:: 
 

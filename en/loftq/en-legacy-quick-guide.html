@@ -153,6 +153,10 @@
 <li class="toctree-l4"><a class="reference internal" href="../../zh/misc/zh-debian-chroot.html#id3">准备开发环境</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../zh/misc/zh-linux-usage.html">Linux 常用命令</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../zh/misc/zh-linux-usage.html#id1">音频相关命令</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -277,34 +281,34 @@
 </ul>
 <p>The code we need to prepare includes:</p>
 <ul class="simple">
-<li>Building tools： <a class="reference external" href="https://github.com/mixtile/loftq-build">https://github.com/mixtile/loftq-build</a></li>
-<li>Legacy kernel： <a class="reference external" href="https://github.com/mixtile/loftq-linux">https://github.com/mixtile/loftq-linux</a></li>
-<li>Legacy u-boot: <a class="reference external" href="https://github.com/mixtile/loftq-uboot">https://github.com/mixtile/loftq-uboot</a></li>
+<li>Building tools： <a class="reference external" href="https://github.com/mixtile/sunxi-build">https://github.com/mixtile/sunxi-build</a></li>
+<li>Legacy kernel： <a class="reference external" href="https://github.com/mixtile/a31-linux">https://github.com/mixtile/a31-linux</a></li>
+<li>Legacy u-boot: <a class="reference external" href="https://github.com/mixtile/a31-uboot">https://github.com/mixtile/a31-uboot</a></li>
 <li>android: <a class="reference external" href="http://www.mixtile.com/downloads/loft-q/">http://www.mixtile.com/downloads/loft-q/</a> (tartall suggested: loftq_android_20150407.tar.bz2)</li>
 <li>buildroot: <a class="reference external" href="https://github.com/mixtile/buildroot">https://github.com/mixtile/buildroot</a></li>
 </ul>
 <p>And the structure layout for building as below:</p>
 <div class="highlight-sh"><div class="highlight"><pre>android
-loftq-build
-loftq-linux
-loftq-uboot
+sunxi-build
+a31-linux
+a31-uboot
 </pre></div>
 </div>
 <p>we can build the layout above with commands:</p>
 <div class="highlight-sh"><div class="highlight"><pre>mkdir loftq
 <span class="nb">cd </span>loftq
 
-git clone https://github.com/mixtile/loftq-build.git
-git clone https://github.com/mixtile/loftq-uboot.git
-git clone https://github.com/mixtile/loftq-linux.git
+git clone https://github.com/mixtile/sunxi-build.git
+git clone https://github.com/mixtile/a31-uboot.git
+git clone https://github.com/mixtile/a31-linux.git
 git clone https://github.com/mixtile/buildroot.git
 </pre></div>
 </div>
-<div class="section" id="about-loftq-build">
-<h3>About loftq-build<a class="headerlink" href="#about-loftq-build" title="Permalink to this headline">¶</a></h3>
-<p>loftq-build contains the srcipts and tools for building uboot, linux, android, and packing system image.</p>
+<div class="section" id="about-sunxi-build">
+<h3>About sunxi-build<a class="headerlink" href="#about-sunxi-build" title="Permalink to this headline">¶</a></h3>
+<p>sunxi-build contains the srcipts and tools for building uboot, linux, android, and packing system image.</p>
 <p>Before accurately building, we will have to import the building environments to current working command line.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nb">source </span>loftq-build/sunxi_env.sh
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">source </span>sunxi-build/mixtile_loftq_env.sh
 </pre></div>
 </div>
 <p>After environment importing, we can start compiling instructions, such as building uboot for linux:</p>
@@ -312,17 +316,17 @@ git clone https://github.com/mixtile/buildroot.git
 </pre></div>
 </div>
 </div>
-<div class="section" id="about-sunxi-env">
-<h3>About sunxi_env<a class="headerlink" href="#about-sunxi-env" title="Permalink to this headline">¶</a></h3>
-<p>sunxi_env.sh is the env importing script for LOFT-Q, working as the lunch script for Android. it will import environment variables and compiling instructions to current working shell.</p>
+<div class="section" id="about-mixtile-loftq-env">
+<h3>About mixtile_loftq_env<a class="headerlink" href="#about-mixtile-loftq-env" title="Permalink to this headline">¶</a></h3>
+<p>mixtile_loftq_env.sh is the env importing script for LOFT-Q, working as the lunch script for Android. it will import environment variables and compiling instructions to current working shell.</p>
 <p>At the front, it&#8217;s the definations of the repository paths for uboot, linux, buildroot and android, developers could make some modifitations according to their own configurations. The following the the original configs:</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="nb">export </span><span class="nv">BUILD_TRUNK</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>
-<span class="nb">export </span><span class="nv">BUILD_TRUNK_OUT</span><span class="o">=</span><span class="nv">$BUILD_TRUNK</span>/out
+<span class="nb">export </span><span class="nv">BUILD_TRUNK_OUT</span><span class="o">=</span><span class="nv">$BUILD_TRUNK</span>/out_loftq
 
 <span class="c"># envs for sunxi tools</span>
-<span class="nb">export </span><span class="nv">SUNXI_TOOLS_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-build
-<span class="nb">export </span><span class="nv">SUNXI_LINUX_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-linux
-<span class="nb">export </span><span class="nv">SUNXI_UBOOT_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-uboot
+<span class="nb">export </span><span class="nv">SUNXI_TOOLS_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/sunxi-build
+<span class="nb">export </span><span class="nv">SUNXI_LINUX_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/a31-linux
+<span class="nb">export </span><span class="nv">SUNXI_UBOOT_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/a31-uboot
 <span class="nb">export </span><span class="nv">SUNXI_TOOLCHAIN_PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">SUNXI_TOOLS_PATH</span><span class="si">}</span>/toolschain/gcc-linaro/bin/
 
 <span class="c"># envs for android</span>
@@ -361,7 +365,7 @@ git clone https://github.com/mixtile/buildroot.git
 </div>
 <div class="section" id="legacy-uboot-building">
 <h2>Legacy Uboot Building<a class="headerlink" href="#legacy-uboot-building" title="Permalink to this headline">¶</a></h2>
-<p>As for building of uboot, we have two methods. we can build it with predefined building instruction in sunxi_env and follow the manual commands step by step.</p>
+<p>As for building of uboot, we have two methods. we can build it with predefined building instruction in mixtile_loftq_env and follow the manual commands step by step.</p>
 <div class="section" id="predefined-building">
 <h3>Predefined building<a class="headerlink" href="#predefined-building" title="Permalink to this headline">¶</a></h3>
 <p>we have predefined building instructions uboot for android and linux.</p>
@@ -397,7 +401,7 @@ make -j4
 <p>Now the kernel we use is based on the cuszomized version by Allwinner for A31 soc, whihc is linux 3.3 . this version contains the drivers and configurations for both android and common linux releases, and we can compile kernel for both GNU/Linux and Android.</p>
 <div class="section" id="id1">
 <h3>Predefined building<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<p>loftq-build also provides predefined instructions for kernel building.</p>
+<p>sunxi-build also provides predefined instructions for kernel building.</p>
 <ul>
 <li><p class="first">kernel for GNU/Linux</p>
 <div class="highlight-sh"><div class="highlight"><pre>linux_build_kernel
@@ -416,7 +420,7 @@ make -j4
 <p>Manually building for kernel will be a little complex, which needs external toolchain support.</p>
 <ul>
 <li><p class="first">toolchain importing</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nb">export </span><span class="nv">SUNXI_TOOLS_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-build
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">export </span><span class="nv">SUNXI_TOOLS_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/sunxi-build
 <span class="nb">export </span><span class="nv">SUNXI_TOOLCHAIN_PATH</span><span class="o">=</span><span class="nv">$SUNXI_TOOLS_PATH</span>/toolschain/gcc-linaro/bin/
 <span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$SUNXI_TOOLCHAIN_PATH</span>
 </pre></div>
@@ -424,14 +428,14 @@ make -j4
 <p>Developers can add these variables according to own path definations.</p>
 </li>
 <li><p class="first">kernel building for GNU/Linux</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nb">cd </span>loftq-linux
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">cd </span>a31-linux
 make distclean
 ./build.sh -p sun6i
 </pre></div>
 </div>
 </li>
 <li><p class="first">kernel building for Android</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nb">cd </span>loftq-linux
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">cd </span>a31-linux
 make distclean
 ./build.sh -p sun6i_fiber
 </pre></div>
@@ -513,9 +517,9 @@ find magic !!
 CPlugin Free lib
 CPlugin Free lib
 get rootfs from ../../../out/linux
-compute signature <span class="k">for</span> datafile /home/nano/mixtile/loftq/loftq-build/pack/out/boot.fex
-/home/nano/mixtile/loftq/loftq-build/pack/pctools/linux/eDragonEx/
-/home/nano/mixtile/loftq/loftq-build/pack/out
+compute signature <span class="k">for</span> datafile /home/nano/mixtile/loftq/sunxi-build/pack/out/boot.fex
+/home/nano/mixtile/loftq/sunxi-build/pack/pctools/linux/eDragonEx/
+/home/nano/mixtile/loftq/sunxi-build/pack/out
 Begin Parse sys_partion.fex
 Add partion bootloader.fex BOOTLOADER_FEX00
 Add partion very bootloader.fex BOOTLOADER_FEX00
@@ -537,12 +541,12 @@ BuildImg 0
 Dragon execute image.cfg SUCCESS !
 ---------image is at-------------
 
- /home/nano/mixtile/loftq/loftq-build/pack/sun6i_linux_loftq.img
+ /home/nano/mixtile/loftq/sunxi-build/pack/sun6i_linux_loftq.img
 
 pack finish
 </pre></div>
 </div>
-<p><strong>/home/nano/mixtile/loftq/loftq-build/pack/sun6i_linux_loftq.img</strong> is the target image that we need. And next, we can burn this image to sdcard for installing or booting with <strong>PhoenixCard</strong>.</p>
+<p><strong>/home/nano/mixtile/loftq/sunxi-build/pack/sun6i_linux_loftq.img</strong> is the target image that we need. And next, we can burn this image to sdcard for installing or booting with <strong>PhoenixCard</strong>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last"><strong>PhoenixCard</strong> is the tool provided by Allwinner for burning sdcard for booting or factory installing, which is only for windows platform. so we can&#8217;t fully be free, and with mainline kernel or uboot, we can fly without this tool ;) , but for now, we still need this.</p>
@@ -618,7 +622,7 @@ android_pack
   <div role="contentinfo">
     <p>
         &copy; Copyright 2015, Mixtile Project.
-      Last updated on Oct 15, 2015.
+      Last updated on Dec 16, 2015.
     </p>
   </div>
   Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.

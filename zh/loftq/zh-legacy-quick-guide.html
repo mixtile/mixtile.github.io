@@ -153,6 +153,10 @@
 <li class="toctree-l4"><a class="reference internal" href="../misc/zh-debian-chroot.html#id3">准备开发环境</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../misc/zh-linux-usage.html">Linux 常用命令</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../misc/zh-linux-usage.html#id1">音频相关命令</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -268,34 +272,34 @@
 </ul>
 <p>我们需要准备的代码包括如下几个部分：</p>
 <ul class="simple">
-<li>构建工具： <a class="reference external" href="https://github.com/mixtile/loftq-build">https://github.com/mixtile/loftq-build</a></li>
-<li>旧版内核： <a class="reference external" href="https://github.com/mixtile/loftq-linux">https://github.com/mixtile/loftq-linux</a></li>
-<li>旧版uboot: <a class="reference external" href="https://github.com/mixtile/loftq-uboot">https://github.com/mixtile/loftq-uboot</a></li>
+<li>构建工具： <a class="reference external" href="https://github.com/mixtile/sunxi-build">https://github.com/mixtile/sunxi-build</a></li>
+<li>旧版内核： <a class="reference external" href="https://github.com/mixtile/a31-linux">https://github.com/mixtile/a31-linux</a></li>
+<li>旧版uboot: <a class="reference external" href="https://github.com/mixtile/a31-uboot">https://github.com/mixtile/a31-uboot</a></li>
 <li>android: <a class="reference external" href="http://www.mixtile.com/downloads/loft-q/">http://www.mixtile.com/downloads/loft-q/</a> （建议使用 loftq_android_20150407.tar.bz2）</li>
 <li>buildroot: <a class="reference external" href="https://github.com/mixtile/buildroot">https://github.com/mixtile/buildroot</a></li>
 </ul>
 <p>对于上述的代码和工具，我们需要按如下的目录结构进行组织</p>
 <div class="highlight-sh"><div class="highlight"><pre>android
-loftq-build
-loftq-linux
-loftq-uboot
+sunxi-build
+a31-linux
+a31-uboot
 </pre></div>
 </div>
 <p>那么我们可以参照如下命令来搭建基本的构建环境：</p>
 <div class="highlight-sh"><div class="highlight"><pre>mkdir loftq
 <span class="nb">cd </span>loftq
 
-git clone https://github.com/mixtile/loftq-build.git
-git clone https://github.com/mixtile/loftq-uboot.git
-git clone https://github.com/mixtile/loftq-linux.git
+git clone https://github.com/mixtile/sunxi-build.git
+git clone https://github.com/mixtile/a31-uboot.git
+git clone https://github.com/mixtile/a31-linux.git
 git clone https://github.com/mixtile/buildroot.git
 </pre></div>
 </div>
-<div class="section" id="loftq-build">
-<h3>关于 loftq-build<a class="headerlink" href="#loftq-build" title="Permalink to this headline">¶</a></h3>
-<p>loftq-build 主要用于旧版系统的构建和打包使用，包含用于完成 uboot， linux , android, 以及后续添加代码的构建指令, 以及 sunxi 的一部分打包相关工具。</p>
+<div class="section" id="sunxi-build">
+<h3>关于 sunxi-build<a class="headerlink" href="#sunxi-build" title="Permalink to this headline">¶</a></h3>
+<p>sunxi-build 主要用于旧版系统的构建和打包使用，包含用于完成 uboot， linux , android, 以及后续添加代码的构建指令, 以及 sunxi 的一部分打包相关工具。</p>
 <p>在执行具体的构建指令之前，我们需要执行如下指令，在当前的命令行环境下导入相关的构建指令：</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nb">source </span>loftq-build/sunxi_env.sh
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">source </span>sunxi-build/sunxi_env.sh
 </pre></div>
 </div>
 <p>之后，我们可以执行后续的构建指令，下述是构建 linux 用的 uboot 的指令：</p>
@@ -308,12 +312,12 @@ git clone https://github.com/mixtile/buildroot.git
 <p>sunxi_env.sh 类似于 android 的 lunch 配置文件。用于向当前终端中导入可用环境变量以及一些指令。</p>
 <p>sunxi_env.sh 的开头部分定义了 uboot, linux, 以及 buildroot, android 等的路径，用户可以根据自己的需要进行修改，所有的可配置环境变量如下：</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="nb">export </span><span class="nv">BUILD_TRUNK</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>
-<span class="nb">export </span><span class="nv">BUILD_TRUNK_OUT</span><span class="o">=</span><span class="nv">$BUILD_TRUNK</span>/out
+<span class="nb">export </span><span class="nv">BUILD_TRUNK_OUT</span><span class="o">=</span><span class="nv">$BUILD_TRUNK</span>/out_loftq
 
 <span class="c"># envs for sunxi tools</span>
-<span class="nb">export </span><span class="nv">SUNXI_TOOLS_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-build
-<span class="nb">export </span><span class="nv">SUNXI_LINUX_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-linux
-<span class="nb">export </span><span class="nv">SUNXI_UBOOT_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-uboot
+<span class="nb">export </span><span class="nv">SUNXI_TOOLS_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/sunxi-build
+<span class="nb">export </span><span class="nv">SUNXI_LINUX_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/a31-linux
+<span class="nb">export </span><span class="nv">SUNXI_UBOOT_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/a31-uboot
 <span class="nb">export </span><span class="nv">SUNXI_TOOLCHAIN_PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">SUNXI_TOOLS_PATH</span><span class="si">}</span>/toolschain/gcc-linaro/bin/
 
 <span class="c"># envs for android</span>
@@ -355,7 +359,7 @@ git clone https://github.com/mixtile/buildroot.git
 <h2>旧版 UBoot 构建<a class="headerlink" href="#uboot" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id2">
 <h3>基于 LOFT-Q 环境编译<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>目前可以使用 loftq-build 中的工具实现对 uboot 的快速编译。</p>
+<p>目前可以使用 sunxi-build 中的工具实现对 uboot 的快速编译。</p>
 <p>对于构建适用于 Linux 和 Android 的构建指令分别如下：</p>
 <ul>
 <li><p class="first">构建适用于 Linux 的 Uboot.</p>
@@ -389,7 +393,7 @@ make -j4
 <p>对于全志的 linux 内核, 目前使用的是 linux 3.3 版本。目前这一版本的内核中统一了 linux 和 android 版本的内核。可以在同一份内核代码中完成对 Linux 和 android 内核的分开编译。</p>
 <div class="section" id="id4">
 <h3>基于 LOFT-Q 环境的编译<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<p>目前可以使用 loftq-build 中的工具实现对 linux 内核的快速编译。下述指令分别实现对标准 linux 内核和 android 定制内核的编译。</p>
+<p>目前可以使用 sunxi-build 中的工具实现对 linux 内核的快速编译。下述指令分别实现对标准 linux 内核和 android 定制内核的编译。</p>
 <ul>
 <li><p class="first">标准 linux 内核编译</p>
 <div class="highlight-sh"><div class="highlight"><pre>linux_build_kernel
@@ -405,10 +409,10 @@ make -j4
 </div>
 <div class="section" id="id5">
 <h3>手动定制编译<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<p>如果用户需要直接在 loftq-linux 中使用 linux 的 Makefile 进行内核的编译，需要完成如下工作。</p>
+<p>如果用户需要直接在 a31-linux 中使用 linux 的 Makefile 进行内核的编译，需要完成如下工作。</p>
 <ul>
 <li><p class="first">导入 sunxi 的 linaro-gcc 编译工具链</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nb">export </span><span class="nv">SUNXI_TOOLS_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/loftq-build
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">export </span><span class="nv">SUNXI_TOOLS_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/sunxi-build
 <span class="nb">export </span><span class="nv">SUNXI_TOOLCHAIN_PATH</span><span class="o">=</span><span class="nv">$SUNXI_TOOLS_PATH</span>/toolschain/gcc-linaro/bin/
 <span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$SUNXI_TOOLCHAIN_PATH</span>
 </pre></div>
@@ -537,7 +541,7 @@ android_pack
   <div role="contentinfo">
     <p>
         &copy; Copyright 2015, Mixtile Project.
-      Last updated on Oct 15, 2015.
+      Last updated on Dec 16, 2015.
     </p>
   </div>
   Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
